@@ -1,12 +1,11 @@
-"use client";
-import React, { useState, useRef } from 'react';
-import NavBar from '@/components/common/NavBar';
+import React, { useState, useRef } from "react";
+import NavBar from "../common/NavBar";
 
 function EditProfile() {
   const [formData, setFormData] = useState({
-    profilePicture: '',
-    firstName: '',
-    lastName: '',
+    profilePicture: "",
+    firstName: "",
+    lastName: "",
   });
 
   const [previewImage, setPreviewImage] = useState(null);
@@ -15,7 +14,7 @@ function EditProfile() {
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
-    if (name === 'profilePicture' && files[0]) {
+    if (name === "profilePicture" && files[0]) {
       setFormData({ ...formData, [name]: files[0] });
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -42,11 +41,13 @@ function EditProfile() {
         alt="Barhalla Logo"
         className="w-40 h-40 mx-auto mb-4"
       />
-      <h1 className="text-2xl font-semibold mb-4 text-center text-orange-500">Editar Perfil</h1>
+      <h1 className="text-2xl font-semibold mb-4 text-center text-orange-500">
+        Editar Perfil
+      </h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="text-center">
           <img
-            src={previewImage || formData.profilePicture || '/y.jpeg'}
+            src={previewImage || formData.profilePicture || "/y.jpeg"}
             alt="Foto de perfil"
             className="w-32 h-32 mx-auto rounded-full object-cover"
           />
@@ -67,25 +68,29 @@ function EditProfile() {
           />
         </div>
         <div>
-          <label htmlFor="firstName" className="block text-white">Nombre:</label>
+          <label htmlFor="firstName" className="block text-white">
+            Nombre:
+          </label>
           <input
             type="text"
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
             className="w-full rounded p-2 bg-inherit border border-white"
-            placeholder='Ingresa tu nombre'
+            placeholder="Ingresa tu nombre"
           />
         </div>
         <div>
-          <label htmlFor="lastName" className="block text-white">Apellido:</label>
+          <label htmlFor="lastName" className="block text-white">
+            Apellido:
+          </label>
           <input
             type="text"
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
             className="w-full rounded p-2 bg-inherit border border-white"
-            placeholder='Ingresa tu apellido'
+            placeholder="Ingresa tu apellido"
           />
         </div>
         <div className="text-center">

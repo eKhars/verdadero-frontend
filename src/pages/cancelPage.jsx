@@ -1,9 +1,9 @@
 import CancelBarhalla from "../components/common/cancelBarhalla"
 
-function cancelPage (){
+function CancelPage (){
     return(
         <CancelBarhalla/>
     );
 }
 
-export default cancelPage;
+export default CancelPage;

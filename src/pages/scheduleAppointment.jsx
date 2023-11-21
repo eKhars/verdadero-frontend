@@ -1,9 +1,9 @@
 import CreAppointment from "../components/appointments/creAppointment";
 
-function scheduleAppointment (){
+function ScheduleAppointment (){
     return(
         <CreAppointment/>
     )
 }
 
-export default scheduleAppointment;
+export default ScheduleAppointment;

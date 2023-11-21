@@ -1,6 +1,6 @@
 import EditProf from "../components/profileUser/editProf";
 
-function editProfilePage() {
+function EditProfilePage() {
   return (
     <div>
       <EditProf />
@@ -8,4 +8,4 @@ function editProfilePage() {
   );
 }
 
-export default editProfilePage;
+export default EditProfilePage;

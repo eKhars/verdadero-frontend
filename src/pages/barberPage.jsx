@@ -1,9 +1,9 @@
 import MyBarber from "../components/barberShops/myBarber"
 
-function barberPage() {
+function BarberPage() {
     return (
         <MyBarber />
     )
 }
 
-export default barberPage;
+export default BarberPage;

@@ -1,5 +1,3 @@
-"use client";
-import Link from 'next/link';
 
 function LoginForm() {
 
@@ -43,7 +41,7 @@ function LoginForm() {
         </form>
         <div className="mt-4 text-center">
           <span className="text-orange-500">¿No tienes una cuenta? </span>
-          <Link href="/register" className="text-orange-500  font-bold">Crear cuenta</Link>
+          <a href="/register" className="text-orange-500  font-bold">Crear cuenta</a>
         </div>
       </div>
     </div>

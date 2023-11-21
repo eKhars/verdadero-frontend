@@ -1,6 +1,6 @@
 import ErrorBarber from '../components/profileBarber/errorBarber';
 
-function errorBarberPage() {
+function ErrorBarberPage() {
     return (
         <div>
             <ErrorBarber />
@@ -8,4 +8,4 @@ function errorBarberPage() {
     )
 }
 
-export default errorBarberPage;
+export default ErrorBarberPage;

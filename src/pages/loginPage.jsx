@@ -1,7 +1,7 @@
-import LoginForm from "../components/auth/loginForm";
-import SocialButtons from "@/components/auth/socialButtons";
-import Rights from "@/components/auth/rights";
-function loginPage (){
+import LoginForm from "../components/auth/loginForm.jsx";
+import SocialButtons from "../components/auth/socialButtons.jsx";
+import Rights from "../components/auth/rights.jsx";
+function LoginPage (){
     return(
         <div>
             <LoginForm/>
@@ -10,4 +10,4 @@ function loginPage (){
         </div>
     )
 }
-export default loginPage;
+export default LoginPage;

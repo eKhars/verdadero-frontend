@@ -1,7 +1,7 @@
 import RegisterForm from "../components/auth/registerForm";
 import SocialButtons from "../components/auth/socialButtons";
 import Rights from "../components/auth/rights";
-function registerPage() {
+function RegisterPage() {
         return (
             <div>
                 <RegisterForm/>
@@ -11,4 +11,4 @@ function registerPage() {
     )
 }
 
-export default registerPage;
+export default RegisterPage;

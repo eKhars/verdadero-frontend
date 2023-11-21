@@ -1,7 +1,7 @@
 import User from "../components/profileUser/user";
 import Reviews from "../components/profileUser/Reviews";
 
-function profilePage() {
+function ProfilePage() {
   return (
     <div>
       <User/>
@@ -10,4 +10,4 @@ function profilePage() {
   );
 }
 
-export default profilePage;
+export default ProfilePage;

@@ -1,7 +1,6 @@
 import React from 'react';
-import Services from "@/components/barberShops/services"
-import NavBar from "@/components/common/NavBar"
-import Link from 'next/link';
+import Services from "../barberShops/services"
+import NavBar from "../common/NavBar"
 
 function MyBarber() {
     const barberShopName = "My Barber champo";
@@ -34,11 +33,11 @@ function MyBarber() {
             <Services />
             <hr className="w-full mt-4 sm:mt-2 border-t-2 border-orange-500" />
             <div>
-                <Link href="/createAppointment">
+                <a href="/createAppointment">
                     <button className="bg-orange-500 text-white rounded-lg p-2 px-6 mt-4 hover:bg-orange-600">
                         Agendar Cita
                     </button>
-                </Link>
+                </a>
 
             </div>
             <hr className="w-full mt-4 sm:mt-4 border-t-2 border-orange-500" />

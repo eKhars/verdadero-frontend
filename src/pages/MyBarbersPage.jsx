@@ -1,6 +1,6 @@
 import MyBarberShops from '../components/profileBarber/myBarberShops';
 
-function myBarberShopsPage (){
+function MyBarbersPage (){
     return(
         <div>
             <MyBarberShops />
@@ -8,4 +8,4 @@ function myBarberShopsPage (){
     )
 }
 
-export default myBarberShopsPage;
+export default MyBarbersPage;

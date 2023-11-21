@@ -1,6 +1,6 @@
 import AppointmentHistory from "../components/appointments/appointmentHistory";
 
-function appointmentPage() {
+function AppointmentPage() {
   return (
     <div>
       <AppointmentHistory />
@@ -8,4 +8,4 @@ function appointmentPage() {
   );
 }
 
-export default appointmentPage;
+export default AppointmentPage;

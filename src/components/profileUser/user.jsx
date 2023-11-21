@@ -1,4 +1,3 @@
-
 function User() {
   return (
     <section className="flex flex-col items-center mr-6 ml-6 relative">

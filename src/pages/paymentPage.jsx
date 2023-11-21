@@ -1,6 +1,6 @@
 import Payment from "../components/profileBarber/payment"
 
-function paymentPage() {
+function PaymentPage() {
     return (
         <div>
             <Payment />
@@ -8,4 +8,4 @@ function paymentPage() {
     )
 }
 
-export default paymentPage
+export default PaymentPage

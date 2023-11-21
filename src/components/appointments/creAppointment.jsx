@@ -1,9 +1,8 @@
-"use client";
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import Schedule from "@/components/barberShops/schedule";
-import NavBar from '@/components/common/NavBar';
+import Schedule from "../barberShops/schedule";
+import NavBar from '../common/NavBar';
 
 function CreAppointment() {
   const barberiaData = {

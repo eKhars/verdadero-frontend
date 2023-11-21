@@ -1,32 +1,56 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import RegisterPage from "./pages/RegisterPage.jsx";
+import AppointmentPage from "./pages/AppointmentPage.jsx";
+import BarberPage from "./pages/BarberPage.jsx";
+import CancelPage from "./pages/CancelPage.jsx";
+import EditBarberPage from "./pages/EditBarberPage.jsx";
+import EditProfilePage from "./pages/EditProfilePage.jsx";
+import ErrorBarberPage from "./pages/ErrorBarberPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
-import TaskPage from "./pages/TaskPage.jsx";
-import TaskFormPage from "./pages/TaskFormPage.jsx";
+import MyBarbersPage from "./pages/MyBarbersPage.jsx";
+import PaymentPage from "./pages/PaymentPage.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
+import RegisterBarberPage from "./pages/RegisterBarberPage.jsx";
+import RegisterPage from "./pages/RegisterPage.jsx";
+import ScheduleAppointment from "./pages/ScheduleAppointment.jsx";
+import UpsPage from "./pages/UpsPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
-import Profile from "./pages/Profile.jsx";
+import SuccessPage from "./pages/SuccessPage.jsx";
 
 import { AuthProvider } from "./context/AuthContext.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 
 function App() {
   return (
-    <AuthProvider>
+    <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage/>}/>
+          <Route path="/register" element={<RegisterPage/>}/>
 
-          <Route element={<ProtectedRoute />}>
-            <Route path="/tasks" element={<TaskPage />} />
-            <Route path="/add-task" element={<TaskFormPage />} />
-            <Route path="/tasks/:id" element={<TaskFormPage />} />
-            <Route path="/profile" element={<Profile />} />
-          </Route>
+          
+            <Route path="/" element={<HomePage/>} />
+            <Route path="/barber-shop/:id" element={<BarberPage/>} />
+            <Route path="/barber-shop/appointment" element={<ScheduleAppointment/>} />
+
+            <Route path="/profile" element={<ProfilePage/>} />
+            <Route path="/profile/edit" element={< EditProfilePage />} />
+            <Route path="/profile/appointments" element={< AppointmentPage/>} />
+
+            <Route path="/register-barber" element={< RegisterBarberPage/>} />
+
+            <Route path="/my-barbers" element={<MyBarbersPage/>} />
+            <Route path="/my-barbers/edit/:id" element={<EditBarberPage/>} />
+
+            <Route path="/payments" element={<PaymentPage/>} />
+
+            <Route path="/error-barber-page" element={<ErrorBarberPage />} />
+            <Route path="/succes" element={<SuccessPage/>} />
+            <Route path="/cancel" element={<CancelPage/>} />
+            <Route path="/ups" element={<UpsPage/>} />
+          
         </Routes>
       </BrowserRouter>
-    </AuthProvider>
+    </>
   );
 }
 

@@ -1,6 +1,6 @@
 import AddBarber from "../components/barberShops/addBarber";
 
-function registerBarberPage() {
+function RegisterBarberPage() {
   return (
     <div>
       <AddBarber />
@@ -8,4 +8,4 @@ function registerBarberPage() {
   );
 }
 
-export default registerBarberPage;
+export default RegisterBarberPage;

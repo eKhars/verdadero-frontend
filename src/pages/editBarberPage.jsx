@@ -1,6 +1,6 @@
 import EditBarberShop from "../components/profileBarber/editBarberShop";
 
-function editBarberPage() {
+function EditBarberPage() {
   return (
     <div>
       <EditBarberShop />
@@ -8,4 +8,4 @@ function editBarberPage() {
   );
 }
 
-export default editBarberPage;
+export default EditBarberPage;

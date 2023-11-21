@@ -1,9 +1,9 @@
 import SuccessBarhalla from "../components/common/successBarhalla"
 
-function successPage (){
+function SuccessPage (){
     return(
         <SuccessBarhalla/>
     );
 }
 
-export default successPage;
+export default SuccessPage;
