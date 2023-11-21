@@ -21,7 +21,6 @@ import ProtectedRoute from "./ProtectedRoute.jsx";
 
 function App() {
   return (
-    <>
     <AuthProvider>
       <BrowserRouter>
         <Routes>
@@ -52,7 +51,6 @@ function App() {
         </Routes>
       </BrowserRouter>
       </AuthProvider>
-    </>
   );
 }
 
