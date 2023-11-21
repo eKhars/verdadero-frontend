@@ -1,8 +1,5 @@
 import axios from "axios"
-import { config } from "dotenv";
+const API = import.meta.env.VITE_BACKEND_URL;
 
-config();
-const API = process.env.BACKEND_URL;
-
-export const registerRequest = user => axios.post(`${API}/register`, user)
-export const loginRequest = user => axios.post(`${API}/login`, user)
+export const registerRequest = user => axios.post(`${API}/barhalla/register`, user)
+export const loginRequest = user => axios.post(`${API}/barhalla/login`, user)

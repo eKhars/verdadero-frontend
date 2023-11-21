@@ -1,5 +1,19 @@
-
+import { useAuth } from "../../context/AuthContext";
 function LoginForm() {
+  const { setUser,signin, setIsAuthenticated, errors } = useAuth();
+
+  const login = async (e) => {
+    e.preventDefault();
+    const user = {
+      email: e.target.email.value,
+      password: e.target.password.value,
+    };
+  
+      const res = await signin(user);
+      console.log(res);
+
+    
+  }
 
   return (
     <div className="flex items-center justify-center mt-10 ">
@@ -7,7 +21,16 @@ function LoginForm() {
         <div className="mb-4 text-center">
           <img src="/barhallaLogo.png" alt="Barhalla Logo" className="mx-auto h-40 h40" />
         </div>
-        <form >
+        <form 
+          onSubmit={login}
+        >
+          {
+            errors.length !== 0 && (
+              <div className="bg-red-500 p-2 mb-4 text-white text-center rounded font-semibold animate-pulse">
+                {errors}
+              </div>
+            )
+          }
           <div className="mb-4">
             <label htmlFor="email" className="block text-white text-sm font-bold mb-2">
               Correo:

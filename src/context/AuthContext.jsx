@@ -1,9 +1,7 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { registerRequest, loginRequest } from "../api/auth";
-import Cookies from "js-cookie";
-import { token } from "morgan";
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
 export const useAuth = () => {
     const context = useContext(AuthContext);
@@ -16,7 +14,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState("");
 
     const signup = async (user) => {
         try {
@@ -32,14 +30,14 @@ export const AuthProvider = ({ children }) => {
 
     const signin = async (user) => {
         try {
-            const res = await loginRequest(user);
-            console.log(res);
-            setUser(res.data);
-            setIsAuthenticated(true);
+            const data = await loginRequest(user);  
+            console.log(data);
+             setUser(res.data);
+             setIsAuthenticated(true);
 
         } catch (error) {
             console.log(error);
-            setErrors(error.response.data);
+            setErrors(error.response.data.message);
         }
     };
 
@@ -52,18 +50,20 @@ export const AuthProvider = ({ children }) => {
         }
     })
 
-    useEffect(() => {
-        const cookies = Cookies.get()
-        if (cookies.token) {
-            console.log(token);
-        }
-    }, [])
+    // useEffect(() => {
+        // const cookies = Cookies.get()
+        // if (cookies.token) {
+        //     console.log(token);
+        // }
+    // }, [])
 
     return (
         <AuthContext.Provider
-            value={{ signup, signin, user, isAuthenticated, errors }}
+            value={{ signup, signin,setUser, user,setErrors, isAuthenticated, errors }}
         >
             {children}
         </AuthContext.Provider>
     );
 };
+
+export default AuthContext

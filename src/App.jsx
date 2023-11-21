@@ -16,12 +16,13 @@ import UpsPage from "./pages/UpsPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import SuccessPage from "./pages/SuccessPage.jsx";
 
-import { AuthProvider } from "./context/AuthContext.jsx";
+import {AuthProvider} from "./context/AuthContext.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 
 function App() {
   return (
     <>
+    <AuthProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<LoginPage/>}/>
@@ -50,6 +51,7 @@ function App() {
           
         </Routes>
       </BrowserRouter>
+      </AuthProvider>
     </>
   );
 }
