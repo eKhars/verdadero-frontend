@@ -13,7 +13,7 @@ function AppointmentHistory() {
       payment: "50%",
       user: {
         name: "Kanye Ojendis",
-        profileImage: "y.jpeg",
+        profileImage: "/y.jpeg",
       },
     },
     {
@@ -24,7 +24,7 @@ function AppointmentHistory() {
       payment: "50%",
       user: {
         name: "Kanye Ojendis",
-        profileImage: "y.jpeg",
+        profileImage: "/y.jpeg",
       },
     },
     {
@@ -35,7 +35,7 @@ function AppointmentHistory() {
       payment: "50%",
       user: {
         name: "Kanye Ojendis",
-        profileImage: "y.jpeg",
+        profileImage: "/y.jpeg",
       },
     },
     {
@@ -46,7 +46,7 @@ function AppointmentHistory() {
       payment: "50%",
       user: {
         name: "Kanye Ojendis",
-        profileImage: "y.jpeg",
+        profileImage: "/y.jpeg",
       },
     },
     {
@@ -57,7 +57,7 @@ function AppointmentHistory() {
       payment: "50%",
       user: {
         name: "Kanye Ojendis",
-        profileImage: "y.jpeg",
+        profileImage: "/y.jpeg",
       },
     },
     {
@@ -68,7 +68,7 @@ function AppointmentHistory() {
       payment: "50%",
       user: {
         name: "Kanye Ojendis",
-        profileImage: "y.jpeg",
+        profileImage: "/y.jpeg",
       },
     },
     {
@@ -79,7 +79,7 @@ function AppointmentHistory() {
       payment: "50%",
       user: {
         name: "Kanye Ojendis",
-        profileImage: "y.jpeg",
+        profileImage: "/y.jpeg",
       },
     },
     {
@@ -90,7 +90,7 @@ function AppointmentHistory() {
       payment: "50%",
       user: {
         name: "Kanye Ojendis",
-        profileImage: "y.jpeg",
+        profileImage: "/y.jpeg",
       },
     },
   ];

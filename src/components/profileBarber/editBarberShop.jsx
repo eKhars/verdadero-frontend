@@ -103,7 +103,7 @@ function MyBarber() {
           Eliminar barberia
         </button>
 
-        <a href="/cancel">
+        <a href="/payments">
           <button className="bg-orange-500 text-white rounded-lg p-2 px-6 mt-4 hover:bg-orange-600 ml-2">
             Historial de pagos
           </button>

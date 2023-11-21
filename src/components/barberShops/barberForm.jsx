@@ -124,7 +124,7 @@ function BarberForm() {
                   </p>
                   <p className="text-lg font-semibold">{barberShop.data}</p>
                   <p className="text-gray-600">{barberShop.description}</p>
-                  <a href="/barber">
+                  <a href="/barber-shop/:id">
                     <button className="bg-zinc-900 border border-orange-500 hover:bg-zinc-950 text-white px-2 py-1 rounded-md mt-4">
                       Ver mas...
                     </button>

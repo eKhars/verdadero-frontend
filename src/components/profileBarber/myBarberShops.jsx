@@ -168,7 +168,7 @@ function myBarberShops() {
                   <p className="text-gray-600 text-xs">
                     {barberShop.description}
                   </p>
-                  <a href="/editBarber">
+                  <a href="/my-barbers/edit/:id">
                     <button className="bg-zinc-900 border border-orange-500 hover:bg-zinc-950 text-white px-2 py-1 rounded-md mt-2">
                       Ver mas...
                     </button>

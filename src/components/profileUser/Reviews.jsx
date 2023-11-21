@@ -44,19 +44,19 @@ function Reviews() {
           ))}
         </section>
         <div className="mt-4 flex flex-col space-y-2 items-center">
-          <a href="/editProfile">
+          <a href="/profile/edit">
             <button className="border text-white w-80 h-12 rounded-lg  hover:border-black hover:text-black hover:bg-white">
               Editar Perfil
             </button>
           </a>
 
-          <a href="/appointment">
+          <a href="/profile/appointments">
             <button className="border text-white w-80 h-12 rounded-lg  hover:border-black hover:text-black hover:bg-white">
               Historial de Citas
             </button>
           </a>
 
-          <a href="/registerBarber">
+          <a href="/register-barber">
             <button className="border text-white w-80 h-12 rounded-lg hover:border-black hover:text-black hover:bg-white">
               ¿Tienes una barbería?
             </button>

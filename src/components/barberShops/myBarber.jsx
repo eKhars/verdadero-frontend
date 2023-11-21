@@ -33,7 +33,7 @@ function MyBarber() {
             <Services />
             <hr className="w-full mt-4 sm:mt-2 border-t-2 border-orange-500" />
             <div>
-                <a href="/createAppointment">
+                <a href="/barber-shop/appointment">
                     <button className="bg-orange-500 text-white rounded-lg p-2 px-6 mt-4 hover:bg-orange-600">
                         Agendar Cita
                     </button>

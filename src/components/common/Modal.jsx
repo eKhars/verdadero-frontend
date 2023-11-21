@@ -8,7 +8,7 @@ function Modal({ isOpen, onClose }) {
   };
 
   const appointmentData = {
-    imagen: "barber1.png",
+    imagen: "/barber1.png",
     fecha: "11 de noviembre de 2023",
     hora: "10:00 AM",
     precio: "80",
