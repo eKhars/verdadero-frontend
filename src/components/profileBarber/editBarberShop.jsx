@@ -72,7 +72,7 @@ function MyBarber() {
       <hr className="w-full mt-4 sm:mt-12 border-t-2 border-orange-500" />
 
       <p
-        className="text-center mt-4 sm:mt-8 md:mt-12 lg:mt-16 xl:mt-20 xl:w-2/3 "
+        className="text-center xl:text-center mt-4 sm:mt-8 md:mt-12 lg:mt-16 xl:mt-20 xl:w-2/3 "
         style={{ textAlign: "justify" }}
       >
         {editDescription ? (
