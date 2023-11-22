@@ -33,6 +33,16 @@ function MyBarber() {
     setBarberDescription(event.target.value);
   };
 
+
+  const barberLogoUrls = ["/barber1.png", "/barber2.jpeg", "/barber3.jpeg", "/vikingo5.png", "/vikingo6.png"];
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const handleButtonClick = (index) => {
+    setCurrentImageIndex(index);
+    setSelectedImage(barberLogoUrls[index]);
+  };
+
   return (
     <div
       className="p-8 flex flex-col items-center relative"
@@ -49,11 +59,22 @@ function MyBarber() {
       </h1>
       <hr className="w-full mt-4 sm:mt-12 border-t-2 border-orange-500" />
       <img
-        src={barberLogoUrl}
+        src={selectedImage || barberLogoUrls[currentImageIndex]}
         alt="Barber Logo"
         className="w-80 h-80 rounded-lg max-w-full mt-4"
       />
 
+      <div className="flex mt-4 space-x-2">
+        {[1, 2, 3, 4, 5].map((number) => (
+          <button
+            key={number}
+            className={`bg-orange-500 text-gray-700 rounded-full w-8 h-8 focus:outline-none ${currentImageIndex + 1 === number ? 'bg-orange-500 text-white' : ''}`}
+            onClick={() => handleButtonClick(number - 1)}
+          >
+            {number}
+          </button>
+        ))}
+      </div>
       <div className="mt-4">
         <input
           type="file"
@@ -66,7 +87,7 @@ function MyBarber() {
           htmlFor="imageInput"
           className="bg-orange-500 text-white rounded-lg p-2 px-6 cursor-pointer hover:bg-orange-600"
         >
-          {editImage ? "Guardar Cambios" : "Cambiar logo"}
+          {editImage ? "Guardar Cambios" : "Cambiar imagen"}
         </label>
       </div>
       <hr className="w-full mt-4 sm:mt-12 border-t-2 border-orange-500" />

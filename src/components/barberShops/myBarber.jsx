@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Services from "../barberShops/services"
 import NavBar from "../common/NavBar"
 
@@ -6,7 +6,14 @@ function MyBarber() {
     const barberShopName = "My Barber champo";
     const barberDescription = "¡La mejor barbería en la ciudad! Ofrecemos cortes de cabello y afeitados de primera clase.¡La mejor barbería en la ciudad! Ofrecemos cortes de cabello y afeitados de primera clase.¡La mejor barbería en la ciudad! Ofrecemos cortes de cabello y afeitados de primera clase.¡La mejor barbería en la ciudad! Ofrecemos cortes de cabello y afeitados de primera clase.";
 
-    const barberLogoUrl = "/barber3.jpeg";
+    const barberLogoUrls = ["/barber1.png", "/barber2.jpeg", "/barber3.jpeg", "/vikingo5.png", "/vikingo6.png"];
+
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const handleButtonClick = (index) => {
+        setCurrentImageIndex(index);
+    };
+
 
     return (
         <div className="p-8 flex flex-col items-center relative" style={{ marginBottom: '100px' }}>
@@ -21,12 +28,24 @@ function MyBarber() {
             </h1>
             <hr className="w-full mt-4 sm:mt-12 border-t-2 border-orange-500" />
             <img
-                src={barberLogoUrl}
+                src={barberLogoUrls[currentImageIndex]}
                 alt="Barber Logo"
                 className="w-80 h-80 rounded-lg max-w-full mt-4"
             />
 
-            <p className="text-center mt-4 sm:mt-8 md:mt-12 lg:mt-16 xl:mt-20 xl:w-2/3 " style={{ textAlign: "justify" }}>
+            <div className="flex mt-4 space-x-2">
+                {[1, 2, 3, 4, 5].map((number) => (
+                    <button
+                        key={number}
+                        className={`bg-orange-500 text-gray-700 rounded-full w-8 h-8 focus:outline-none ${currentImageIndex + 1 === number ? 'bg-orange-500 text-white' : ''}`}
+                        onClick={() => handleButtonClick(number - 1)}
+                    >
+                        {number}
+                    </button>
+                ))}
+            </div>
+
+            <p className="text-center mt-2 xl:w-2/3 " style={{ textAlign: "justify" }}>
                 {barberDescription}
             </p>
             <hr className="w-full mt-4 sm:mt-12 border-t-2 border-orange-500" />
