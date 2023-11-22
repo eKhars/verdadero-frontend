@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
 import { useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function registerForm() {
   const {
@@ -31,7 +31,10 @@ function registerForm() {
           />
           <h1 className="text-white text-xl font-bold">Regístrate</h1>
           {registerErrors.map((error, i) => (
-            <div className="bg-red-500 p-2 text-white text-center my-2" key={i}>
+            <div
+              className="bg-red-500 p-2 text-white text-center my-2 rounded"
+              key={i}
+            >
               {error}
             </div>
           ))}

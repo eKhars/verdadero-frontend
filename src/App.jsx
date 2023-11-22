@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext.jsx";
+
 import AppointmentPage from "./pages/AppointmentPage.jsx";
 import BarberPage from "./pages/BarberPage.jsx";
 import CancelPage from "./pages/CancelPage.jsx";
@@ -16,7 +18,6 @@ import UpsPage from "./pages/UpsPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import SuccessPage from "./pages/SuccessPage.jsx";
 
-import {AuthProvider} from "./context/AuthContext.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
           <Route path="/login" element={<LoginPage/>}/>
           <Route path="/register" element={<RegisterPage/>}/>
 
-          
+          <Route element={<ProtectedRoute/>}>
             <Route path="/" element={<HomePage/>} />
             <Route path="/barber-shop/:id" element={<BarberPage/>} />
             <Route path="/barber-shop/appointment" element={<ScheduleAppointment/>} />
@@ -47,7 +48,7 @@ function App() {
             <Route path="/succes" element={<SuccessPage/>} />
             <Route path="/cancel" element={<CancelPage/>} />
             <Route path="/ups" element={<UpsPage/>} />
-          
+          </Route>
         </Routes>
       </BrowserRouter>
       </AuthProvider>

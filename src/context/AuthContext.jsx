@@ -1,8 +1,6 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { registerRequest, loginRequest } from "../api/auth";
+import { registerRequest, loginRequest, verifyTokenRequest } from "../api/auth";
 import Cookies from "js-cookie";
-// import { token } from "morgan";
-
 
 const AuthContext = createContext();
 
@@ -18,6 +16,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errors, setErrors] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const signup = async (user) => {
     try {
@@ -33,13 +32,16 @@ export const AuthProvider = ({ children }) => {
 
   const signin = async (user) => {
     try {
-      const data = await loginRequest(user);
-      console.log(data);
+      const res = await loginRequest(user);
+      console.log(res.data);
       setUser(res.data);
       setIsAuthenticated(true);
+      setLoading(false)
     } catch (error) {
-      console.log(error);
-      setErrors(error.response.data.message);
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data);
+      }
+      setErrors([error.response.data.message]);
     }
   };
 
@@ -47,16 +49,29 @@ export const AuthProvider = ({ children }) => {
     if (errors.length > 0) {
       const timer = setTimeout(() => {
         setErrors([]);
-      }, 5000);
+      }, 7000);
       return () => clearTimeout(timer);
     }
-  });
+  }, [errors]);
 
   useEffect(() => {
-    const cookies = Cookies.get();
-    if (cookies.token) {
-      console.log(token);
-    }
+    const checkLogin = async () => {
+      const cookies = Cookies.get();
+      
+      try {
+        const res = await verifyTokenRequest(cookies.token);
+        console.log(res.data);
+        if (!res.data) return setIsAuthenticated(false) && setUser(null) && setLoading(false);
+        setLoading(false)
+        setUser(res.data);
+        setIsAuthenticated(true);
+      } catch (error) {
+        setLoading(false)
+        setIsAuthenticated(false);
+        setUser(null);
+      }
+    };
+    checkLogin();
   }, []);
 
   return (
@@ -67,6 +82,7 @@ export const AuthProvider = ({ children }) => {
         user,
         isAuthenticated,
         errors,
+        loading
       }}
     >
       {children}

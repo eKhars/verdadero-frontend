@@ -4,7 +4,6 @@ import { Link, useLocation } from 'react-router-dom';
 function NavBar() {
   const location = useLocation();
   const pathname = location.pathname;
-  console.log(pathname);
 
   return (
       <nav className="bg-zinc-900 border border-orange-500 p-1 fixed bottom-3 left-0 right-0 z-10 lg:w-1/3 md:w-2/4 sm:w-1/6 w-full mx-auto rounded-full">
