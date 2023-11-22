@@ -27,7 +27,6 @@ function Payment() {
             <option value="enero">Enero</option>
             <option value="febrero">Febrero</option>
             <option value="marzo">Marzo</option>
-            
           </select>
           <div className="ml-0 sm:ml-4">
             <label className="text-orange-500">

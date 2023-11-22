@@ -57,6 +57,19 @@ function BarberForm() {
     setServices(updatedServices);
   };
 
+  const handleImageInputChange = (e) => {
+    const selectedImage = e.target.files[0];
+    if (selectedImage) {
+      setBarberImages([...barberImages, selectedImage]);
+    }
+  };
+
+  const removeImage = (index) => {
+    const updatedImages = [...barberImages];
+    updatedImages.splice(index, 1);
+    setBarberImages(updatedImages);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -226,10 +239,10 @@ function BarberForm() {
 
           <div className="mb-4">
             <label htmlFor="workHours" className="block text-gray-300">
-              Servicios:
             </label>
             {services.map((service, index) => (
               <div key={index}>
+                <h2>Servicios:</h2>
                 <input
                   type="text"
                   name="name"
@@ -270,46 +283,38 @@ function BarberForm() {
 
           <div className="mb-4">
             <label htmlFor="barberImages" className="block text-gray-300 mb-4">
-              Imágenes de la Barbería (maximo 4):
+              Imágenes de la Barbería (máximo 4):
             </label>
-            <label className="w-full border rounded-lg ml-4 px-3 py-2 cursor-pointer bg-orange-500 text-white hover:bg-orange-600">
-              Subir Imágenes
-              <input
-                type="file"
-                multiple
-                accept="image/*"
-                id="barberImages"
-                onChange={(e) => {
-                  const selectedImages = Array.from(e.target.files);
-                  const totalImages = [
-                    ...barberImages,
-                    ...selectedImages,
-                  ].slice(0, 4);
-                  setBarberImages(totalImages);
-                }}
-                style={{ display: "none" }}
-              />
-            </label>
-          </div>
 
-          {barberImages.length > 0 && (
-            <div className="mb-4">
-              <p>Imágenes seleccionadas:</p>
-              <div className="flex justify-center">
-                <div className="grid grid-cols-2 gap-4">
-                  {barberImages.map((image, index) => (
-                    <div key={index}>
-                      <img
-                        src={URL.createObjectURL(image)}
-                        alt={`Image ${index + 1}`}
-                        className="w-24 h-24"
-                      />
-                    </div>
-                  ))}
-                </div>
+            {barberImages.map((image, index) => (
+              <div key={index} className="mb-2">
+                <img
+                  src={URL.createObjectURL(image)}
+                  alt={`Image ${index + 1}`}
+                  className="w-24 h-24 inline-block mr-2"
+                />
+                <button
+                  type="button"
+                  className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded"
+                  onClick={() => removeImage(index)}
+                >
+                  Eliminar
+                </button>
               </div>
-            </div>
-          )}
+            ))}
+
+            {barberImages.length < 4 && (
+              <label className="w-full border rounded-lg ml-4 px-3 py-2 cursor-pointer bg-orange-500 text-white hover:bg-orange-600">
+                Agregar Imagen
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageInputChange}
+                  style={{ display: "none" }}
+                />
+              </label>
+            )}
+          </div>
 
           <button
             onClick={handlePrevStep}
