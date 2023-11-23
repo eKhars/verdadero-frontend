@@ -1,4 +1,8 @@
+import {useAuth} from "../../context/AuthContext"
+
 function User() {
+  const { user } = useAuth()
+  console.log(user);
   return (
     <section className="flex flex-col items-center mr-6 ml-6 relative">
       <header className="sm:mb-4">
@@ -12,15 +16,15 @@ function User() {
       <article className="bg-zinc-800 p-4 rounded-md shadow-md flex mt-2 relative">
         <aside className="mr-4">
           <img
-            src="/y.jpeg"
+            src={user.photo}
             alt="Foto del usuario"
             className="w-24 h-24 sm:w-36 sm:h-36 rounded-lg"
           />
         </aside>
         <div>
-          <h1 className="text-lg font-semibold">Kanye Ojendis</h1>
+          <h1 className="text-lg font-semibold">{user.firstName} {user.lastName}</h1>
           <p className="text-gray-500">
-            Fecha de registro: 25 de octubre de 2023
+            Fecha de registro: {user.createdAt.slice(0, 10)}
           </p>
         </div>
       </article>

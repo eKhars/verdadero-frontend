@@ -1,16 +1,21 @@
 import React, { useState, useRef } from "react";
 import NavBar from "../common/NavBar";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useAuth } from "../../context/AuthContext";
+import { useEffect } from "react";
 
 function BarberForm() {
   const [step, setStep] = useState(1);
-  const [barberName, setBarberName] = useState("");
-  const [description, setDescription] = useState("");
   const [logo, setLogo] = useState(null);
-  const [workDays, setWorkDays] = useState([]);
-  const [workHours, setWorkHours] = useState("");
-  const [services, setServices] = useState([{ name: "", price: "" }]);
-  const [locations, setLocations] = useState([{ city: "", street: "" }]);
   const [barberImages, setBarberImages] = useState([]);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm();
 
   const fileInputRef = useRef(null);
 
@@ -46,17 +51,6 @@ function BarberForm() {
     setServices(updatedServices);
   };
 
-  const addLocation = () => {
-    setLocations([...locations, { city: "", street: "" }]);
-  };
-
-  const handleServiceChange = (e, index) => {
-    const { name, value } = e.target;
-    const updatedServices = [...services];
-    updatedServices[index][name] = value;
-    setServices(updatedServices);
-  };
-
   const handleImageInputChange = (e) => {
     const selectedImage = e.target.files[0];
     if (selectedImage) {
@@ -70,21 +64,25 @@ function BarberForm() {
     setBarberImages(updatedImages);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
-
   const cities = [
-    "Ciudad 1",
-    "Ciudad 2",
-    "Ciudad 3",
-    "Ciudad 4",
-    "Ciudad 5",
-    "Ciudad 6",
-    "Ciudad 7",
-    "Ciudad 8",
-    "Ciudad 9",
-    "Ciudad 10",
+    "Comitán de Domínguez",
+    "Tuxtla Gutiérrez",
+    "San Cristóbal de las Casas",
+    "Tapachula",
+    "Ocosingo",
+    "Palenque",
+    "Suchiapa",
+    "Ocozocoautla de Espinosa",
+    "Tonalá",
+    "Villaflores",
+    "Cintalapa de Figueroa",
+    "Chiapa de Corzo",
+    "Las Margaritas",
+    "Berriozábal",
+    "Venustiano Carranza",
+    "Pichucalco",
+    "Jiquipilas",
+    "Arriaga",
   ];
 
   return (
@@ -109,10 +107,8 @@ function BarberForm() {
             </label>
             <input
               type="text"
-              id="barberName"
-              value={barberName}
-              onChange={(e) => setBarberName(e.target.value)}
-              placeholder='Ej. "Barbería de Don Pepe"'
+              {...register("name", { required: true })}
+              placeholder='Ej. "Bandidos Barbería"'
               className="w-full border rounded-lg px-3 py-2 bg-transparent"
             />
           </div>
@@ -122,9 +118,8 @@ function BarberForm() {
               Descripción corta:
             </label>
             <textarea
-              id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              type="text"
+              {...register("description", { required: true })}
               placeholder="Descripción de tu barbería"
               className="w-full border rounded-lg px-3 py-2 bg-transparent"
               rows="3"
@@ -136,14 +131,8 @@ function BarberForm() {
               Ciudad:
             </label>
             <select
-              id="city"
-              value={locations[0].city}
-              onChange={(e) => {
-                const updatedLocations = [...locations];
-                updatedLocations[0].city = e.target.value;
-                setLocations(updatedLocations);
-              }}
-              className="w-full border rounded-lg px-3 py-2 bg-zinc-950"
+              {...register("locations.0.city", { required: true })}
+              className="w-full border rounded-lg px-3 py-2 bg-zinc-950 overflow-auto"
             >
               <option value="">Selecciona una ciudad</option>
               {cities.map((city, index) => (
@@ -160,13 +149,7 @@ function BarberForm() {
             </label>
             <input
               type="text"
-              id="street"
-              value={locations[0].street}
-              onChange={(e) => {
-                const updatedLocations = [...locations];
-                updatedLocations[0].street = e.target.value;
-                setLocations(updatedLocations);
-              }}
+              {...register("street", { required: true })}
               placeholder="Ej. Calle de Ejemplo"
               className="w-full border rounded-lg px-3 py-2 bg-transparent"
             />
@@ -176,18 +159,11 @@ function BarberForm() {
             <label htmlFor="logo" className="block text-gray-300">
               Subir Logo:
             </label>
-            <button
-              onClick={handleFileButtonClick}
-              className="w-full border rounded-lg px-3 py-2 bg-transparent cursor-pointer"
-            >
-              Subir Archivo
-            </button>
             <input
               type="file"
-              ref={fileInputRef}
-              onChange={handleLogoChange}
-              style={{ display: "none" }}
-            />
+              {...register("logo", { required: true })}
+              className="w-full border rounded-lg px-3 py-2 bg-transparent cursor-pointer"
+            ></input>
           </div>
 
           {logo && (
@@ -215,9 +191,7 @@ function BarberForm() {
             </label>
             <input
               type="text"
-              id="workDays"
-              value={workDays.join(", ")}
-              onChange={(e) => setWorkDays(e.target.value.split(", "))}
+              {...register("days", { required: true })}
               placeholder='Ej. "Lunes, Martes, Miércoles"'
               className="w-full border rounded-lg px-3 py-2 bg-transparent"
             />
@@ -229,34 +203,27 @@ function BarberForm() {
             </label>
             <input
               type="text"
-              id="workHours"
-              value={workHours}
-              onChange={(e) => setWorkHours(e.target.value)}
+              {...register("schedule", { required: true })}
               placeholder='Ej. "8:00 AM - 6:00 PM"'
               className="w-full border rounded-lg px-3 py-2 bg-transparent"
             />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="workHours" className="block text-gray-300">
-            </label>
+            <label htmlFor="workHours" className="block text-gray-300"></label>
             {services.map((service, index) => (
               <div key={index}>
                 <h2>Servicios:</h2>
                 <input
                   type="text"
-                  name="name"
-                  value={service.name}
-                  onChange={(e) => handleServiceChange(e, index)}
-                  placeholder="Nombre del servicio"
+                  {...register("servicesName", { required: true })}
+                  placeholder="Corte de cabello"
                   className="w-full border rounded-lg px-3 py-2 bg-transparent mb-4"
                 />
                 <input
                   type="number"
-                  name="price"
-                  value={service.price}
-                  onChange={(e) => handleServiceChange(e, index)}
-                  placeholder="Precio"
+                  {...register("servicesPrice", { required: true })}
+                  placeholder="$120"
                   className="w-full border rounded-lg px-3 py-2 bg-transparent mb-4"
                 />
                 {index === 0 ? null : (
