@@ -9,6 +9,7 @@ function AppointmentHistory() {
 
   const { user } = useAuth();
 
+
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
