@@ -57,64 +57,64 @@ function AppointmentHistory() {
           Historial de citas
         </h1>
         <div className="absolute top-40 left-0 sm:left-1/4 w-full sm:w-1/2 h-1 bg-orange-500"></div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {appointmentsList.length === 0 ? (
-            <div>
-              <p className="text-gray-500 text-2xl bg-zinc-900 rounded-lg p-4 shadow-md mb-4">
-                Aquí se mostrarán tus citas
-              </p>
-              <img
-                src="https://res.cloudinary.com/dn1ng7anm/image/upload/v1700715126/qxlgr1hlgqqumyedilzp.png"
-                alt="Vikingo Imagen"
-                className="mx-auto"
-              />
-            </div>
-          ) : (
-            appointmentsList.map((appointment) => (
-              <div
-                key={appointment.id}
-                className="p-4 bg-zinc-800 rounded-md shadow-md flex justify-between items-center"
-              >
-                <div className="border-r-2 border-orange-500 pr-4">
-                  <p className="text-lg font-semibold">
-                    {appointment.date.slice(0, 10)}
-                  </p>
-                  <p className="text-gray-600">{appointment.time}</p>
-                  <p className="text-gray-600">{appointment.service}</p>
-                  <p className="text-gray-600">Precio: {appointment.price}</p>
-                </div>
-                <div className="flex items-center">
-                  <img
-                    src={appointment.logo}
-                    alt="Foto de perfil de la barbería"
-                    className="w-20 h-20 ml-5 rounded-lg mr-2"
-                  />
-                  <p className="text-lg font-semibold">
-                    {appointment.user.name}
-                  </p>
-                </div>
+        <div className={appointmentsData.length > citasPorGrupo ? "" : ""}>
+          <div className={appointmentsData.length === 0 ? "" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"}>
+            {appointmentsList.length === 0 ? (
+              <div>
+                <p className="text-gray-500 text-2xl bg-zinc-900 rounded-lg p-4 shadow-md mb-4">
+                  Aquí se mostrarán tus citas
+                </p>
+                <img
+                  src="https://res.cloudinary.com/dn1ng7anm/image/upload/v1700715126/qxlgr1hlgqqumyedilzp.png"
+                  alt="Vikingo Imagen"
+                  className="mx-auto"
+                />
               </div>
-            ))
-          )}
-        </div>
-        <div className="flex justify-center mt-4">
-          <button
-            onClick={grupoAnterior}
-            disabled={grupoActual === 1}
-            className="mr-2"
-          >
-            <ArrowLeft size={28} />
-          </button>
-          <button
-            onClick={siguienteGrupo}
-            disabled={grupoActual === totalGrupos}
-          >
-            <ArrowRight size={28} />
-          </button>
+            ) : (
+              appointmentsList.map((appointment) => (
+                <div
+                  key={appointment.id}
+                  className="p-4 bg-zinc-800 rounded-md shadow-md flex justify-between items-center"
+                >
+                  <div className="border-r-2 border-orange-500 pr-4">
+                    <p className="text-lg font-semibold">
+                      {appointment.date.slice(0, 10)}
+                    </p>
+                    <p className="text-gray-600">{appointment.time}</p>
+                    <p className="text-gray-600">{appointment.service}</p>
+                    <p className="text-gray-600">Precio: {appointment.price}</p>
+                  </div>
+                  <div className="flex items-center">
+                    <img
+                      src={appointment.logo}
+                      alt="Foto de perfil de la barbería"
+                      className="w-20 h-20 ml-5 rounded-lg mr-2"
+                    />
+                    <p className="text-lg font-semibold">
+                      {appointment.user.name}
+                    </p>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+          <div className="flex justify-center mt-4">
+            <button
+              onClick={grupoAnterior}
+              disabled={grupoActual === 1}
+              className="mr-2"
+            >
+              <ArrowLeft size={28} />
+            </button>
+            <button
+              onClick={siguienteGrupo}
+              disabled={grupoActual === totalGrupos}
+            >
+              <ArrowRight size={28} />
+            </button>
+          </div>
         </div>
       </div>
-
       <NavBar />
     </div>
   );

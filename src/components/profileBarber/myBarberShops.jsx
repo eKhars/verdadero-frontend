@@ -1,126 +1,32 @@
-"use client";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowLeft, ArrowRight } from "react-feather";
 import NavBar from "../common/NavBar";
+import { useAuth } from "../../context/AuthContext";
+import { getUserBarberShopsRequest } from "../../api/barber";
 
 function myBarberShops() {
-  const barberShopsData = [
-    {
-      id: 1,
-      description:
-        "Mi primer corte de cabello, espero que me quede bien, si no, me rapo. :(",
-      user: {
-        name: "BarberShop1",
-        profileImage: "barber1.png",
-      },
-    },
-    {
-      id: 2,
-      description:
-        "Mi primer corte de cabello, espero que me quede bien, si no, me rapo. :(",
-      user: {
-        name: "BarberShop2",
-        profileImage: "barber2.jpeg",
-      },
-    },
-    {
-      id: 3,
-      description:
-        "Mi primer corte de cabello, espero que me quede bien, si no, me rapo. :(",
-      user: {
-        name: "BarberShop3",
-        profileImage: "barber3.jpeg",
-      },
-    },
-    {
-      id: 4,
-      description:
-        "Mi primer corte de cabello, espero que me quede bien, si no, me rapo. :(",
-      user: {
-        name: "BarberShop1",
-        profileImage: "barber1.png",
-      },
-    },
-    {
-      id: 5,
-      description:
-        "Mi primer corte de cabello, espero que me quede bien, si no, me rapo. :(",
-      user: {
-        name: "BarberShop2",
-        profileImage: "barber2.jpeg",
-      },
-    },
-    {
-      id: 6,
-      description:
-        "Mi primer corte de cabello, espero que me quede bien, si no, me rapo. :(",
-      user: {
-        name: "BarberShop3",
-        profileImage: "barber3.jpeg",
-      },
-    },
-    {
-      id: 7,
-      description:
-        "Mi primer corte de cabello, espero que me quede bien, si no, me rapo. :(",
-      user: {
-        name: "BarberShop1",
-        profileImage: "barber1.png",
-      },
-    },
-    {
-      id: 8,
-      description:
-        "Mi primer corte de cabello, espero que me quede bien, si no, me rapo. :(",
-      user: {
-        name: "BarberShop2",
-        profileImage: "barber2.jpeg",
-      },
-    },
-    {
-      id: 9,
-      description:
-        "Mi primer corte de cabello, espero que me quede bien, si no, me rapo. :(",
-      user: {
-        name: "BarberShop3",
-        profileImage: "barber3.jpeg",
-      },
-    },
-    {
-      id: 10,
-      description:
-        "Mi primer corte de cabello, espero que me quede bien, si no, me rapo. :(",
-      user: {
-        name: "BarberShop1",
-        profileImage: "barber1.png",
-      },
-    },
-    {
-      id: 11,
-      description:
-        "Mi primer corte de cabello, espero que me quede bien, si no, me rapo. :(",
-      user: {
-        name: "BarberShop2",
-        profileImage: "barber2.jpeg",
-      },
-    },
-    {
-      id: 12,
-      description:
-        "Mi primer corte de cabello, espero que me quede bien, si no, me rapo. :(",
-      user: {
-        name: "BarberShop3",
-        profileImage: "barber3.jpeg",
-      },
-    },
-  ];
+  const { user } = useAuth();
+  const [barberShopsData, setBarberShopsData] = useState([]);
+
+  useEffect(() => {
+    const fetchBarberShops = async () => {
+      try {
+        const response = await getUserBarberShopsRequest(user.id);
+        console.log(response.data);
+        setBarberShopsData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchBarberShops();
+  }, [user.id]);
 
   const barberPorGrupo = 8;
   const [grupoActual, setGrupoActual] = useState(1);
 
   const inicioBarber = (grupoActual - 1) * barberPorGrupo;
-  const barbersGrupo = barberShopsData.slice(
+  const barbersList = barberShopsData.slice(
     inicioBarber,
     inicioBarber + barberPorGrupo
   );
@@ -146,36 +52,51 @@ function myBarberShops() {
         className="w-48 h-48 mt-4"
       />
       <div className="p-2" style={{ marginBottom: "100px" }}>
+        <div className="absolute top-6 left-0 sm:left-1/4 w-full sm:w-1/2 h-1 bg-orange-500"></div>
         <h1 className="text-2xl font-bold mb-2 text-orange-500">
           Mis barberías
         </h1>
+        <div className="absolute top-25 left-0 sm:left-1/4 w-full sm:w-1/2 h-1 bg-orange-500"></div>
         <div className={barberShopsData.length > barberPorGrupo ? "" : ""}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {barbersGrupo.map((barberShop) => (
-              <div
-                key={barberShop.id}
-                className="p-2 w-60 bg-zinc-800 rounded-md shadow-md flex flex-col justify-center items-center"
-              >
+          <div className={barberShopsData.length === 0 ? "my-8" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"}>
+            { barbersList.length === 0 ? (
+              <div>
+                <p className="text-gray-500 text-2xl bg-zinc-900 rounded-lg p-4 shadow-md mb-4 my-3">
+                  ¡Uups, aún no tienes barberías registradas!
+                </p>
                 <img
-                  src={barberShop.user.profileImage}
-                  alt={barberShop.user.name}
-                  className="w-full md:w-28 md:h-28 rounded-lg"
+                  src="https://res.cloudinary.com/dn1ng7anm/image/upload/v1700729166/uqqtnqmgdgolroox7hk5.png"
+                  alt="Vikingo Imagen"
+                  className="mx-auto"
                 />
-                <div className="mt-2 text-center">
-                  <p className="text-sm font-semibold text-orange-500">
-                    {barberShop.user.name}
-                  </p>
-                  <p className="text-gray-600 text-xs">
-                    {barberShop.description}
-                  </p>
-                  <a href="/my-barbers/edit/:id">
-                    <button className="bg-zinc-900 border border-orange-500 hover:bg-zinc-950 text-white px-2 py-1 rounded-md mt-2">
-                      Ver mas...
-                    </button>
-                  </a>
-                </div>
               </div>
-            ))}
+            ) : (
+              barbersList.map((barberShop) => (
+                <div
+                  key={barberShop.id}
+                  className="p-2 my-3 w-60 bg-zinc-800 rounded-md shadow-md flex flex-col justify-center items-center"
+                >
+                  <img
+                    src={barberShop.logo}
+                    alt="Barber Shop Logo"
+                    className="w-full md:w-28 md:h-28 rounded-lg"
+                  />
+                  <div className="mt-2 text-center">
+                    <p className="text-sm font-semibold text-orange-500">
+                      {barberShop.name}
+                    </p>
+                    <p className="text-gray-600 text-xs">
+                      {barberShop.description}
+                    </p>
+                    <a href="/my-barbers/edit/:id">
+                      <button className="bg-zinc-900 border border-orange-500 hover:bg-zinc-950 text-white px-2 py-1 rounded-md mt-2">
+                        Ver mas...
+                      </button>
+                    </a>
+                  </div>
+                </div>
+              ))
+            ) }
           </div>
           <div className="flex justify-center mt-2">
             <button
