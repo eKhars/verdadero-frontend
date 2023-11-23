@@ -8,30 +8,36 @@ import React, { useState } from "react";
 
 function Services() {
   const [activeSection, setActiveSection] = useState("services");
-  const [newReview, setNewReview] = useState({ content: "" });
+  const [newReview, setNewReview] = useState({ title: "", content: "" });
   const [reviews, setReviews] = useState([
     {
       author: "John Doe",
+      title: "¡Excelente servicio!",
       content: "¡Excelente servicio! Muy contento con mi compra.",
     },
     {
       author: "Jane Smith",
+      title: "¡Excelente servicio!",
       content: "Las reseñas son muy útiles. Lo recomiendo totalmente.",
     },
     {
       author: "John Doe",
+      title: "¡Excelente servicio!",
       content: "¡Excelente servicio! Muy contento con mi compra.",
     },
     {
       author: "Jane Smith",
+      title: "¡Excelente servicio!",
       content: "Las reseñas son muy útiles. Lo recomiendo totalmente.",
     },
     {
       author: "John Doe",
+      title: "¡Excelente servicio!",
       content: "¡Excelente servicio! Muy contento con mi compra.",
     },
     {
       author: "Jane Smith",
+      title: "¡Excelente servicio!",
       content: "Las reseñas son muy útiles. Lo recomiendo totalmente.",
     },
   ]);
@@ -68,7 +74,7 @@ function Services() {
   const handleReviewSubmit = (e) => {
     e.preventDefault();
     setReviews([...reviews, newReview]);
-    setNewReview({ content: "" });
+    setNewReview({ title: "", content: "" });
   };
 
   return (
@@ -79,9 +85,8 @@ function Services() {
             <li>
               <button
                 onClick={() => handleSectionChange("services")}
-                className={`hover:text-orange-500 mt-8 border border-zinc-800 p-2 px-2 rounded-lg ${
-                  activeSection === "services" ? "active" : ""
-                }`}
+                className={`hover:text-orange-500 mt-8 border border-zinc-800 p-2 px-2 rounded-lg ${activeSection === "services" ? "active" : ""
+                  }`}
               >
                 Servicios
               </button>
@@ -89,9 +94,8 @@ function Services() {
             <li>
               <button
                 onClick={() => handleSectionChange("schedule")}
-                className={`hover:text-orange-500 mt-8 border border-zinc-800 p-2 px-2 rounded-lg ${
-                  activeSection === "schedule" ? "active" : ""
-                }`}
+                className={`hover:text-orange-500 mt-8 border border-zinc-800 p-2 px-2 rounded-lg ${activeSection === "schedule" ? "active" : ""
+                  }`}
               >
                 Horario
               </button>
@@ -99,9 +103,8 @@ function Services() {
             <li>
               <button
                 onClick={() => handleSectionChange("contact")}
-                className={`hover:text-orange-500 mt-8 border border-zinc-800 p-2 px-2 rounded-lg ${
-                  activeSection === "contact" ? "active" : ""
-                }`}
+                className={`hover:text-orange-500 mt-8 border border-zinc-800 p-2 px-2 rounded-lg ${activeSection === "contact" ? "active" : ""
+                  }`}
               >
                 Contacto
               </button>
@@ -166,17 +169,26 @@ function Services() {
                 key={index}
                 className="bg-zinc-900 rounded-lg p-4 shadow-md mb-4"
               >
-                <h2 className="text-white font-semibold">{review.author}</h2>
+                <h1 className="text-white text-xl font-semibold">{review.author}</h1>
+                <h2 className="text-orange-500 font-semibold">{review.title}</h2>
                 <p className="text-white mt-2">{review.content}</p>
               </div>
             ))}
           </section>
         </div>
         <form onSubmit={handleReviewSubmit} className="mt-4">
+          <label className="block text-white mb-2">Título:</label>
+          <input
+            type="text"
+            value={newReview.title}
+            onChange={(e) => setNewReview({ ...newReview, title: e.target.value })}
+            className="border rounded-md p-2 mb-2 bg-zinc-900 "
+            required
+          />
           <label className="block text-white mb-2">Reseña:</label>
           <textarea
             value={newReview.content}
-            onChange={(e) => setNewReview({ content: e.target.value })}
+            onChange={(e) => setNewReview({ ...newReview, content: e.target.value })}
             className="border rounded-md p-2 mb-2 bg-zinc-900 "
             required
           ></textarea>

@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEnvelope,
-  faPhone,
-  faMapMarker,
-  faPencilAlt,
-  faSave,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faPhone, faMapMarker, faPencilAlt, faSave, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 function Services() {
   const [activeSection, setActiveSection] = useState("services");
   const [editMode, setEditMode] = useState(false);
   const [editableData, setEditableData] = useState(null);
+  
 
   const servicios = [
     { nombre: "Servicio 1", precio: "$20" },
@@ -69,6 +64,13 @@ function Services() {
     });
   };
 
+  const handleDeleteClick = (index) => {
+    const updatedServicios = [...servicios];
+    updatedServicios.splice(index, 1);
+  
+  };
+  
+
   return (
     <div className="p-8 flex flex-col lg:flex-col space-y-8 lg:space-x-8">
       <h1 className="text-center text-2xl text-orange-500">Editar servicos</h1>
@@ -108,6 +110,7 @@ function Services() {
           </ul>
         </nav>
 
+        
         {activeSection === "services" && (
           <section>
             <h2 className="text-orange-500 mb-2 text-center">
@@ -138,21 +141,31 @@ function Services() {
                         <span>{servicio.precio}</span>
                       </div>
                     )}
-                    {editMode && editableData.index === index ? (
-                      <button onClick={handleSaveClick}>
-                        <FontAwesomeIcon
-                          icon={faSave}
-                          style={{ marginLeft: "8px", color: "green" }}
-                        />
-                      </button>
-                    ) : (
-                      <button onClick={() => handleEditClick(index)}>
-                        <FontAwesomeIcon
-                          icon={faPencilAlt}
-                          style={{ marginLeft: "8px", color: "orange" }}
-                        />
-                      </button>
-                    )}
+                    <div>
+                      {editMode && editableData.index === index ? (
+                        <>
+                          <button onClick={handleSaveClick}>
+                            <FontAwesomeIcon
+                              icon={faSave}
+                              style={{ marginLeft: "8px", color: "green" }}
+                            />
+                          </button>
+                          <button onClick={() => handleDeleteClick(index)}>
+                            <FontAwesomeIcon
+                              icon={faTrashAlt}
+                              style={{ marginLeft: "8px", color: "red" }}
+                            />
+                          </button>
+                        </>
+                      ) : (
+                        <button onClick={() => handleEditClick(index)}>
+                          <FontAwesomeIcon
+                            icon={faPencilAlt}
+                            style={{ marginLeft: "8px", color: "orange" }}
+                          />
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </li>
               ))}

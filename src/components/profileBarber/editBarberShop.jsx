@@ -6,9 +6,16 @@ function MyBarber() {
   const [editImage, setEditImage] = useState(false);
   const [editDescription, setEditDescription] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [deleteImage, setDeleteImage] = useState(false);
+
   const [barberDescription, setBarberDescription] = useState(
     "¡La mejor barbería en la ciudad! Ofrecemos cortes de cabello y afeitados de primera clase.¡La mejor barbería en la ciudad! Ofrecemos cortes de cabello y afeitados de primera clase.¡La mejor barbería en la ciudad! Ofrecemos cortes de cabello y afeitados de primera clase.¡La mejor barbería en la ciudad! Ofrecemos cortes de cabello y afeitados de primera clase."
   );
+
+  const handleDeleteImage = () => {
+    setDeleteImage(!deleteImage);
+  };
+
 
   const barberShopName = "My Barber champo";
   const barberLogoUrl = selectedImage || "/barber3.jpeg";
@@ -59,10 +66,11 @@ function MyBarber() {
       </h1>
       <hr className="w-full mt-4 sm:mt-12 border-t-2 border-orange-500" />
       <img
-        src={selectedImage || barberLogoUrls[currentImageIndex]}
+        src={(deleteImage && barberLogoUrls[currentImageIndex]) || selectedImage}
         alt="Barber Logo"
         className="w-80 h-80 rounded-lg max-w-full mt-4"
       />
+
 
       <div className="flex mt-4 space-x-2">
         {[1, 2, 3, 4, 5].map((number) => (
@@ -83,12 +91,22 @@ function MyBarber() {
           className="hidden"
           id="imageInput"
         />
+        <div className="flex flex-row">
         <label
           htmlFor="imageInput"
           className="bg-orange-500 text-white rounded-lg p-2 px-6 cursor-pointer hover:bg-orange-600"
         >
-          {editImage ? "Guardar Cambios" : "Cambiar imagen"}
+          {editImage ? "Guardar Cambios" : "Editar"}
         </label>
+
+        <button
+          className="bg-red-500 text-white mr-2 ml-2 rounded-lg p-2 px-6 hover:bg-red-600"
+          onClick={handleDeleteImage}
+        >
+          Eliminar 
+        </button>
+        </div>
+      
       </div>
       <hr className="w-full mt-4 sm:mt-12 border-t-2 border-orange-500" />
 
@@ -100,7 +118,7 @@ function MyBarber() {
           <textarea
             value={barberDescription}
             onChange={handleDescriptionChange}
-            className="w-80 h-40 p-2 mt-2 border rounded-md bg-zinc-900"
+            className="w-80 h-40  xl:ml-80 p-2 mt-2 border rounded-md bg-zinc-900  "
           />
         ) : (
           barberDescription
