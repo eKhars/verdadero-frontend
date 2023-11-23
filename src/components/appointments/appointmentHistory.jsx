@@ -29,7 +29,7 @@ function AppointmentHistory() {
     },
     {
       id: 3,
-      data: "10/10/2021",
+      data: "02/01/2021",
       time: "10:00 AM",
       service: "Corte de Cabello",
       payment: "50%",
@@ -40,7 +40,7 @@ function AppointmentHistory() {
     },
     {
       id: 4,
-      data: "10/10/2021",
+      data: "01/01/2021",
       time: "10:00 AM",
       service: "Corte de Cabello",
       payment: "50%",
@@ -95,6 +95,12 @@ function AppointmentHistory() {
     },
   ];
 
+  appointmentsData.sort((a, b) => {
+    const dateA = new Date(a.data);
+    const dateB = new Date(b.data);
+    return dateA - dateB;
+  });
+
   const citasPorGrupo = 6;
   const [grupoActual, setGrupoActual] = useState(1);
 
@@ -142,9 +148,7 @@ function AppointmentHistory() {
                   <p className="text-gray-600">
                     Payment: {appointment.payment}
                   </p>
-                  <button className="bg-zinc-900 border border-orange-500 hover.bg-zinc-950 text-white px-2 py-1 rounded-md">
-                    Editar Cita
-                  </button>
+                 
                 </div>
                 <div className="flex items-center">
                   <img
