@@ -1,29 +1,25 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../common/NavBar";
+import { useAuth } from "../../context/AuthContext";
+import { getReviewsRequest } from "../../api/reviews";
 
 function Reviews() {
-  const reviewsList = [
-    {
-      id: 1,
-      author: "John Doe",
-      content: "¡Excelente servicio! Muy contento con mi compra.",
-    },
-    {
-      id: 2,
-      author: "Jane Smith",
-      content: "Las reseñas son muy útiles. Lo recomiendo totalmente.",
-    },
-    {
-      id: 3,
-      author: "John Doe",
-      content: "¡Excelente servicio! Muy contento con mi compra.",
-    },
-    {
-      id: 4,
-      author: "Jane Smith",
-      content: "Las reseñas son muy útiles. Lo recomiendo totalmente.",
-    },
-  ];
+  const { user } = useAuth();
+
+  const [reviewsList, setReviewsList] = useState([]);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await getReviewsRequest(user.id);
+        console.log(response.data);
+        setReviewsList(response.data);
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      }
+    };
+    fetchReviews();
+  }, [user.id]);
 
   return (
     <div className="min-h-screen">
@@ -32,16 +28,16 @@ function Reviews() {
           Reseñas
         </h1>
 
-        <section className="max-h-60 sm:max-h-96 overflow-y-auto">
-          {reviewsList.map((review) => (
+        <section className="max-h-60 sm:max-h-96 overflow-y-auto" key={1}>
+          { reviewsList.length === 1 ? (<p className="text-gray-500 text-2xl bg-zinc-900 rounded-lg p-4 shadow-md mb-4 text-center">Aquí aparecerán tus reseñas</p>) : (reviewsList.map((review) => (
             <div
               key={review.id}
               className="bg-zinc-900 rounded-lg p-4 shadow-md mb-4"
             >
-              <h2 className="text-white font-semibold">{review.author}</h2>
-              <p className="text-white mt-2">{review.content}</p>
+              <h2 className="text-white font-semibold">{review.title}</h2>
+              <p className="text-white mt-2">{review.comment}</p>
             </div>
-          ))}
+          )))}
         </section>
         <div className="mt-4 flex flex-col space-y-2 items-center">
           <a href="/profile/edit">

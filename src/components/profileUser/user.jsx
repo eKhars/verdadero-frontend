@@ -31,13 +31,13 @@ function User() {
       <div className="absolute bottom-[-20px] left-0 sm:left-1/4 w-full sm:w-1/2 h-1 bg-orange-500"></div>
       <div className="mt-4 text-center sm:text-left flex items-center sm:items-start">
         <p className="text-gray-500" style={{ marginRight: "10px" }}>
-          Reseñas: 5
+          {user.reviews.length > 0 ? `Reseñas: ${user.reviews.length}` : 'Aún no tienes reseñas'}
+        </p>
+        <p className="text-orange-500" style={{ marginRight: "10px" }}>
+          |
         </p>
         <p className="text-gray-500" style={{ marginRight: "10px" }}>
-          Likes: 100
-        </p>
-        <p className="text-gray-500" style={{ marginRight: "10px" }}>
-          Citas: 2
+        {user.appointments.length > 0 ? `Citas: ${user.appointments.length}` : 'Aún no tienes citas'}
         </p>
       </div>
     </section>
