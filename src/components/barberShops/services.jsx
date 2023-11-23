@@ -53,7 +53,18 @@ function Services() {
     { nombre: "Servicio 4", precio: "$40" },
   ];
 
-  const horario = ["Lunes: 9 AM - 6 PM", "Sábados: 10 AM - 4 PM"];
+  const horarioInicio = 9;
+  const horarioFin = 18;
+  
+  const generarIntervalosHorarios = () => {
+    const intervalos = [];
+    for (let hora = horarioInicio; hora <= horarioFin; hora++) {
+      intervalos.push(`${hora}:00-AM - ${hora + 1}:00-PM`);
+    }
+    return intervalos;
+  };
+
+  const horario = generarIntervalosHorarios();
 
   const contacto = [
     <p key="direccion">
