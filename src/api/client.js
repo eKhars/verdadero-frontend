@@ -1,3 +1,3 @@
 import axios from "./axios";
 
-export const updateClientRequest = (id, data) => axios.put(`/clients/${id}`, data)
+export const updateClientRequest = (id, data) => axios.put(`/client/${id}`, data)
