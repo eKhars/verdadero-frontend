@@ -22,14 +22,14 @@ function Reviews() {
   }, [user.id]);
 
   return (
-    <div className="min-h-screen">
+    <div style={{ marginBottom: '100px'}}>
       <article className="p-4 mx-auto max-w-md mt-6">
         <h1 className="text-2xl font-semibold mb-4 text-center text-orange-500">
           Reseñas
         </h1>
 
         <section className="max-h-60 sm:max-h-96 overflow-y-auto" key={1}>
-          { reviewsList.length === 1 ? (<p className="text-gray-500 text-2xl bg-zinc-900 rounded-lg p-4 shadow-md mb-4 text-center">Aquí aparecerán tus reseñas</p>) : (reviewsList.map((review) => (
+          { reviewsList.length === 0 ? (<p className="text-gray-500 text-2xl bg-zinc-900 rounded-lg p-4 shadow-md mb-4 text-center">Aquí aparecerán tus reseñas</p>) : (reviewsList.map((review) => (
             <div
               key={review.id}
               className="bg-zinc-900 rounded-lg p-4 shadow-md mb-4"

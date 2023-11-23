@@ -1,7 +1,9 @@
 import React, { useState, useRef } from "react";
 import NavBar from "../common/NavBar";
+import { useAuth } from "../../context/AuthContext";
 
 function EditProfile() {
+  const { user } = useAuth()
   const [formData, setFormData] = useState({
     profilePicture: "",
     firstName: "",
@@ -36,20 +38,22 @@ function EditProfile() {
 
   return (
     <div className="max-w-md mx-auto p-4">
+      <div className="absolute top-6 left-0 sm:left-1/4 w-full sm:w-1/2 h-1 bg-orange-500"></div>
       <img
         src="/barhallaLogo.png"
         alt="Barhalla Logo"
-        className="w-40 h-40 mx-auto mb-4"
+        className="w-40 h-40 mx-auto mb-2"
       />
       <h1 className="text-2xl font-semibold mb-4 text-center text-orange-500">
         Editar Perfil
       </h1>
+      <div className="absolute top-29 left-0 sm:left-1/4 w-full sm:w-1/2 h-1 bg-orange-500"></div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="text-center">
           <img
             src={previewImage || formData.profilePicture || "/y.jpeg"}
             alt="Foto de perfil"
-            className="w-32 h-32 mx-auto rounded-full object-cover"
+            className="w-32 h-32 mx-auto rounded-full object-cover mt-10"
           />
           <button
             type="button"
@@ -77,7 +81,7 @@ function EditProfile() {
             value={formData.firstName}
             onChange={handleChange}
             className="w-full rounded p-2 bg-inherit border border-white"
-            placeholder="Ingresa tu nombre"
+            placeholder={user.firstName}
           />
         </div>
         <div>
@@ -90,7 +94,7 @@ function EditProfile() {
             value={formData.lastName}
             onChange={handleChange}
             className="w-full rounded p-2 bg-inherit border border-white"
-            placeholder="Ingresa tu apellido"
+            placeholder={user.lastName}
           />
         </div>
         <div className="text-center">
