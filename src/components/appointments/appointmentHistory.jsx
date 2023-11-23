@@ -84,7 +84,7 @@ function AppointmentHistory() {
     },
     {
       id: 8,
-      data: "10/10/2021",
+      data: "10/10/2020",
       time: "10:00 AM",
       service: "Corte de Cabello",
       payment: "50%",

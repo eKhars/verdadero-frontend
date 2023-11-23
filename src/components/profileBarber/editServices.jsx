@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faPhone, faMapMarker, faPencilAlt, faSave, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faPhone,
+  faMapMarker,
+  faPencilAlt,
+  faSave,
+} from "@fortawesome/free-solid-svg-icons";
 
 function Services() {
   const [activeSection, setActiveSection] = useState("services");
   const [editMode, setEditMode] = useState(false);
   const [editableData, setEditableData] = useState(null);
-  
 
   const servicios = [
     { nombre: "Servicio 1", precio: "$20" },
@@ -19,7 +24,18 @@ function Services() {
     { nombre: "Servicio 4", precio: "$40" },
   ];
 
-  const horario = ["Lunes: 9 AM - 6 PM", "Sábados: 10 AM - 4 PM"];
+  const horarioInicio = 9;
+  const horarioFin = 18;
+
+  const generarIntervalosHorarios = () => {
+    const intervalos = [];
+    for (let hora = horarioInicio; hora <= horarioFin; hora++) {
+      intervalos.push(`${hora}:00-AM - ${hora + 1}:00-PM`);
+    }
+    return intervalos;
+  };
+
+  const horario = generarIntervalosHorarios();
 
   const contacto = [
     { tipo: "Direccion", valor: "Calle 123, Ciudad" },
@@ -64,16 +80,9 @@ function Services() {
     });
   };
 
-  const handleDeleteClick = (index) => {
-    const updatedServicios = [...servicios];
-    updatedServicios.splice(index, 1);
-  
-  };
-  
-
   return (
     <div className="p-8 flex flex-col lg:flex-col space-y-8 lg:space-x-8">
-      <h1 className="text-center text-2xl text-orange-500">Editar servicos</h1>
+      <h1 className="text-center text-2xl text-orange-500">Editar servicios</h1>
       <div className="flex flex-col items-center relative bg-zinc-950 border border-zinc-800 rounded-lg w-80 h-auto mt-8">
         <nav>
           <ul className="flex space-x-4 mb-2">
@@ -110,7 +119,6 @@ function Services() {
           </ul>
         </nav>
 
-        
         {activeSection === "services" && (
           <section>
             <h2 className="text-orange-500 mb-2 text-center">
@@ -141,31 +149,21 @@ function Services() {
                         <span>{servicio.precio}</span>
                       </div>
                     )}
-                    <div>
-                      {editMode && editableData.index === index ? (
-                        <>
-                          <button onClick={handleSaveClick}>
-                            <FontAwesomeIcon
-                              icon={faSave}
-                              style={{ marginLeft: "8px", color: "green" }}
-                            />
-                          </button>
-                          <button onClick={() => handleDeleteClick(index)}>
-                            <FontAwesomeIcon
-                              icon={faTrashAlt}
-                              style={{ marginLeft: "8px", color: "red" }}
-                            />
-                          </button>
-                        </>
-                      ) : (
-                        <button onClick={() => handleEditClick(index)}>
-                          <FontAwesomeIcon
-                            icon={faPencilAlt}
-                            style={{ marginLeft: "8px", color: "orange" }}
-                          />
-                        </button>
-                      )}
-                    </div>
+                    {editMode && editableData.index === index ? (
+                      <button onClick={handleSaveClick}>
+                        <FontAwesomeIcon
+                          icon={faSave}
+                          style={{ marginLeft: "8px", color: "green" }}
+                        />
+                      </button>
+                    ) : (
+                      <button onClick={() => handleEditClick(index)}>
+                        <FontAwesomeIcon
+                          icon={faPencilAlt}
+                          style={{ marginLeft: "8px", color: "orange" }}
+                        />
+                      </button>
+                    )}
                   </div>
                 </li>
               ))}

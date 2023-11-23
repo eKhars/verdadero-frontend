@@ -2,21 +2,27 @@ import React, { useState } from "react";
 import Modal from "../common/Modal";
 
 function Schedule() {
-  const [availability, setAvailability] = useState([
-    { time: "10:00 AM", available: true },
-    { time: "11:00 AM", available: true },
-    { time: "12:00 PM", available: true },
-    { time: "10:00 AM", available: true },
-    { time: "11:00 AM", available: true },
-    { time: "12:00 PM", available: true },
-  ]);
-
+  const [availability, setAvailability] = useState(generarIntervalosHorarios());
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  function generarIntervalosHorarios() {
+    const intervalos = [];
+    const horarioInicio = 9;
+    const horarioFin = 18;
+
+    for (let hora = horarioInicio; hora <= horarioFin; hora++) {
+      intervalos.push({
+        time: `${hora}:00 AM - ${hora + 1}:00 PM`,
+        available: true,
+      });
+    }
+
+    return intervalos;
+  }
 
   const handleButtonClick = (index) => {
     const updatedAvailability = [...availability];
-    updatedAvailability[index].available =
-      !updatedAvailability[index].available;
+    updatedAvailability[index].available = !updatedAvailability[index].available;
     setAvailability(updatedAvailability);
     setModalIsOpen(true);
   };
