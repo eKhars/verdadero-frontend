@@ -10,6 +10,8 @@ function BarberForm() {
   const [logo, setLogo] = useState(null);
   const [barberImages, setBarberImages] = useState([]);
 
+  const [services, setServices] = useState([])
+
   const {
     register,
     handleSubmit,

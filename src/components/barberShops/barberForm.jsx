@@ -6,12 +6,95 @@ import { useBarber } from "../../context/BarberContext";
 
 function BarberForm() {
   const { user } = useAuth();
-  const { searchBarbers } = useBarber(); 
+  const { searchBarbers } = useBarber();
   const { searchBarbers: searchBarbersData } = useBarber();
-  const [barberShopsData, setBarberShopsData] = useState([]);
+  // const [barberShopsData, setBarberShopsData] = useState([]);
   const [grupoActual, setGrupoActual] = useState(1);
 
-  console.log(searchBarbersData);
+  // console.log(searchBarbersData);
+
+  const barberShopsData = [
+    {
+      id: 1,
+      description:
+        "lorem ipsum tempor incididunt ut labore et dolore magna aliqua.",
+        logo: "https://res.cloudinary.com/dn1ng7anm/image/upload/v1700700027/hpp0to92uusdmu0guz63.jpg",
+      user: {
+        name: "BarberShop1",
+        
+      },
+    },
+    {
+      id: 2,
+      description:
+        "lorem ipsum tempor incididunt ut labore et dolore magna aliqua.",
+        logo: "https://res.cloudinary.com/dn1ng7anm/image/upload/v1700700123/eelwr6qbsmfra3jftipz.jpg",
+      user: {
+        name: "BarberShop2",
+        
+      },
+    },
+    {
+      id: 3,
+      description:
+        "lorem ipsum tempor incididunt ut labore et dolore magna aliqua.",
+        logo: "https://res.cloudinary.com/dn1ng7anm/image/upload/v1700700141/hpy7slcdlbwkggd9xgyw.jpg",
+      user: {
+        name: "BarberShop3",
+        
+      },
+    },
+    {
+      id: 4,
+      description:
+        "lorem ipsum tempor incididunt ut labore et dolore magna aliqua.",
+        logo: "https://res.cloudinary.com/dn1ng7anm/image/upload/v1700700158/njn8awxn1buwzot1skjm.jpg",
+      user: {
+        name: "BarberShop4",
+        
+      },
+    },
+    {
+      id: 5,
+      description:
+        "lorem ipsum tempor incididunt ut labore et dolore magna aliqua.",
+        logo: "https://res.cloudinary.com/dn1ng7anm/image/upload/v1700700158/njn8awxn1buwzot1skjm.jpg",
+      user: {
+        name: "BarberShop5",
+        
+      },
+    },
+    {
+      id: 6,
+      description:
+        "lorem ipsum tempor incididunt ut labore et dolore magna aliqua.",
+        logo: "https://res.cloudinary.com/dn1ng7anm/image/upload/v1700700223/qxd8b4yhrnnoizgzztdb.jpg",
+      user: {
+        name: "BarberShop6",
+        
+      },
+    },
+    {
+      id: 7,
+      description:
+        "lorem ipsum tempor incididunt ut labore et dolore magna aliqua.",
+        logo: "https://res.cloudinary.com/dn1ng7anm/image/upload/v1700700246/plwquexnd7q69zto7pj6.jpg",
+      user: {
+        name: "BarberShop7",
+        
+      },
+    },
+    {
+      id: 8,
+      description:
+        "lorem ipsum tempor incididunt ut labore et dolore magna aliqua.",
+        logo: "https://res.cloudinary.com/dn1ng7anm/image/upload/v1700700267/yjw7mrh8txza1agujefv.jpg",
+      user: {
+        name: "BarberShop8",
+        
+      },
+    },
+  ];
 
   const barberPorGrupo = 9;
 
@@ -38,7 +121,13 @@ function BarberForm() {
     <div className="flex justify-center items-center text-center">
       <div className="p-4" style={{ marginBottom: "100px" }}>
         <div className={barberShopsData.length > barberPorGrupo ? "" : ""}>
-          <div className={barberPorGrupo === 0 ? className : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"}>
+          <div
+            className={
+              barberPorGrupo === 0
+                ? className
+                : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+            }
+          >
             {barbersGrupo.map((barberShop) => (
               <div
                 key={barberShop.id}

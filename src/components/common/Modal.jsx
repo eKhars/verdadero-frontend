@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { paypalPaymentRequest } from "../../api/payments"
+import { Link } from "react-router-dom";
 
 function Modal({ isOpen, onClose }) {
   const [formaPago, setFormaPago] = useState("completo");
@@ -19,8 +21,10 @@ function Modal({ isOpen, onClose }) {
     setFormaPago(option);
   };
 
-  const handlePagarPaypal = () => {
-    console.log("Pagando con PayPal");
+  const handlePagarPaypal = async () => {
+    const result = await paypalPaymentRequest()
+    console.log(result)
+    // window.location.href = data
   };
 
   const handlePagarTarjeta = () => {

@@ -5,7 +5,6 @@ function RegisterPage() {
         return (
             <div>
                 <RegisterForm/>
-                <SocialButtons />
                 <Rights/>
             </div>
     )

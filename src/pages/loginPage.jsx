@@ -5,7 +5,7 @@ function LoginPage (){
     return(
         <div>
             <LoginForm/>
-            <SocialButtons/>
+            
             <Rights/>
         </div>
     )

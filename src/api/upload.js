@@ -1,3 +1,3 @@
-import axios from "axios";
+import axios from "./axios";
 
-export const uploadImageRequest = (data) => axios.post('http://localhost:3000/api/upload', data)
+export const uploadImageRequest = formData => axios.post('/upload', formData)
