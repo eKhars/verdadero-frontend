@@ -46,12 +46,17 @@ function registerForm() {
             </label>
             <input
               type="text"
-              {...register("firstName", { required: true })}
+              {...register("firstName", { 
+                rquired: {
+                  value: true,
+                  message: "Nombre inválido"
+                },
+              })}
               className="w-full border border-gray-300 p-2 rounded bg-black text-white"
               placeholder="Tu nombre"
             />
             {errors.firstName && (
-              <p className="text-red-500">Nombre inválido</p>
+              <p className="text-red-500">{errors.firstName.message}</p>
             )}
           </div>
           <div className="mb-4">
@@ -60,12 +65,17 @@ function registerForm() {
             </label>
             <input
               type="text"
-              {...register("lastName", { required: true })}
+              {...register("lastName", { 
+                rquired: {
+                  value: true,
+                  message: "Nombre inválido"
+                },
+              })}
               className="w-full border border-gray-300 p-2 rounded bg-black text-white"
               placeholder="Tu apellido"
             />
             {errors.lastName && (
-              <p className="text-red-500">Apellido inválido</p>
+              <p className="text-red-500">{errors.lastName.message}</p>
             )}
           </div>
           <div className="mb-4">
@@ -74,11 +84,20 @@ function registerForm() {
             </label>
             <input
               type="email"
-              {...register("email", { required: true })}
+              {...register("email", {
+                required:{
+                  value: true,
+                  message: 'Email requerido'
+                },
+                pattern:{
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: 'Email invalido'
+                }
+              })}
               className="w-full border border-gray-300 p-2 rounded bg-black"
               placeholder="atencion@barhalla.com"
             />
-            {errors.email && <p className="text-red-500">Correo inválido</p>}
+            {errors.email && <p className="text-red-500">{errors.email.message}</p>}
           </div>
           <div className="mb-4">
             <label className="block text-white text-sm font-bold mb-2">
@@ -86,12 +105,17 @@ function registerForm() {
             </label>
             <input
               type="password"
-              {...register("password", { required: true })}
+              {...register("password", { 
+                required: {
+                  value: true,
+                  message: "Contraseña inválida"
+                }
+              })}
               className="w-full border border-gray-300 p-2 rounded bg-black"
               placeholder="*********"
             />
             {errors.password && (
-              <p className="text-red-500">Contraseña inválida</p>
+              <p className="text-red-500">{errors.password.message}</p>
             )}
           </div>
           <button

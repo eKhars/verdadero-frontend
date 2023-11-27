@@ -4,8 +4,12 @@ import { getAppointmentsRequest } from "../../api/appointments";
 import { useAuth } from "../../context/AuthContext";
 import { useEffect, useState } from "react";
 
+
 function AppointmentHistory() {
+  const [appointmentsData, setAppointmentsData] = useState([]);
   const { user } = useAuth();
+
+
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
@@ -18,14 +22,6 @@ function AppointmentHistory() {
     };
     fetchAppointments();
   }, [user.id]);
-
-
-
-  appointmentsData.sort((a, b) => {
-    const dateA = new Date(a.data);
-    const dateB = new Date(b.data);
-    return dateA - dateB;
-  });
 
   const citasPorGrupo = 6;
   const [grupoActual, setGrupoActual] = useState(1);
@@ -75,6 +71,7 @@ function AppointmentHistory() {
                   className="mx-auto"
                 />
               </div>
+              
             ) : (
               appointmentsList.map((appointment) => (
                 <div
@@ -102,7 +99,6 @@ function AppointmentHistory() {
                 </div>
               ))
             )}
-
           </div>
           <div className="flex justify-center mt-4">
             <button

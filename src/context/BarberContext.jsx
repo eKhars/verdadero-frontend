@@ -20,6 +20,7 @@ export const useBarber = () => {
 
 export function BarberProvider({ children }) {
   const [barbers, setBarbers] = useState([]);
+  const [barber, setBarber] = useState([]);
   const [searchBarbers, setSearchBarbers] = useState([]);
 
   const createBarber = async (barber) => {
@@ -27,6 +28,26 @@ export function BarberProvider({ children }) {
     console.log(res.data);
   };
 
+  const  getBarbers = async () => {
+    try {
+      const res = await getBarbersRequest();
+      console.log(res.data);
+      setBarbers(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getBarber = async (id) => {
+    try {
+      const res = await getBarberRequest(id);
+      console.log(res.data);
+      setBarber(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
   const searchingBarbers = async (city, name) => {
     const res = await searchBarbersShopsRequest(city, name);
     console.log(res.data);
@@ -34,7 +55,7 @@ export function BarberProvider({ children }) {
   };
 
   return (
-    <BarberContext.Provider value={{ barbers, createBarber, searchingBarbers, searchBarbers }}>
+    <BarberContext.Provider value={{ barbers, createBarber, searchingBarbers, searchBarbers, getBarbers, barber, getBarber }}>
       {children}
     </BarberContext.Provider>
   );

@@ -1,35 +1,33 @@
 import React, { useState, useRef } from "react";
 import NavBar from "../common/NavBar";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
 import { useEffect } from "react";
 
 function BarberForm() {
   const [step, setStep] = useState(1);
-  const [logo, setLogo] = useState(null);
-  const [barberImages, setBarberImages] = useState([]);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
+    setValue,
+    control,
   } = useForm();
 
-  const fileInputRef = useRef(null);
+  console.log(errors)
 
-  const handleLogoChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setLogo(URL.createObjectURL(file));
-    }
-  };
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+  });
 
-  const handleFileButtonClick = (e) => {
-    e.preventDefault();
-    fileInputRef.current.click();
-  };
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "services",
+  });
+
 
   const handleNextStep = (e) => {
     e.preventDefault();
@@ -41,28 +39,7 @@ function BarberForm() {
     setStep(step - 1);
   };
 
-  const addService = () => {
-    setServices([...services, { name: "", price: "" }]);
-  };
-
-  const removeService = (index) => {
-    const updatedServices = [...services];
-    updatedServices.splice(index, 1);
-    setServices(updatedServices);
-  };
-
-  const handleImageInputChange = (e) => {
-    const selectedImage = e.target.files[0];
-    if (selectedImage) {
-      setBarberImages([...barberImages, selectedImage]);
-    }
-  };
-
-  const removeImage = (index) => {
-    const updatedImages = [...barberImages];
-    updatedImages.splice(index, 1);
-    setBarberImages(updatedImages);
-  };
+  ;
 
   const cities = [
     "Comitán de Domínguez",
@@ -107,10 +84,24 @@ function BarberForm() {
             </label>
             <input
               type="text"
-              {...register("name", { required: true })}
+              {...register("name", {
+                required: {
+                  value: true,
+                  message: 'Nombre invalido'
+                },
+                maxLength: {
+                  value: 30,
+                  message: 'Maximo 30 caracteres'
+                }
+              })}
               placeholder='Ej. "Bandidos Barbería"'
               className="w-full border rounded-lg px-3 py-2 bg-transparent"
             />
+            {
+              errors.name && <span className="text-red-500">{errors.name.message}</span>
+            }
+
+
           </div>
 
           <div className="mb-4">
@@ -119,11 +110,28 @@ function BarberForm() {
             </label>
             <textarea
               type="text"
-              {...register("description", { required: true })}
+              {...register("description", {
+                required: {
+                  value: true,
+                  message: 'Descripcion requerida'
+                },
+                minLength: {
+                  value: 20,
+                  message: 'Minimo 10 caracteres'
+                },
+                maxLength: {
+                  value: 100,
+                  message: 'Maximo 100 caracteres'
+                }
+              },
+              )}
               placeholder="Descripción de tu barbería"
               className="w-full border rounded-lg px-3 py-2 bg-transparent"
               rows="3"
             />
+            {
+              errors.description && <span className="text-red-500">{errors.description.message}</span>
+            }
           </div>
 
           <div className="mb-4">
@@ -131,9 +139,12 @@ function BarberForm() {
               Ciudad:
             </label>
             <select
-              {...register("locations.0.city", { required: true })}
+              {...register("location", { required: true })}
               className="w-full border rounded-lg px-3 py-2 bg-zinc-950 overflow-auto"
             >
+              {
+                errors.location && <span className="text-red-500">Localidad invalida</span>
+              }
               <option value="">Selecciona una ciudad</option>
               {cities.map((city, index) => (
                 <option key={index} value={city}>
@@ -141,6 +152,60 @@ function BarberForm() {
                 </option>
               ))}
             </select>
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-gray-300">
+              email:
+            </label>
+            <input
+              type="email"
+              {...register("email", {
+                required: {
+                  value: true,
+                  message: 'Email requerido'
+                },
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: 'Email invalido'
+                }
+              },
+
+              )}
+              placeholder="barhalla@correo.com"
+              className="w-full border rounded-lg px-3 py-2 bg-transparent"
+            />
+            {
+              errors.email && <span className="text-red-500">{errors.email.message}</span>
+            }
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="number" className="block text-gray-300">
+              Telefono:
+            </label>
+            <input
+              type="number"
+              {...register("number", {
+                required: {
+                  value: true,
+                  message: 'Numero requerido'
+                },
+                minLength: {
+                  value: 10,
+                  message: 'Minimo 10 digitos'
+                },
+                maxLength: {
+                  value: 10,
+                  message: 'Maximo 10 digitos'
+                }
+              })}
+              placeholder="961-327-2138"
+              className="w-full border rounded-lg px-3 py-2 bg-transparent"
+            />
+            {
+              errors.number && <span className="text-red-500">{errors.number.message}</span>
+            }
           </div>
 
           <div className="mb-4">
@@ -153,26 +218,10 @@ function BarberForm() {
               placeholder="Ej. Calle de Ejemplo"
               className="w-full border rounded-lg px-3 py-2 bg-transparent"
             />
+            {
+              errors.street && <span className="text-red-500">Locacion invalida</span>
+            }
           </div>
-
-          <div className="mb-4">
-            <label htmlFor="logo" className="block text-gray-300">
-              Subir Logo:
-            </label>
-            <input
-              type="file"
-              {...register("logo", { required: true })}
-              className="w-full border rounded-lg px-3 py-2 bg-transparent cursor-pointer"
-            ></input>
-          </div>
-
-          {logo && (
-            <img
-              src={logo}
-              alt="Logo Preview"
-              className="w-24 h-24 mx-auto mb-4"
-            />
-          )}
 
           <button
             type="submit"
@@ -184,17 +233,20 @@ function BarberForm() {
       )}
 
       {step === 2 && (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={onSubmit}>
           <div className="mb-4">
             <label htmlFor="workDays" className="block text-gray-300">
               Días de trabajo:
             </label>
             <input
               type="text"
-              {...register("days", { required: true })}
+              {...register("workingDays", { required: true })}
               placeholder='Ej. "Lunes, Martes, Miércoles"'
               className="w-full border rounded-lg px-3 py-2 bg-transparent"
             />
+            {
+              errors.workingDays && <span className="text-red-500">Dias invalidos</span>
+            }
           </div>
 
           <div className="mb-4">
@@ -207,80 +259,97 @@ function BarberForm() {
               placeholder='Ej. "8:00 AM - 6:00 PM"'
               className="w-full border rounded-lg px-3 py-2 bg-transparent"
             />
+            {
+              errors.schedule && <span className="text-red-500">Horario invalido</span>
+            }
           </div>
 
           <div className="mb-4">
-            <label htmlFor="workHours" className="block text-gray-300"></label>
-            {services.map((service, index) => (
-              <div key={index}>
-                <h2>Servicios:</h2>
+            <label htmlFor="services" className="block text-gray-300">
+              Servicios:
+            </label>
+            {fields.map((service, index) => (
+              <div key={service.id} className="mb-4">
                 <input
                   type="text"
-                  {...register("servicesName", { required: true })}
+                  {...register(`services.${index}.name`, {
+                    required: "Nombre del servicio requerido",
+                  })}
                   placeholder="Corte de cabello"
-                  className="w-full border rounded-lg px-3 py-2 bg-transparent mb-4"
+                  className="w-full border rounded-lg px-3 py-2 bg-transparent mb-2"
                 />
+                {errors.services?.[index]?.name && (
+                  <span className="text-red-500">
+                    {errors.services[index].name.message}
+                  </span>
+                )}
+
                 <input
                   type="number"
-                  {...register("servicesPrice", { required: true })}
+                  {...register(`services.${index}.price`, {
+                    required: "Precio del servicio requerido",
+                  })}
                   placeholder="$120"
-                  className="w-full border rounded-lg px-3 py-2 bg-transparent mb-4"
+                  className="w-full border rounded-lg px-3 py-2 bg-transparent"
                 />
-                {index === 0 ? null : (
+                {errors.services?.[index]?.price && (
+                  <span className="text-red-500">
+                    {errors.services[index].price.message}
+                  </span>
+                )}
+
+                {fields.length > 1 && (
                   <button
                     type="button"
-                    className="border border-orange-500 hover:bg-zinc-900 text-white px-6 py-2 rounded-lg mb-2 ml-5"
-                    onClick={() => removeService(index)}
+                    onClick={() => remove(index)}
+                    className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg ml-4 mt-4"
                   >
                     Eliminar Servicio
                   </button>
                 )}
-                {index === services.length - 1 && (
-                  <button
-                    type="button"
-                    className="border hover-bg-zinc-900 text-white px-6 py-2 rounded-lg ml-5"
-                    onClick={addService}
-                  >
-                    Agregar Servicio
-                  </button>
-                )}
               </div>
             ))}
+
+            <button
+              type="button"
+              onClick={() => append({ name: "", price: "" })}
+              className="bg-zinc-800 hover:bg-zinc-900 text-white px-6 py-2 rounded-lg"
+            >
+              Agregar Servicio
+            </button>
           </div>
 
           <div className="mb-4">
-            <label htmlFor="barberImages" className="block text-gray-300 mb-4">
-              Imágenes de la Barbería (máximo 4):
+            <label htmlFor="logo" className="block text-gray-300">
+              Subir Logo:
+            </label>
+            <input
+              type="file" onChange={(e) => {
+                console.log(e.target.files[0])
+                setValue("logo", e.target.files[0].name)
+              }
+              }
+              className="w-full border rounded-lg px-3 py-2 bg-transparent cursor-pointer"
+            >
+            </input>
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="photo" className="block text-gray-300">
+              Subir imágenes de la barbería:
             </label>
 
-            {barberImages.map((image, index) => (
-              <div key={index} className="mb-2">
-                <img
-                  src={URL.createObjectURL(image)}
-                  alt={`Image ${index + 1}`}
-                  className="w-24 h-24 inline-block mr-2"
-                />
-                <button
-                  type="button"
-                  className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded"
-                  onClick={() => removeImage(index)}
-                >
-                  Eliminar
-                </button>
-              </div>
+            {[1, 2, 3, 4].map((index) => (
+              <input
+                key={index}
+                type="file"
+                onChange={(e) => {
+                  console.log(e.target.files[0]);
+                  setValue(`photo${index}`, e.target.files[0].name);
+                }}
+                className="w-full border rounded-lg px-3 py-2 bg-transparent cursor-pointer"
+              />
             ))}
-
-            {barberImages.length < 4 && (
-              <label className="w-full border rounded-lg ml-4 px-3 py-2 cursor-pointer bg-orange-500 text-white hover:bg-orange-600">
-                Agregar Imagen
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageInputChange}
-                  style={{ display: "none" }}
-                />
-              </label>
-            )}
           </div>
 
           <button
@@ -295,6 +364,7 @@ function BarberForm() {
           >
             Crear Barbería
           </button>
+          {/* '  {JSON.stringify(watch(), null, 2)}' */}
         </form>
       )}
       <div className="mt-20">

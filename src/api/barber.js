@@ -1,7 +1,7 @@
 import axios from "./axios";
 
-export const getBarbersRequest = () => axios.get("/barbers");
-export const getBarberRequest = (id) => axios.get(`/barbers/${id}`);
+export const getBarbersRequest = () => axios.get("/barberShops");
+export const getBarberRequest = (id) => axios.get(`/barbershop/${id}`);
 export const getUserBarberShopsRequest = (id) => axios.get(`/user-barbershops/${id}`);
 export const searchBarbersShopsRequest = (query) => axios.get(`/barbershop/search`, query );
 export const createBarberRequest = (barber) => axios.post("/barbers", barber);

@@ -1,4 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useBarber } from "../../context/BarberContext";
+import { useEffect } from 'react';
+import { useParams } from "react-router-dom";
+
 import {
   faEnvelope,
   faPhone,
@@ -7,6 +11,14 @@ import {
 import React, { useState } from "react";
 
 function Services() {
+
+  const params = useParams();
+  const {  getBarber, barber } = useBarber();
+
+  useEffect(() => {
+      getBarber(params.id);
+  }, []);
+  
   const [activeSection, setActiveSection] = useState("services");
   const [newReview, setNewReview] = useState({ title: "", content: "" });
   const [reviews, setReviews] = useState([
