@@ -1,20 +1,18 @@
 import { ArrowLeft, ArrowRight } from "react-feather";
 import NavBar from "../common/NavBar";
-import { getAppointmentsRequest } from "../../api/appointments";
+import { getUserAppointmentsRequest } from "../../api/appointments";
 import { useAuth } from "../../context/AuthContext";
 import { useEffect, useState } from "react";
-
 
 function AppointmentHistory() {
   const [appointmentsData, setAppointmentsData] = useState([]);
 
   const { user } = useAuth();
 
-
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const response = await getAppointmentsRequest(user.id);
+        const response = await getUserAppointmentsRequest(user.id);
         console.log(response.data);
         setAppointmentsData(response.data);
       } catch (error) {
@@ -60,7 +58,13 @@ function AppointmentHistory() {
         </h1>
         <div className="absolute top-40 left-0 sm:left-1/4 w-full sm:w-1/2 h-1 bg-orange-500"></div>
         <div className={appointmentsData.length > citasPorGrupo ? "" : ""}>
-          <div className={appointmentsData.length === 0 ? "" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"}>
+          <div
+            className={
+              appointmentsData.length === 0
+                ? ""
+                : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+            }
+          >
             {appointmentsList.length === 0 ? (
               <div>
                 <p className="text-gray-500 text-2xl bg-zinc-900 rounded-lg p-4 shadow-md mb-4">
@@ -72,7 +76,6 @@ function AppointmentHistory() {
                   className="mx-auto"
                 />
               </div>
-              
             ) : (
               appointmentsList.map((appointment) => (
                 <div
