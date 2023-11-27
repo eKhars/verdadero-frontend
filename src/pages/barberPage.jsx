@@ -5,7 +5,6 @@ function BarberPage() {
     const params = useParams();
     return (
         <div>
-            <h1>barberiaDetails:{params.id}</h1>
              <MyBarber />
         </div>
        

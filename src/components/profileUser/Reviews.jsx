@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Navbar from "../common/NavBar";
 import { useAuth } from "../../context/AuthContext";
 import { getReviewsRequest } from "../../api/reviews";
+import { logoutRequest } from "../../api/auth";
 
 function Reviews() {
   const { user } = useAuth();
@@ -20,6 +21,15 @@ function Reviews() {
     };
     fetchReviews();
   }, [user.id]);
+
+  const handleLogout = async () => {
+    try {
+      await logoutRequest();
+      window.location.href = "/";
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+    }
+  }
 
   return (
     <div style={{ marginBottom: '100px'}}>
@@ -55,6 +65,12 @@ function Reviews() {
           <a href="/register-barber">
             <button className="border text-white w-80 h-12 rounded-lg hover:border-black hover:text-black hover:bg-white">
               ¿Tienes una barbería?
+            </button>
+          </a>
+
+          <a href="/register-barber">
+            <button onClick={handleLogout}  className="border border-red-500  text-red-500 w-80 h-12 rounded-lg hover:border-black hover:text-black hover:bg-red-800">
+              Cerrar Sesión
             </button>
           </a>
         </div>
