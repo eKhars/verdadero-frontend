@@ -58,8 +58,14 @@ function myBarberShops() {
         </h1>
         <div className="absolute top-25 left-0 sm:left-1/4 w-full sm:w-1/2 h-1 bg-orange-500"></div>
         <div className={barberShopsData.length > barberPorGrupo ? "" : ""}>
-          <div className={barberShopsData.length === 0 ? "my-8" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"}>
-            { barbersList.length === 0 ? (
+          <div
+            className={
+              barberShopsData.length === 0
+                ? "my-8"
+                : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+            }
+          >
+            {barbersList.length === 0 ? (
               <div>
                 <p className="text-gray-500 text-2xl bg-zinc-900 rounded-lg p-4 shadow-md mb-4 my-3">
                   ¡Uups, aún no tienes barberías registradas!
@@ -96,7 +102,7 @@ function myBarberShops() {
                   </div>
                 </div>
               ))
-            ) }
+            )}
           </div>
           <div className="flex justify-center mt-2">
             <button
