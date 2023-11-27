@@ -336,7 +336,7 @@ function BarberForm() {
             </input>
           </div>
 
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label htmlFor="photo" className="block text-gray-300">
               Subir imágenes de la barbería:
             </label>
@@ -352,7 +352,7 @@ function BarberForm() {
                 className="w-full border rounded-lg px-3 py-2 bg-transparent cursor-pointer"
               />
             ))}
-          </div>
+          </div> */}
 
           <button
             onClick={handlePrevStep}

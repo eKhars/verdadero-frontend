@@ -11,7 +11,12 @@ function EditProfile() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      firstName: user.firstName,
+      lastName: user.lastName,
+    },
+  });
   const [imagePreview, setImagePreview] = useState(null);
 
   const handleFileInputChange = (event) => {
@@ -22,14 +27,12 @@ function EditProfile() {
 
   const onSubmit = handleSubmit(async (values) => {
     console.log(values);
-    if(values.photo) {
+    if (imagePreview) {
       const formData = new FormData();
       formData.append("file", values.photo[0]);
       await uploadImageRequest(formData);
-      updateClientRequest(user.id, values);
-    } else {
-      updateClientRequest(user.id, values);
     }
+    updateClientRequest(user.id, values);
   });
 
   return (
@@ -53,7 +56,7 @@ function EditProfile() {
           />
           <input
             type="file"
-            className="my-4"  
+            className="my-4"
             {...register("photo")}
             // {errors.photo && <p className="text-red-500">Foto inválida</p>}
             onChange={handleFileInputChange}

@@ -3,9 +3,18 @@ import NavBar from "../common/NavBar";
 import { useNavigate } from "react-router-dom";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
+import { useBarber } from "../../context/BarberContext";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 function BarberForm() {
+  const params = useParams();
+  const { getBarber, barber } = useBarber();
+
+  useEffect(() => {
+    getBarber(params.id);
+  }, []);
+  
   const [step, setStep] = useState(1);
 
   const {
@@ -16,6 +25,7 @@ function BarberForm() {
     setValue,
     control,
   } = useForm();
+  
 
   console.log(errors)
 
@@ -65,6 +75,7 @@ function BarberForm() {
   return (
     <section className="p-4 mx-auto max-w-md mt-6 text-center">
       <header>
+        <h1>{params.id}</h1>
         <img
           src="/barhallaLogo.png"
           alt="Barhalla Logo"
@@ -333,7 +344,7 @@ function BarberForm() {
             >
             </input>
           </div>
-
+{/* 
           <div className="mb-4">
             <label htmlFor="photo" className="block text-gray-300">
               Subir imágenes de la barbería:
@@ -350,7 +361,7 @@ function BarberForm() {
                 className="w-full border rounded-lg px-3 py-2 bg-transparent cursor-pointer"
               />
             ))}
-          </div>
+          </div> */}
 
           <button
             onClick={handlePrevStep}
