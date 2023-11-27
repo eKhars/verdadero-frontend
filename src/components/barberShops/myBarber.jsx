@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Services from "../barberShops/services"
-import NavBar from "../common/NavBar"
+import NavBar from "../common/NavBar"   
 import { useAuth } from "../../context/AuthContext";
 import { useBarber } from "../../context/BarberContext";
 import { useEffect } from 'react';
