@@ -4,6 +4,7 @@ import { getAppointmentsRequest } from "../../api/appointments";
 import { useAuth } from "../../context/AuthContext";
 import { useEffect, useState } from "react";
 
+
 function AppointmentHistory() {
   const [appointmentsData, setAppointmentsData] = useState([]);
 
@@ -71,6 +72,7 @@ function AppointmentHistory() {
                   className="mx-auto"
                 />
               </div>
+              
             ) : (
               appointmentsList.map((appointment) => (
                 <div

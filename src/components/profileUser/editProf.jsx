@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import NavBar from "../common/NavBar";
 import { useAuth } from "../../context/AuthContext";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { uploadImageRequest } from "../../api/upload";
 import { updateClientRequest } from "../../api/client";
 
@@ -12,41 +12,23 @@ function EditProfile() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [imagePreview, setImagePreview] = useState("");
-  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
   const handleFileInputChange = (event) => {
-    const file = event.target.files[0];
-    const objectUrl = URL.createObjectURL(file);
-    setImage(file);
+    const fileURL = event.target.files[0];
+    const objectUrl = URL.createObjectURL(fileURL);
     setImagePreview(objectUrl);
   };
 
-  const upload = async () => {
-    if (imagePreview !== user.photo) {
-        const formData = new FormData();
-        formData.append("file", image);
-
-        const uploadResponse = await uploadImageRequest(formData);
-        imageUrl = uploadResponse.secure_url;
-      }
-
-  }
-
   const onSubmit = handleSubmit(async (values) => {
-    let imageUrl = user.photo;
-    try {
-
-      await upload();
-      
-      await updateClientRequest(user.id, {
-        ...values,
-        photo: imageUrl,
-      });
-
-      console.log("Perfil actualizado");
-    } catch (error) {
-      console.log(error);
+    console.log(values);
+    if(values.photo) {
+      const formData = new FormData();
+      formData.append("file", values.photo[0]);
+      await uploadImageRequest(formData);
+      updateClientRequest(user.id, values);
+    } else {
+      updateClientRequest(user.id, values);
     }
   });
 
@@ -62,21 +44,17 @@ function EditProfile() {
         Editar Perfil
       </h1>
       <div className="absolute top-29 left-0 sm:left-1/4 w-full sm:w-1/2 h-1 bg-orange-500"></div>
-      <form
-        onSubmit={onSubmit}
-        className="space-y-4"
-        encType="multipart/form-data"
-      >
+      <form onSubmit={onSubmit} className="space-y-4">
         <div className="text-center">
           <img
-            src={user?.photo}
+            src={imagePreview ? imagePreview : user.photo}
             alt="Foto de perfil"
             className="w-32 h-32 mx-auto rounded-full object-cover mt-10"
           />
           <input
             type="file"
-            className="my-4"
-            // {...register("photo", { required: true })}
+            className="my-4"  
+            {...register("photo")}
             // {errors.photo && <p className="text-red-500">Foto inválida</p>}
             onChange={handleFileInputChange}
           />
