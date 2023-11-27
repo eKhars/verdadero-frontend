@@ -65,7 +65,7 @@ function myBarberShops() {
                 : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
             }
           >
-            {barbersList.length === 0 ? (
+            {barberShopsData.length === 0 ? (
               <div>
                 <p className="text-gray-500 text-2xl bg-zinc-900 rounded-lg p-4 shadow-md mb-4 my-3">
                   ¡Uups, aún no tienes barberías registradas!

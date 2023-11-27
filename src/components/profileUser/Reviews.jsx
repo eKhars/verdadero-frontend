@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Navbar from "../common/NavBar";
 import { useAuth } from "../../context/AuthContext";
-import { getReviewsRequest } from "../../api/reviews";
+import { getUserReviewsRequest } from "../../api/reviews";
 import { logoutRequest } from "../../api/auth";
 
 function Reviews() {
@@ -12,7 +12,7 @@ function Reviews() {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await getReviewsRequest(user.id);
+        const response = await getUserReviewsRequest(user.id);
         console.log(response.data);
         setReviewsList(response.data);
       } catch (error) {

@@ -1,3 +1,3 @@
 import axios from "./axios";
 
-export const getAppointmentsRequest = () => axios.get(`/appointments`);
+export const getUserAppointmentsRequest = id => axios.get(`/user-appointments/${id}`);  
