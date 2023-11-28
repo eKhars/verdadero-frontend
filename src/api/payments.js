@@ -1,3 +1,3 @@
 import axios from "./axios";
 
-export const paypalPaymentRequest = () => axios.get('/create-order')
+export const paypalPaymentRequest = async () => axios.get('/create-order')

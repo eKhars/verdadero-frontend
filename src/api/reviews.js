@@ -1,3 +1,3 @@
 import axios from "./axios";
 
-export const getUserReviewsRequest = id => axios.get(`/reviews/${id}`);
+export const getUserReviewsRequest = async (id) => axios.get(`/reviews/${id}`);
