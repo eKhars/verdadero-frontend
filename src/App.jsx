@@ -34,7 +34,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/barber-shop/:id" element={<BarberPage />} />
               <Route
-                path="/barber-shop/appointment"
+                path="/barber-shop/appointment/:id"
                 element={<ScheduleAppointment />}
               />
 

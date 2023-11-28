@@ -65,6 +65,23 @@ function Services() {
     setNewReview({ title: "", content: "" });
   };
 
+  const intervaloUnaHora = 60 * 60 * 1000;
+
+  const obtenerIntervalosUnaHora = (horario) => {
+    const [inicio, fin] = horario.split(' - ');
+    const inicioHora = new Date(`01/01/2023 ${inicio}`).getTime();
+    const finHora = new Date(`01/01/2023 ${fin}`).getTime();
+
+    const intervalos = [];
+    for (let hora = inicioHora; hora < finHora; hora += intervaloUnaHora) {
+      const horaActual = new Date(hora);
+      const horaFormateada = horaActual.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+      intervalos.push(horaFormateada);
+    }
+
+    return intervalos;
+  };
+
   return (
     <div className="p-8 flex flex-col lg:flex-row space-y-8 lg:space-x-8">
       <div className="flex flex-col items-center relative bg-zinc-950 border border-zinc-800 rounded-lg w-80  mt-8">
@@ -120,33 +137,37 @@ function Services() {
             <h2 className="text-orange-500">Horario</h2>
             <ul>
               {barber.workingDays.schedule.split(',').map((horarioItem, index) => (
-                <li className="mb-2" key={index}>
-                  {horarioItem.trim()}{" "}
+                <li key={index}>
+                  {obtenerIntervalosUnaHora(horarioItem.trim()).map((intervalo, i, array) => (
+                    <div key={i} className="mb-2">
+                      {`${intervalo} a ${array[i + 1]}`}
+                    </div>
+                  ))}
                 </li>
               ))}
             </ul>
           </section>
         )}
 
-{activeSection === "contact" && barber.contact && (
-  <section>
-    <h2 className="text-orange-500">Contacto</h2>
-    <div>
-      <div className="mb-2">
-        <div className="flex justify-between">
-          <span className="mr-4">Teléfono:</span>
-          <span className="ml-4">{barber.contact.phone}</span>
-        </div>
-      </div>
-      <div className="mb-2">
-        <div className="flex justify-between">
-          <span className="mr-4">Correo electrónico:</span>
-          <span className="ml-4">{barber.contact.email}</span>
-        </div>
-      </div>
-    </div>
-  </section>
-)}
+        {activeSection === "contact" && barber.contact && (
+          <section>
+            <h2 className="text-orange-500">Contacto</h2>
+            <div>
+              <div className="mb-2">
+                <div className="flex justify-between">
+                  <span className="mr-4">Teléfono:</span>
+                  <span className="ml-4">{barber.contact.phone}</span>
+                </div>
+              </div>
+              <div className="mb-2">
+                <div className="flex justify-between">
+                  <span className="mr-4">Correo electrónico:</span>
+                  <span className="ml-4">{barber.contact.email}</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
 
       </div>
 

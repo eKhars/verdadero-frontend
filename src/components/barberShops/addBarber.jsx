@@ -68,11 +68,11 @@ function BarberForm() {
     <section className="p-4 mx-auto max-w-md mt-6 text-center">
       <header>
         <img
-          src="barhallaLogo.png"
+          src="/barhallaLogo.png"
           alt="Barhalla Logo"
           className="w-40 h-40 mx-auto mb-4"
         />
-        <h2 className="text-2xl font-semibold mb-4">Registra tu Barbería</h2>
+        <h2 className="text-2xl font-semibold mb-4">Editar datos de la Barberia</h2>
         <h3 className="font-semibold mb-4 text-orange-500">
           La mejor gestión para tu barbería
         </h3>
@@ -136,94 +136,67 @@ function BarberForm() {
             }
           </div>
 
-          <div className="mb-4">
-            <label htmlFor="city" className="block text-gray-300">
-              Ciudad:
-            </label>
-            <select
-              {...register("location", { required: true })}
-              className="w-full border rounded-lg px-3 py-2 bg-zinc-950 overflow-auto"
-            >
-              {
-                errors.location && <span className="text-red-500">Localidad invalida</span>
-              }
-              <option value="">Selecciona una ciudad</option>
-              {cities.map((city, index) => (
-                <option key={index} value={city}>
-                  {city}
-                </option>
-              ))}
-            </select>
-          </div>
+        
+      <div className="mb-4">
+        <label htmlFor="city" className="block text-gray-300">
+          Ciudad:
+        </label>
+        <input
+          type="text"
+          {...register("location.city", { required: true })}
+          className="w-full border rounded-lg px-3 py-2 bg-zinc-950 overflow-auto"
+          placeholder="Ej. Tuxtla Gutiérrez"
+        />
+        {errors["location.city"] && (
+          <span className="text-red-500">Ciudad requerida</span>
+        )}
+      </div>
 
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-300">
-              email:
-            </label>
-            <input
-              type="email"
-              {...register("email", {
-                required: {
-                  value: true,
-                  message: 'Email requerido'
-                },
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: 'Email invalido'
-                }
-              },
+      <div className="mb-4">
+        <label htmlFor="street" className="block text-gray-300">
+          Calle:
+        </label>
+        <input
+          type="text"
+          {...register("location.street", { required: true })}
+          className="w-full border rounded-lg px-3 py-2 bg-transparent"
+          placeholder="Ej. 1a Poniente Norte"
+        />
+        {errors["location.street"] && (
+          <span className="text-red-500">Calle requerida</span>
+        )}
+      </div>
 
-              )}
-              placeholder="barhalla@correo.com"
-              className="w-full border rounded-lg px-3 py-2 bg-transparent"
-            />
-            {
-              errors.email && <span className="text-red-500">{errors.email.message}</span>
-            }
-          </div>
 
-          <div className="mb-4">
-            <label htmlFor="number" className="block text-gray-300">
-              Telefono:
-            </label>
-            <input
-              type="number"
-              {...register("number", {
-                required: {
-                  value: true,
-                  message: 'Numero requerido'
-                },
-                minLength: {
-                  value: 10,
-                  message: 'Minimo 10 digitos'
-                },
-                maxLength: {
-                  value: 10,
-                  message: 'Maximo 10 digitos'
-                }
-              })}
-              placeholder="961-327-2138"
-              className="w-full border rounded-lg px-3 py-2 bg-transparent"
-            />
-            {
-              errors.number && <span className="text-red-500">{errors.number.message}</span>
-            }
-          </div>
+      <div className="mb-4">
+        <label htmlFor="phone" className="block text-gray-300">
+          Teléfono:
+        </label>
+        <input
+          type="text"
+          {...register("contact.phone", { required: true })}
+          placeholder="9613272138"
+          className="w-full border rounded-lg px-3 py-2 bg-transparent"
+        />
+        {errors["contact.phone"] && (
+          <span className="text-red-500">Teléfono requerido</span>
+        )}
+      </div>
 
-          <div className="mb-4">
-            <label htmlFor="street" className="block text-gray-300">
-              Calle:
-            </label>
-            <input
-              type="text"
-              {...register("street", { required: true })}
-              placeholder="Ej. Calle de Ejemplo"
-              className="w-full border rounded-lg px-3 py-2 bg-transparent"
-            />
-            {
-              errors.street && <span className="text-red-500">Locacion invalida</span>
-            }
-          </div>
+      <div className="mb-4">
+        <label htmlFor="email" className="block text-gray-300">
+          Email:
+        </label>
+        <input
+          type="email"
+          {...register("contact.email", { required: true })}
+          placeholder="barhalla@correo.com"
+          className="w-full border rounded-lg px-3 py-2 bg-transparent"
+        />
+        {errors["contact.email"] && (
+          <span className="text-red-500">Email requerido</span>
+        )}
+      </div>
 
           <button
             type="submit"
@@ -236,90 +209,93 @@ function BarberForm() {
 
       {step === 2 && (
         <form onSubmit={onSubmit}>
-          <div className="mb-4">
-            <label htmlFor="workDays" className="block text-gray-300">
-              Días de trabajo:
-            </label>
-            <input
-              type="text"
-              {...register("workingDays", { required: true })}
-              placeholder='Ej. "Lunes, Martes, Miércoles"'
-              className="w-full border rounded-lg px-3 py-2 bg-transparent"
-            />
-            {
-              errors.workingDays && <span className="text-red-500">Dias invalidos</span>
-            }
-          </div>
+          
+    <div className="mb-4">
+      <label htmlFor="workDays" className="block text-gray-300">
+        Días de trabajo:
+      </label>
+      <input
+        type="text"
+        {...register("workingDays.days", { required: true })}
+        placeholder='Ej. "Lunes, Martes, Miércoles"'
+        className="w-full border rounded-lg px-3 py-2 bg-transparent"
+      />
+      {errors["workingDays.days"] && (
+        <span className="text-red-500">Dias invalidos</span>
+      )}
+    </div>
 
-          <div className="mb-4">
-            <label htmlFor="workHours" className="block text-gray-300">
-              Horario de trabajo:
-            </label>
-            <input
-              type="text"
-              {...register("schedule", { required: true })}
-              placeholder='Ej. "8:00 AM - 6:00 PM"'
-              className="w-full border rounded-lg px-3 py-2 bg-transparent"
-            />
-            {
-              errors.schedule && <span className="text-red-500">Horario invalido</span>
-            }
-          </div>
+    <div className="mb-4">
+      <label htmlFor="workHours" className="block text-gray-300">
+        Horario de trabajo:
+      </label>
+      <input
+        type="text"
+        {...register("workingDays.schedule", { required: true })}
+        placeholder='Ej. "8:00 AM - 6:00 PM"'
+        className="w-full border rounded-lg px-3 py-2 bg-transparent"
+      />
+      {errors["workingDays.schedule"] && (
+        <span className="text-red-500">Horario invalido</span>
+      )}
+    </div>
 
-          <div className="mb-4">
-            <label htmlFor="services" className="block text-gray-300">
-              Servicios:
-            </label>
-            {fields.map((service, index) => (
-              <div key={service.id} className="mb-4">
-                <input
-                  type="text"
-                  {...register(`services.${index}.name`, {
-                    required: "Nombre del servicio requerido",
-                  })}
-                  placeholder="Corte de cabello"
-                  className="w-full border rounded-lg px-3 py-2 bg-transparent mb-2"
-                />
-                {errors.services?.[index]?.name && (
-                  <span className="text-red-500">
-                    {errors.services[index].name.message}
-                  </span>
-                )}
+        
+    <div className="mb-4">
+      <label htmlFor="services" className="block text-gray-300">
+        Servicios:
+      </label>
+      {fields.map((servicio, index) => (
+        <div key={servicio.id} className="mb-4">
+          <input
+            type="text"
+            {...register(`services.${index}.name`, {
+              required: "Nombre del servicio requerido",
+            })}
+            placeholder="Corte de cabello"
+            className="w-full border rounded-lg px-3 py-2 bg-transparent mb-2"
+          />
+          {errors.services?.[index]?.name && (
+            <span className="text-red-500">
+              {errors.services[index].name.message}
+            </span>
+          )}
 
-                <input
-                  type="number"
-                  {...register(`services.${index}.price`, {
-                    required: "Precio del servicio requerido",
-                  })}
-                  placeholder="$120"
-                  className="w-full border rounded-lg px-3 py-2 bg-transparent"
-                />
-                {errors.services?.[index]?.price && (
-                  <span className="text-red-500">
-                    {errors.services[index].price.message}
-                  </span>
-                )}
+          <input
+            type="number"
+            {...register(`services.${index}.price`, {
+              required: "Precio del servicio requerido",
+            })}
+            placeholder="$120"
+            className="w-full border rounded-lg px-3 py-2 bg-transparent"
+          />
+          {errors.services?.[index]?.price && (
+            <span className="text-red-500">
+              {errors.services[index].price.message}
+            </span>
+          )}
 
-                {fields.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={() => remove(index)}
-                    className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg ml-4 mt-4"
-                  >
-                    Eliminar Servicio
-                  </button>
-                )}
-              </div>
-            ))}
-
+          {fields.length > 1 && (
             <button
               type="button"
-              onClick={() => append({ name: "", price: "" })}
-              className="bg-zinc-800 hover:bg-zinc-900 text-white px-6 py-2 rounded-lg"
+              onClick={() => remove(index)}
+              className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg ml-4 mt-4"
             >
-              Agregar Servicio
+              Eliminar Servicio
             </button>
-          </div>
+          )}
+        </div>
+      ))}
+
+      <button
+        type="button"
+        onClick={() => append({ name: "", price: "" })}
+        className="bg-zinc-800 hover:bg-zinc-900 text-white px-6 py-2 rounded-lg"
+      >
+        Agregar Servicio
+      </button>
+    </div>
+
 
           <div className="mb-4">
             <label htmlFor="logo" className="block text-gray-300">
@@ -335,8 +311,8 @@ function BarberForm() {
             >
             </input>
           </div>
-
-          {/* <div className="mb-4">
+{/* 
+          <div className="mb-4">
             <label htmlFor="photo" className="block text-gray-300">
               Subir imágenes de la barbería:
             </label>
@@ -375,5 +351,6 @@ function BarberForm() {
     </section>
   );
 }
+
 
 export default BarberForm;
