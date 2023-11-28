@@ -21,6 +21,9 @@ function BarberForm() {
   const [services, setServices] = useState([]);
   const [imagePreview, setImagePreview] = useState(null);
 
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
   const handleFileInputChange = (event) => {
     const fileURL = event.target.files[0];
     const objectUrl = URL.createObjectURL(fileURL);
@@ -36,6 +39,7 @@ function BarberForm() {
     values.logo = logoURL.data
     await createBarberRequest(values);
     console.log("Barberia creada");
+    navigate("/my-barbers");
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -312,8 +316,8 @@ function BarberForm() {
             </label>
             <input
               type="file"
-              onChange={handleFileInputChange}
               {...register("logo")}
+              onChange={handleFileInputChange}
               className="w-full border rounded-lg px-3 py-2 bg-transparent cursor-pointer"
             ></input>
           </div>

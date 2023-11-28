@@ -6,10 +6,12 @@ import { useAuth } from "../../context/AuthContext";
 import { useBarber } from "../../context/BarberContext";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { deleteBarberRequest } from "../../api/barber";
 
 function BarberForm() {
   const params = useParams();
   const { getBarber, barber } = useBarber();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getBarber(params.id);
@@ -37,16 +39,16 @@ function BarberForm() {
       name: barber.name,
       description: barber.description,
       location: {
-        city: barber.location?.city || '',
-        street: barber.location?.street || '',
+        city: barber.location?.city || "",
+        street: barber.location?.street || "",
       },
       contact: {
-        phone: barber.contact?.phone || '',
-        email: barber.contact?.email || '',
+        phone: barber.contact?.phone || "",
+        email: barber.contact?.email || "",
       },
       workingDays: {
-        days: barber.workingDays?.days || '',
-        schedule: barber.workingDays?.schedule || '',
+        days: barber.workingDays?.days || "",
+        schedule: barber.workingDays?.schedule || "",
       },
       services: barber.services || [],
       logo: barber.logo,
@@ -58,24 +60,23 @@ function BarberForm() {
       name: barber.name,
       description: barber.description,
       location: {
-        city: barber.location?.city || '',
-        street: barber.location?.street || '',
+        city: barber.location?.city || "",
+        street: barber.location?.street || "",
       },
       contact: {
-        phone: barber.contact?.phone || '',
-        email: barber.contact?.email || '',
+        phone: barber.contact?.phone || "",
+        email: barber.contact?.email || "",
       },
       workingDays: {
-        days: barber.workingDays?.days || '',
-        schedule: barber.workingDays?.schedule || '',
+        days: barber.workingDays?.days || "",
+        schedule: barber.workingDays?.schedule || "",
       },
       services: barber.services || [],
       logo: barber.logo,
     });
   }, [barber]);
 
-
-  console.log(errors)
+  
 
   const onSubmit = handleSubmit(async (values) => {
     // "    console.log(values);
@@ -87,12 +88,15 @@ function BarberForm() {
     //     updateClientRequest(user.id, values);"
   });
 
+  const deleteBarber =  async () => {
+    await deleteBarberRequest(barber._id);
+    navigate("/my-barbers");
+  }
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "services",
   });
-
 
   const handleNextStep = (e) => {
     e.preventDefault();
@@ -103,8 +107,6 @@ function BarberForm() {
     e.preventDefault();
     setStep(step - 1);
   };
-
-
 
   const cities = [
     "Comitán de Domínguez",
@@ -135,7 +137,9 @@ function BarberForm() {
           alt="Barhalla Logo"
           className="w-40 h-40 mx-auto mb-4"
         />
-        <h2 className="text-2xl font-semibold mb-4">Editar datos de la Barberia</h2>
+        <h2 className="text-2xl font-semibold mb-4">
+          Editar datos de la Barberia
+        </h2>
         <h3 className="font-semibold mb-4 text-orange-500">
           La mejor gestión para tu barbería
         </h3>
@@ -152,21 +156,19 @@ function BarberForm() {
               {...register("name", {
                 required: {
                   value: true,
-                  message: 'Nombre invalido'
+                  message: "Nombre invalido",
                 },
                 maxLength: {
                   value: 30,
-                  message: 'Maximo 30 caracteres'
-                }
+                  message: "Maximo 30 caracteres",
+                },
               })}
               placeholder='Ej. "Bandidos Barbería"'
               className="w-full border rounded-lg px-3 py-2 bg-transparent"
             />
-            {
-              errors.name && <span className="text-red-500">{errors.name.message}</span>
-            }
-
-
+            {errors.name && (
+              <span className="text-red-500">{errors.name.message}</span>
+            )}
           </div>
 
           <div className="mb-4">
@@ -178,27 +180,25 @@ function BarberForm() {
               {...register("description", {
                 required: {
                   value: true,
-                  message: 'Descripcion requerida'
+                  message: "Descripcion requerida",
                 },
                 minLength: {
                   value: 20,
-                  message: 'Minimo 10 caracteres'
+                  message: "Minimo 10 caracteres",
                 },
                 maxLength: {
                   value: 100,
-                  message: 'Maximo 100 caracteres'
-                }
-              },
-              )}
+                  message: "Maximo 100 caracteres",
+                },
+              })}
               placeholder="Descripción de tu barbería"
               className="w-full border rounded-lg px-3 py-2 bg-transparent"
               rows="3"
             />
-            {
-              errors.description && <span className="text-red-500">{errors.description.message}</span>
-            }
+            {errors.description && (
+              <span className="text-red-500">{errors.description.message}</span>
+            )}
           </div>
-
 
           <div className="mb-4">
             <label htmlFor="city" className="block text-gray-300">
@@ -229,7 +229,6 @@ function BarberForm() {
               <span className="text-red-500">Calle requerida</span>
             )}
           </div>
-
 
           <div className="mb-4">
             <label htmlFor="phone" className="block text-gray-300">
@@ -272,7 +271,6 @@ function BarberForm() {
 
       {step === 2 && (
         <form onSubmit={onSubmit}>
-
           <div className="mb-4">
             <label htmlFor="workDays" className="block text-gray-300">
               Días de trabajo:
@@ -302,7 +300,6 @@ function BarberForm() {
               <span className="text-red-500">Horario invalido</span>
             )}
           </div>
-
 
           <div className="mb-4">
             <label htmlFor="services" className="block text-gray-300">
@@ -359,16 +356,15 @@ function BarberForm() {
             </button>
           </div>
 
-
           <div className="text-center">
             <img
               src={imagePreview ? imagePreview : barber.logo}
               alt="Foto de la barberia"
-              className="w-32 h-32 mx-auto rounded-bg object-cover mt-10"
+              className="w-40 h-40 mx-auto rounded-full object-cover"
             />
             <input
               type="file"
-              className="my-4"
+              className="w-full border rounded-lg px-3 py-2 bg-transparent cursor-pointer"
               {...register("photo")}
               // {errors.photo && <p className="text-red-500">Foto inválida</p>}
               onChange={handleFileInputChange}
@@ -405,12 +401,13 @@ function BarberForm() {
           >
             Actualizar
           </button>
+          <button onClick={deleteBarber} className="hover:bg-zinc-900 text-red-500 hover:text-white  border border-red-700 px-8 py-4 rounded-lg mt-4 text-lg">
+            Eliminar Barbería
+          </button>
           {/* '  {JSON.stringify(watch(), null, 2)}' */}
         </form>
       )}
-      <button className="bg-zinc-800 hover:bg-zinc-900 text-white px-6 py-2 rounded-lg mr-4 mt-4">
-        eliminar barberia
-      </button>
+
       <div className="mt-20">
         <NavBar />
       </div>

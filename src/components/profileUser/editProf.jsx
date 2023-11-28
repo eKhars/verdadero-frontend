@@ -33,6 +33,7 @@ function EditProfile() {
       await uploadImageRequest(formData);      
     }
     updateClientRequest(user.id, values);
+    window.location.reload()
   });
 
   return (

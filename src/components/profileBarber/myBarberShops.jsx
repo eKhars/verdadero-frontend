@@ -72,7 +72,7 @@ function myBarberShops() {
             ) : (
               barbersList.map((barberShop) => (
                 <div
-                  key={barberShop.id}
+                  key={barberShop._id}
                   className="p-2 my-3 w-60 bg-zinc-800 rounded-md shadow-md flex flex-col justify-center items-center"
                 >
                   <img
@@ -89,7 +89,7 @@ function myBarberShops() {
                     </p>
                     <Link to={`/my-barbers/edit/${barberShop._id}`}>
                       <button className="bg-zinc-900 border border-orange-500 hover:bg-zinc-950 text-white px-2 py-1 rounded-md mt-2">
-                        Ver mas...
+                        Editar ...
                       </button>
                     </Link>
                   </div>

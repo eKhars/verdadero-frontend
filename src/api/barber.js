@@ -7,5 +7,5 @@ export const searchBarbersShopsRequest = async (query) => axios.get(`/barbershop
 
 export const createBarberRequest = async (barber) => axios.post("/barbershop", barber);
 
-export const updateBarberRequest = async (id, data) => axios.put(`/barbers/${id}`, data);
+export const updateBarberRequest = async (id, data) => axios.put(`/barbershop/${id}`, data);
 export const deleteBarberRequest = async (id) => axios.delete(`/barbershop/${id}`);

@@ -7,12 +7,9 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-
 function MyBarber() {
   const params = useParams();
   const { getBarber, barber } = useBarber();
-
-  
 
   useEffect(() => {
     getBarber(params.id);
@@ -36,13 +33,10 @@ function MyBarber() {
       <img
         src={barber.logo}
         alt="Barber Logo"
-        className="w-80 h-80 rounded-lg max-w-full mt-4"
+        className="w-auto h-80 rounded-lg max-w-full mt-4"
       />
 
-      <p
-        className="text-center mt-2"
-        style={{ textAlign: "justify" }}
-      >
+      <p className="text-center mt-2" style={{ textAlign: "justify" }}>
         {barber.description}
       </p>
       <hr className="w-full mt-4 sm:mt-12 border-t-2 border-orange-500" />
@@ -50,7 +44,7 @@ function MyBarber() {
       <hr className="w-full mt-4 sm:mt-2 border-t-2 border-orange-500" />
       <div>
         <Link to={`/barber-shop/appointment/${barber._id}`}>
-          <button className="bg-orange-500 text-white rounded-lg p-2 px-6 mt-4 hover:bg-orange-600">
+          <button className="bg-orange-500 text-white rounded-lg p-2 px-6 mt-4 hover:bg-orange-600 items-center">
             Agendar Cita
           </button>
         </Link>
