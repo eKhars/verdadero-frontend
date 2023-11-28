@@ -2,6 +2,7 @@ import { createContext, useState, useContext } from "react";
 import {
   getBarberRequest,
   getBarbersRequest,
+  getUserBarberShopsRequest,
   searchBarbersShopsRequest,
   createBarberRequest,
   updateBarberRequest,
@@ -22,6 +23,7 @@ export function BarberProvider({ children }) {
   const [barbers, setBarbers] = useState([]);
   const [barber, setBarber] = useState([]);
   const [searchBarbers, setSearchBarbers] = useState([]);
+  const [userBarbers, setUserBarbers] = useState([]);
 
   const createBarber = async (barber) => {
     const res = await createBarberRequest(barber);
@@ -37,6 +39,16 @@ export function BarberProvider({ children }) {
       console.log(error);
     }
   };
+
+  const getUserBarbers = async () => {
+    try {
+      const res = await getUserBarberShopsRequest();
+      console.log(res.data);
+      setUserBarbers(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const getBarber = async (id) => {
     try {
@@ -55,7 +67,7 @@ export function BarberProvider({ children }) {
   };
 
   return (
-    <BarberContext.Provider value={{ barbers, createBarber, searchingBarbers, searchBarbers, getBarbers, barber, getBarber }}>
+    <BarberContext.Provider value={{ barbers, createBarber, searchingBarbers, searchBarbers, getBarbers, barber, getBarber, getUserBarbers, userBarbers}}>
       {children}
     </BarberContext.Provider>
   );

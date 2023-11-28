@@ -26,11 +26,11 @@ function EditProfile() {
   };
 
   const onSubmit = handleSubmit(async (values) => {
-    console.log(values);
-    if (imagePreview) {
+    if(imagePreview){
+      console.log(values.photo[0]);
       const formData = new FormData();
       formData.append("file", values.photo[0]);
-      await uploadImageRequest(formData);
+      await uploadImageRequest(formData);      
     }
     updateClientRequest(user.id, values);
   });
