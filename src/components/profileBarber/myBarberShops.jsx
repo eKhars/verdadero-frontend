@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight } from "react-feather";
 import NavBar from "../common/NavBar";
 import { useAuth } from "../../context/AuthContext";
 import { useBarber } from "../../context/BarberContext";
+import { Link } from "react-router-dom";
 
 function myBarberShops() {
 
@@ -86,11 +87,11 @@ function myBarberShops() {
                     <p className="text-gray-600 text-xs">
                       {barberShop.description}
                     </p>
-                    <a href="/my-barbers/edit/:id">
+                    <Link to={`/my-barbers/edit/${barberShop._id}`}>
                       <button className="bg-zinc-900 border border-orange-500 hover:bg-zinc-950 text-white px-2 py-1 rounded-md mt-2">
                         Ver mas...
                       </button>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               ))
