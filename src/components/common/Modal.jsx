@@ -1,8 +1,18 @@
 import React, { useState } from "react";
 import { paypalPaymentRequest } from "../../api/payments"
 import { Link } from "react-router-dom";
+import { useBarber } from "../../context/BarberContext";
+import { useEffect } from 'react';
+import { useParams } from "react-router-dom";
 
 function Modal({ isOpen, onClose }) {
+  const params = useParams();
+  const { getBarber, barber } = useBarber();
+
+  useEffect(() => {
+    getBarber(params.id);
+  }, []);
+
   const [formaPago, setFormaPago] = useState("completo");
 
 
@@ -67,7 +77,7 @@ function Modal({ isOpen, onClose }) {
             <div className="sm:w-1/4">
               <img
                 className="mx-auto h-32 w-32 rounded-lg"
-                src={appointmentData.imagen}
+                src={barber.logo}
                 alt="Imagen de la batería"
               />
             </div>
@@ -82,7 +92,7 @@ function Modal({ isOpen, onClose }) {
               </p>
 
               <p className="text-sm text-gray-500">
-                Servicio: {appointmentData.servicio}
+                Servicio: {barber.service}
               </p>
 
               <p className="text-sm text-gray-500 font-bold mt-2">
