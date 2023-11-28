@@ -5,10 +5,14 @@ import { useAuth } from "../../context/AuthContext";
 import { useBarber } from "../../context/BarberContext";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 function MyBarber() {
   const params = useParams();
   const { getBarber, barber } = useBarber();
+
+  
 
   useEffect(() => {
     getBarber(params.id);
@@ -45,11 +49,11 @@ function MyBarber() {
       <Services />
       <hr className="w-full mt-4 sm:mt-2 border-t-2 border-orange-500" />
       <div>
-        <a href="/barber-shop/appointment">
+        <Link to={`/barber-shop/appointment/${barber._id}`}>
           <button className="bg-orange-500 text-white rounded-lg p-2 px-6 mt-4 hover:bg-orange-600">
             Agendar Cita
           </button>
-        </a>
+        </Link>
       </div>
       <hr className="w-full mt-4 sm:mt-4 border-t-2 border-orange-500" />
       <NavBar />

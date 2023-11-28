@@ -1,21 +1,9 @@
 import React, { useState } from "react";
 import Modal from "../common/Modal";
-import { useBarber } from "../../context/BarberContext";
-import { useEffect } from 'react';
-import { useParams } from "react-router-dom";
 
 function Schedule() {
-
-  const params = useParams();
-  const { getBarber, barber } = useBarber();
-
-  useEffect(() => {
-    getBarber(params.id);
-  }, []);
-
   const [availability, setAvailability] = useState(generarIntervalosHorarios());
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const intervaloUnaHora = 60 * 60 * 1000;
 
   function generarIntervalosHorarios() {
     const intervalos = [];
@@ -45,7 +33,7 @@ function Schedule() {
 
   return (
     <div className="max-w-screen-md mx-auto">
-      <h2 className="text-xl font-bold mt-4 mb-4 text-center text-orange-500">
+      {/* <h2 className="text-xl font-bold mt-4 mb-4 text-center text-orange-500">
         Horario
       </h2>
       <table className="w-full border-b-2 border-orange-500 mb-4 bg-zinc-950 shadow-md rounded-lg">
@@ -87,7 +75,7 @@ function Schedule() {
         </tbody>
       </table>
 
-      <Modal isOpen={modalIsOpen} onClose={closeModal} />
+      <Modal isOpen={modalIsOpen} onClose={closeModal} /> */}
     </div>
   );
 }

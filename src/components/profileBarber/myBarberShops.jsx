@@ -3,34 +3,43 @@ import { useState, useEffect } from "react";
 import { ArrowLeft, ArrowRight } from "react-feather";
 import NavBar from "../common/NavBar";
 import { useAuth } from "../../context/AuthContext";
-import { getUserBarberShopsRequest } from "../../api/barber";
+import { useBarber } from "../../context/BarberContext";
+import { Link } from "react-router-dom";
+
 
 function myBarberShops() {
-  const { user } = useAuth();
-  const [barberShopsData, setBarberShopsData] = useState([]);
+ 
+  const {  getBarbers, barbers } = useBarber();
+
 
   useEffect(() => {
-    const fetchBarberShops = async () => {
-      try {
-        const response = await getUserBarberShopsRequest(user.id);
-        console.log(response.data);
-        setBarberShopsData(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchBarberShops();
-  }, [user.id]);
+    getBarbers();
+    console.log(barbers);
+  }, []);
+
+
+  // useEffect(() => {
+  //   const fetchBarberShops = async () => {
+  //     try {
+  //       const response = await getUserBarberShopsRequest(user.id);
+  //       console.log(response.data);
+  //       setBarberShopsData(response.data);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   fetchBarberShops();
+  // }, [user.id]);
 
   const barberPorGrupo = 8;
   const [grupoActual, setGrupoActual] = useState(1);
 
   const inicioBarber = (grupoActual - 1) * barberPorGrupo;
-  const barbersList = barberShopsData.slice(
+  const barbersList = barbers.slice(
     inicioBarber,
     inicioBarber + barberPorGrupo
   );
-  const totalGrupos = Math.ceil(barberShopsData.length / barberPorGrupo);
+  const totalGrupos = Math.ceil(barbers.length / barberPorGrupo);
 
   const siguienteGrupo = () => {
     if (grupoActual < totalGrupos) {
@@ -57,15 +66,15 @@ function myBarberShops() {
           Mis barberías
         </h1>
         <div className="absolute top-25 left-0 sm:left-1/4 w-full sm:w-1/2 h-1 bg-orange-500"></div>
-        <div className={barberShopsData.length > barberPorGrupo ? "" : ""}>
+        <div className={barbers.length > barberPorGrupo ? "" : ""}>
           <div
             className={
-              barberShopsData.length === 0
+              barbers.length === 0
                 ? "my-8"
                 : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
             }
           >
-            {barberShopsData.length === 0 ? (
+            {barbers.length === 0 ? (
               <div>
                 <p className="text-gray-500 text-2xl bg-zinc-900 rounded-lg p-4 shadow-md mb-4 my-3">
                   ¡Uups, aún no tienes barberías registradas!
@@ -94,11 +103,11 @@ function myBarberShops() {
                     <p className="text-gray-600 text-xs">
                       {barberShop.description}
                     </p>
-                    <a href="/my-barbers/edit/:id">
+                    <Link to={`/my-barbers/edit/${barberShop._id}`}>
                       <button className="bg-zinc-900 border border-orange-500 hover:bg-zinc-950 text-white px-2 py-1 rounded-md mt-2">
                         Ver mas...
                       </button>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               ))

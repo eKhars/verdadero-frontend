@@ -14,7 +14,7 @@ function BarberForm() {
   useEffect(() => {
     getBarber(params.id);
   }, []);
-  
+
   const [step, setStep] = useState(1);
   const [imagePreview, setImagePreview] = useState(null);
 
@@ -37,14 +37,14 @@ function BarberForm() {
       name: barber.name,
       description: barber.description,
       location: {
-        city: barber.location?.city || '', 
-        street: barber.location?.street || '', 
+        city: barber.location?.city || '',
+        street: barber.location?.street || '',
       },
-      contact:{
+      contact: {
         phone: barber.contact?.phone || '',
         email: barber.contact?.email || '',
       },
-      workingDays:{
+      workingDays: {
         days: barber.workingDays?.days || '',
         schedule: barber.workingDays?.schedule || '',
       },
@@ -52,20 +52,20 @@ function BarberForm() {
       logo: barber.logo,
     },
   });
-  
+
   useEffect(() => {
     reset({
       name: barber.name,
       description: barber.description,
       location: {
-        city: barber.location?.city || '', 
-        street: barber.location?.street || '', 
+        city: barber.location?.city || '',
+        street: barber.location?.street || '',
       },
-      contact:{
+      contact: {
         phone: barber.contact?.phone || '',
         email: barber.contact?.email || '',
       },
-      workingDays:{
+      workingDays: {
         days: barber.workingDays?.days || '',
         schedule: barber.workingDays?.schedule || '',
       },
@@ -78,13 +78,13 @@ function BarberForm() {
   console.log(errors)
 
   const onSubmit = handleSubmit(async (values) => {
-// "    console.log(values);
-//     if (imagePreview) {
-//       const formData = new FormData();
-//       formData.append("file", values.photo[0]);
-//       await uploadImageRequest(formData);
-//     }
-//     updateClientRequest(user.id, values);"
+    // "    console.log(values);
+    //     if (imagePreview) {
+    //       const formData = new FormData();
+    //       formData.append("file", values.photo[0]);
+    //       await uploadImageRequest(formData);
+    //     }
+    //     updateClientRequest(user.id, values);"
   });
 
 
@@ -104,7 +104,7 @@ function BarberForm() {
     setStep(step - 1);
   };
 
-  
+
 
   const cities = [
     "Comitán de Domínguez",
@@ -199,67 +199,67 @@ function BarberForm() {
             }
           </div>
 
-        
-      <div className="mb-4">
-        <label htmlFor="city" className="block text-gray-300">
-          Ciudad:
-        </label>
-        <input
-          type="text"
-          {...register("location.city", { required: true })}
-          className="w-full border rounded-lg px-3 py-2 bg-zinc-950 overflow-auto"
-          placeholder="Comitán de Domínguez"
-        />
-        {errors["location.city"] && (
-          <span className="text-red-500">Ciudad requerida</span>
-        )}
-      </div>
 
-      <div className="mb-4">
-        <label htmlFor="street" className="block text-gray-300">
-          Calle:
-        </label>
-        <input
-          type="text"
-          {...register("location.street", { required: true })}
-          className="w-full border rounded-lg px-3 py-2 bg-transparent"
-          placeholder="Calle 1, Calle 2, Calle 3"
-        />
-        {errors["location.street"] && (
-          <span className="text-red-500">Calle requerida</span>
-        )}
-      </div>
+          <div className="mb-4">
+            <label htmlFor="city" className="block text-gray-300">
+              Ciudad:
+            </label>
+            <input
+              type="text"
+              {...register("location.city", { required: true })}
+              className="w-full border rounded-lg px-3 py-2 bg-zinc-950 overflow-auto"
+              placeholder="Comitán de Domínguez"
+            />
+            {errors["location.city"] && (
+              <span className="text-red-500">Ciudad requerida</span>
+            )}
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="street" className="block text-gray-300">
+              Calle:
+            </label>
+            <input
+              type="text"
+              {...register("location.street", { required: true })}
+              className="w-full border rounded-lg px-3 py-2 bg-transparent"
+              placeholder="Calle 1, Calle 2, Calle 3"
+            />
+            {errors["location.street"] && (
+              <span className="text-red-500">Calle requerida</span>
+            )}
+          </div>
 
 
-      <div className="mb-4">
-        <label htmlFor="phone" className="block text-gray-300">
-          Teléfono:
-        </label>
-        <input
-          type="text"
-          {...register("contact.phone", { required: true })}
-          placeholder="9613272138"
-          className="w-full border rounded-lg px-3 py-2 bg-transparent"
-        />
-        {errors["contact.phone"] && (
-          <span className="text-red-500">Teléfono requerido</span>
-        )}
-      </div>
+          <div className="mb-4">
+            <label htmlFor="phone" className="block text-gray-300">
+              Teléfono:
+            </label>
+            <input
+              type="text"
+              {...register("contact.phone", { required: true })}
+              placeholder="9613272138"
+              className="w-full border rounded-lg px-3 py-2 bg-transparent"
+            />
+            {errors["contact.phone"] && (
+              <span className="text-red-500">Teléfono requerido</span>
+            )}
+          </div>
 
-      <div className="mb-4">
-        <label htmlFor="email" className="block text-gray-300">
-          Email:
-        </label>
-        <input
-          type="email"
-          {...register("contact.email", { required: true })}
-          placeholder="barhalla@correo.com"
-          className="w-full border rounded-lg px-3 py-2 bg-transparent"
-        />
-        {errors["contact.email"] && (
-          <span className="text-red-500">Email requerido</span>
-        )}
-      </div>
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-gray-300">
+              Email:
+            </label>
+            <input
+              type="email"
+              {...register("contact.email", { required: true })}
+              placeholder="barhalla@correo.com"
+              className="w-full border rounded-lg px-3 py-2 bg-transparent"
+            />
+            {errors["contact.email"] && (
+              <span className="text-red-500">Email requerido</span>
+            )}
+          </div>
 
           <button
             type="submit"
@@ -272,109 +272,109 @@ function BarberForm() {
 
       {step === 2 && (
         <form onSubmit={onSubmit}>
-          
-    <div className="mb-4">
-      <label htmlFor="workDays" className="block text-gray-300">
-        Días de trabajo:
-      </label>
-      <input
-        type="text"
-        {...register("workingDays.days", { required: true })}
-        placeholder='Ej. "Lunes, Martes, Miércoles"'
-        className="w-full border rounded-lg px-3 py-2 bg-transparent"
-      />
-      {errors["workingDays.days"] && (
-        <span className="text-red-500">Dias invalidos</span>
-      )}
-    </div>
 
-    <div className="mb-4">
-      <label htmlFor="workHours" className="block text-gray-300">
-        Horario de trabajo:
-      </label>
-      <input
-        type="text"
-        {...register("workingDays.schedule", { required: true })}
-        placeholder='Ej. "8:00 AM - 6:00 PM"'
-        className="w-full border rounded-lg px-3 py-2 bg-transparent"
-      />
-      {errors["workingDays.schedule"] && (
-        <span className="text-red-500">Horario invalido</span>
-      )}
-    </div>
+          <div className="mb-4">
+            <label htmlFor="workDays" className="block text-gray-300">
+              Días de trabajo:
+            </label>
+            <input
+              type="text"
+              {...register("workingDays.days", { required: true })}
+              placeholder='Ej. "Lunes, Martes, Miércoles"'
+              className="w-full border rounded-lg px-3 py-2 bg-transparent"
+            />
+            {errors["workingDays.days"] && (
+              <span className="text-red-500">Dias invalidos</span>
+            )}
+          </div>
 
-        
-    <div className="mb-4">
-      <label htmlFor="services" className="block text-gray-300">
-        Servicios:
-      </label>
-      {fields.map((servicio, index) => (
-        <div key={servicio.id} className="mb-4">
-          <input
-            type="text"
-            {...register(`services.${index}.name`, {
-              required: "Nombre del servicio requerido",
-            })}
-            placeholder="Corte de cabello"
-            className="w-full border rounded-lg px-3 py-2 bg-transparent mb-2"
-          />
-          {errors.services?.[index]?.name && (
-            <span className="text-red-500">
-              {errors.services[index].name.message}
-            </span>
-          )}
+          <div className="mb-4">
+            <label htmlFor="workHours" className="block text-gray-300">
+              Horario de trabajo:
+            </label>
+            <input
+              type="text"
+              {...register("workingDays.schedule", { required: true })}
+              placeholder='Ej. "8:00 AM - 6:00 PM"'
+              className="w-full border rounded-lg px-3 py-2 bg-transparent"
+            />
+            {errors["workingDays.schedule"] && (
+              <span className="text-red-500">Horario invalido</span>
+            )}
+          </div>
 
-          <input
-            type="number"
-            {...register(`services.${index}.price`, {
-              required: "Precio del servicio requerido",
-            })}
-            placeholder="$120"
-            className="w-full border rounded-lg px-3 py-2 bg-transparent"
-          />
-          {errors.services?.[index]?.price && (
-            <span className="text-red-500">
-              {errors.services[index].price.message}
-            </span>
-          )}
 
-          {fields.length > 1 && (
+          <div className="mb-4">
+            <label htmlFor="services" className="block text-gray-300">
+              Servicios:
+            </label>
+            {fields.map((servicio, index) => (
+              <div key={servicio.id} className="mb-4">
+                <input
+                  type="text"
+                  {...register(`services.${index}.name`, {
+                    required: "Nombre del servicio requerido",
+                  })}
+                  placeholder="Corte de cabello"
+                  className="w-full border rounded-lg px-3 py-2 bg-transparent mb-2"
+                />
+                {errors.services?.[index]?.name && (
+                  <span className="text-red-500">
+                    {errors.services[index].name.message}
+                  </span>
+                )}
+
+                <input
+                  type="number"
+                  {...register(`services.${index}.price`, {
+                    required: "Precio del servicio requerido",
+                  })}
+                  placeholder="$120"
+                  className="w-full border rounded-lg px-3 py-2 bg-transparent"
+                />
+                {errors.services?.[index]?.price && (
+                  <span className="text-red-500">
+                    {errors.services[index].price.message}
+                  </span>
+                )}
+
+                {fields.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => remove(index)}
+                    className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg ml-4 mt-4"
+                  >
+                    Eliminar Servicio
+                  </button>
+                )}
+              </div>
+            ))}
+
             <button
               type="button"
-              onClick={() => remove(index)}
-              className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg ml-4 mt-4"
+              onClick={() => append({ name: "", price: "" })}
+              className="bg-zinc-800 hover:bg-zinc-900 text-white px-6 py-2 rounded-lg"
             >
-              Eliminar Servicio
+              Agregar Servicio
             </button>
-          )}
-        </div>
-      ))}
-
-      <button
-        type="button"
-        onClick={() => append({ name: "", price: "" })}
-        className="bg-zinc-800 hover:bg-zinc-900 text-white px-6 py-2 rounded-lg"
-      >
-        Agregar Servicio
-      </button>
-    </div>
+          </div>
 
 
-    <div className="text-center">
-          <img
-            src={imagePreview ? imagePreview : barber.logo}
-            alt="Foto de la barberia"
-            className="w-32 h-32 mx-auto rounded-bg object-cover mt-10"
-          />
-          <input
-            type="file"
-            className="my-4"
-            {...register("photo")}
-            // {errors.photo && <p className="text-red-500">Foto inválida</p>}
-            onChange={handleFileInputChange}
-          />
-        </div>
-{/* 
+          <div className="text-center">
+            <img
+              src={imagePreview ? imagePreview : barber.logo}
+              alt="Foto de la barberia"
+              className="w-32 h-32 mx-auto rounded-bg object-cover mt-10"
+            />
+            <input
+              type="file"
+              className="my-4"
+              {...register("photo")}
+              // {errors.photo && <p className="text-red-500">Foto inválida</p>}
+              onChange={handleFileInputChange}
+            />
+          </div>
+          {/* 
           <div className="mb-4">
             <label htmlFor="photo" className="block text-gray-300">
               Subir imágenes de la barbería:
@@ -403,11 +403,14 @@ function BarberForm() {
             type="submit"
             className="bg-zinc-800 hover:bg-zinc-900 text-white px-6 py-2 rounded-lg ml-4"
           >
-            Crear Barbería
+            Actualizar
           </button>
           {/* '  {JSON.stringify(watch(), null, 2)}' */}
         </form>
       )}
+      <button className="bg-zinc-800 hover:bg-zinc-900 text-white px-6 py-2 rounded-lg mr-4 mt-4">
+        eliminar barberia
+      </button>
       <div className="mt-20">
         <NavBar />
       </div>
