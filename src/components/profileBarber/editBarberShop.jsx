@@ -6,12 +6,14 @@ import { useAuth } from "../../context/AuthContext";
 import { useBarber } from "../../context/BarberContext";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { deleteBarberRequest } from "../../api/barber";
+import { deleteBarberRequest, updateBarberRequest } from "../../api/barber";
+import { uploadLogoBarberRequest } from "../../api/upload";
 
 function BarberForm() {
   const params = useParams();
   const { getBarber, barber } = useBarber();
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   useEffect(() => {
     getBarber(params.id);
@@ -76,22 +78,24 @@ function BarberForm() {
     });
   }, [barber]);
 
-  
-
   const onSubmit = handleSubmit(async (values) => {
-    // "    console.log(values);
-    //     if (imagePreview) {
-    //       const formData = new FormData();
-    //       formData.append("file", values.photo[0]);
-    //       await uploadImageRequest(formData);
-    //     }
-    //     updateClientRequest(user.id, values);"
+    console.log(barber._id);
+    console.log(values);
+    if (imagePreview) {
+      const formData = new FormData();
+      formData.append("file", values.photo[0]);
+      const logoURL = await uploadLogoBarberRequest(formData);
+      values.logo = logoURL.data;
+    }
+    updateBarberRequest(barber._id, values);
+    console.log("Barberia actualizada");
+    navigate("/my-barbers");
   });
 
-  const deleteBarber =  async () => {
+  const deleteBarber = async () => {
     await deleteBarberRequest(barber._id);
     navigate("/my-barbers");
-  }
+  };
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -397,11 +401,14 @@ function BarberForm() {
           </button>
           <button
             type="submit"
-            className="bg-zinc-800 hover:bg-zinc-900 text-white px-6 py-2 rounded-lg ml-4"
+            className="bg-zinc-800 hover:bg-zinc-900 text-white px-6 py-2 rounded-lg ml-4 mt-3  "
           >
             Actualizar
           </button>
-          <button onClick={deleteBarber} className="hover:bg-zinc-900 text-red-500 hover:text-white  border border-red-700 px-8 py-4 rounded-lg mt-4 text-lg">
+          <button
+            onClick={deleteBarber}
+            className="hover:bg-zinc-900 text-red-500 hover:text-white  border border-red-700 px-8 py-4 rounded-lg mt-4 text-lg"
+          >
             Eliminar Barbería
           </button>
           {/* '  {JSON.stringify(watch(), null, 2)}' */}

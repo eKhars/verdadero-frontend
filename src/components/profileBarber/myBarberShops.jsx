@@ -7,7 +7,6 @@ import { useBarber } from "../../context/BarberContext";
 import { Link } from "react-router-dom";
 
 function myBarberShops() {
-
   const { getUserBarbers, userBarbers } = useBarber();
 
   useEffect(() => {
