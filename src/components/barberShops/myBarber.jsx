@@ -36,7 +36,7 @@ function MyBarber() {
       />
 
       <p
-        className="text-center mt-2 xl:w-2/3 "
+        className="text-center mt-2"
         style={{ textAlign: "justify" }}
       >
         {barber.description}

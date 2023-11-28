@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useBarber } from "../../context/BarberContext";
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import { useParams } from "react-router-dom";
 
 import {
@@ -11,6 +11,7 @@ import {
 import React, { useState } from "react";
 
 function Services() {
+
   const params = useParams();
   const { getBarber, barber } = useBarber();
 
@@ -53,41 +54,6 @@ function Services() {
     },
   ]);
 
-  const servicios = [
-    { nombre: "Servicio 1", precio: "$20" },
-    { nombre: "Servicio 2", precio: "$30" },
-    { nombre: "Servicio 3", precio: "$25" },
-    { nombre: "Servicio 4", precio: "$40" },
-    { nombre: "Servicio 1", precio: "$20" },
-    { nombre: "Servicio 2", precio: "$30" },
-    { nombre: "Servicio 3", precio: "$25" },
-    { nombre: "Servicio 4", precio: "$40" },
-  ];
-
-  const horarioInicio = 9;
-  const horarioFin = 18;
-
-  const generarIntervalosHorarios = () => {
-    const intervalos = [];
-    for (let hora = horarioInicio; hora <= horarioFin; hora++) {
-      intervalos.push(`${hora}:00-AM - ${hora + 1}:00-PM`);
-    }
-    return intervalos;
-  };
-
-  const horario = generarIntervalosHorarios();
-
-  const contacto = [
-    <p key="direccion">
-      <FontAwesomeIcon icon={faMapMarker} /> Dirección: Calle 123, Ciudad
-    </p>,
-    <p key="telefono">
-      <FontAwesomeIcon icon={faPhone} /> Teléfono: (123) 456-7890
-    </p>,
-    <p key="correo">
-      <FontAwesomeIcon icon={faEnvelope} /> Correo: ejemplo@email.com
-    </p>,
-  ];
 
   const handleSectionChange = (section) => {
     setActiveSection(section);
@@ -99,6 +65,23 @@ function Services() {
     setNewReview({ title: "", content: "" });
   };
 
+  const intervaloUnaHora = 60 * 60 * 1000;
+
+  const obtenerIntervalosUnaHora = (horario) => {
+    const [inicio, fin] = horario.split(' - ');
+    const inicioHora = new Date(`01/01/2023 ${inicio}`).getTime();
+    const finHora = new Date(`01/01/2023 ${fin}`).getTime();
+
+    const intervalos = [];
+    for (let hora = inicioHora; hora < finHora; hora += intervaloUnaHora) {
+      const horaActual = new Date(hora);
+      const horaFormateada = horaActual.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+      intervalos.push(horaFormateada);
+    }
+
+    return intervalos;
+  };
+
   return (
     <div className="p-8 flex flex-col lg:flex-row space-y-8 lg:space-x-8">
       <div className="flex flex-col items-center relative bg-zinc-950 border border-zinc-800 rounded-lg w-80  mt-8">
@@ -107,9 +90,8 @@ function Services() {
             <li>
               <button
                 onClick={() => handleSectionChange("services")}
-                className={`hover:text-orange-500 mt-8 border border-zinc-800 p-2 px-2 rounded-lg ${
-                  activeSection === "services" ? "active" : ""
-                }`}
+                className={`hover:text-orange-500 mt-8 border border-zinc-800 p-2 px-2 rounded-lg ${activeSection === "services" ? "active" : ""
+                  }`}
               >
                 Servicios
               </button>
@@ -117,9 +99,8 @@ function Services() {
             <li>
               <button
                 onClick={() => handleSectionChange("schedule")}
-                className={`hover:text-orange-500 mt-8 border border-zinc-800 p-2 px-2 rounded-lg ${
-                  activeSection === "schedule" ? "active" : ""
-                }`}
+                className={`hover:text-orange-500 mt-8 border border-zinc-800 p-2 px-2 rounded-lg ${activeSection === "schedule" ? "active" : ""
+                  }`}
               >
                 Horario
               </button>
@@ -127,9 +108,8 @@ function Services() {
             <li>
               <button
                 onClick={() => handleSectionChange("contact")}
-                className={`hover:text-orange-500 mt-8 border border-zinc-800 p-2 px-2 rounded-lg ${
-                  activeSection === "contact" ? "active" : ""
-                }`}
+                className={`hover:text-orange-500 mt-8 border border-zinc-800 p-2 px-2 rounded-lg ${activeSection === "contact" ? "active" : ""
+                  }`}
               >
                 Contacto
               </button>
@@ -138,49 +118,57 @@ function Services() {
         </nav>
         {activeSection === "services" && (
           <section>
-            <div className="flex justify-between">
-              <h2 className="text-orange-500 mb-2">Servicios</h2>
-              <h2 className="text-orange-500 mb-2 ml-4">costos</h2>
-            </div>
-
+            <h2 className="text-orange-500 mb-2">Servicios</h2>
             <ul>
-              {servicios.map((servicio, index) => (
-                <li key={index} className="mb-2">
-                  <div className="flex justify-between">
-                    <span className="mr-4">{servicio.nombre}</span>
-                    <span className="ml-4">{servicio.precio}</span>
-                  </div>
-                </li>
-              ))}
+              {barber.services &&
+                barber.services.map((servicio, index) => (
+                  <li key={index} className="mb-2">
+                    <div className="flex justify-between">
+                      <span className="mr-4">{servicio.name}</span>
+                      <span className="ml-4">${servicio.price}</span>
+                    </div>
+                  </li>
+                ))}
             </ul>
           </section>
         )}
-
-        {activeSection === "schedule" && (
+        {activeSection === "schedule" && barber.workingDays && (
           <section>
             <h2 className="text-orange-500">Horario</h2>
             <ul>
-              {horario.map((horarioItem, index) => (
-                <li className="mb-2" key={index}>
-                  {horarioItem}{" "}
+              {barber.workingDays.schedule.split(',').map((horarioItem, index) => (
+                <li key={index}>
+                  {obtenerIntervalosUnaHora(horarioItem.trim()).map((intervalo, i, array) => (
+                    <div key={i} className="mb-2">
+                      {`${intervalo} a ${array[i + 1]}`}
+                    </div>
+                  ))}
                 </li>
               ))}
             </ul>
           </section>
         )}
 
-        {activeSection === "contact" && (
+        {activeSection === "contact" && barber.contact && (
           <section>
             <h2 className="text-orange-500">Contacto</h2>
-            <ul>
-              {contacto.map((contactoItem, index) => (
-                <li className="mb-2" key={index}>
-                  {contactoItem}
-                </li>
-              ))}
-            </ul>
+            <div>
+              <div className="mb-2">
+                <div className="flex justify-between">
+                  <span className="mr-4">Teléfono:</span>
+                  <span className="ml-4">{barber.contact.phone}</span>
+                </div>
+              </div>
+              <div className="mb-2">
+                <div className="flex justify-between">
+                  <span className="mr-4">Correo electrónico:</span>
+                  <span className="ml-4">{barber.contact.email}</span>
+                </div>
+              </div>
+            </div>
           </section>
         )}
+
       </div>
 
       <div className="flex flex-col items-center lg:items-start relative bg-zinc-950 border border-zinc-800 rounded-lg p-4 shadow-md">
@@ -194,12 +182,8 @@ function Services() {
                 key={index}
                 className="bg-zinc-900 rounded-lg p-4 shadow-md mb-4"
               >
-                <h1 className="text-white text-xl font-semibold">
-                  {review.author}
-                </h1>
-                <h2 className="text-orange-500 font-semibold">
-                  {review.title}
-                </h2>
+                <h1 className="text-white text-xl font-semibold">{review.author}</h1>
+                <h2 className="text-orange-500 font-semibold">{review.title}</h2>
                 <p className="text-white mt-2">{review.content}</p>
               </div>
             ))}
@@ -210,18 +194,14 @@ function Services() {
           <input
             type="text"
             value={newReview.title}
-            onChange={(e) =>
-              setNewReview({ ...newReview, title: e.target.value })
-            }
+            onChange={(e) => setNewReview({ ...newReview, title: e.target.value })}
             className="border rounded-md p-2 mb-2 bg-zinc-900 "
             required
           />
           <label className="block text-white mb-2">Reseña:</label>
           <textarea
             value={newReview.content}
-            onChange={(e) =>
-              setNewReview({ ...newReview, content: e.target.value })
-            }
+            onChange={(e) => setNewReview({ ...newReview, content: e.target.value })}
             className="border rounded-md p-2 mb-2 bg-zinc-900 "
             required
           ></textarea>

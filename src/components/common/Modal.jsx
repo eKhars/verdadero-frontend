@@ -5,9 +5,6 @@ import { Link } from "react-router-dom";
 function Modal({ isOpen, onClose }) {
   const [formaPago, setFormaPago] = useState("completo");
 
-  const getStripe = () => {
-    return loadStripe("tu_api_key_de_stripe");
-  };
 
   const appointmentData = {
     imagen: "/barber1.png",

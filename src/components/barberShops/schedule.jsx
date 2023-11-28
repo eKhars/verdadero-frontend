@@ -1,9 +1,21 @@
 import React, { useState } from "react";
 import Modal from "../common/Modal";
+import { useBarber } from "../../context/BarberContext";
+import { useEffect } from 'react';
+import { useParams } from "react-router-dom";
 
 function Schedule() {
+
+  const params = useParams();
+  const { getBarber, barber } = useBarber();
+
+  useEffect(() => {
+    getBarber(params.id);
+  }, []);
+
   const [availability, setAvailability] = useState(generarIntervalosHorarios());
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const intervaloUnaHora = 60 * 60 * 1000;
 
   function generarIntervalosHorarios() {
     const intervalos = [];
