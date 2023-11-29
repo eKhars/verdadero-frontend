@@ -64,7 +64,7 @@ function BarberForm() {
             ) : (
               barbersGrupo.map((barberShop) => (
                 <div
-                  key={barberShop._id}
+                  key={barberShop.id}
                   className="p-4 bg-zinc-800 rounded-md shadow-md flex"
                 >
                   <div className="mr-4">

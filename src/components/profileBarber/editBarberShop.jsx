@@ -1,13 +1,14 @@
 import React, { useState, useRef } from "react";
 import NavBar from "../common/NavBar";
 import { useNavigate } from "react-router-dom";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray, set } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
 import { useBarber } from "../../context/BarberContext";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { deleteBarberRequest, updateBarberRequest } from "../../api/barber";
 import { uploadLogoBarberRequest } from "../../api/upload";
+import {Toaster, toast } from "sonner";
 
 function BarberForm() {
   const params = useParams();
@@ -89,12 +90,18 @@ function BarberForm() {
     }
     updateBarberRequest(barber._id, values);
     console.log("Barberia actualizada");
+    toast.success("Barbería actualizada correctamente");
+    setTimeout(() => {
     navigate("/my-barbers");
+    },2000);
   });
 
   const deleteBarber = async () => {
     await deleteBarberRequest(barber._id);
+    toast.success("Barbería eliminada");
+    setTimeout(() => {
     navigate("/my-barbers");
+    },2000);
   };
 
   const { fields, append, remove } = useFieldArray({
@@ -386,7 +393,7 @@ function BarberForm() {
                 type="file"
                 onChange={(e) => {
                   console.log(e.target.files[0]);
-                  setValue(`photo${index}`, e.target.files[0].name);
+                  setValue(photo${index}, e.target.files[0].name);
                 }}
                 className="w-full border rounded-lg px-3 py-2 bg-transparent cursor-pointer"
               />
@@ -417,6 +424,7 @@ function BarberForm() {
 
       <div className="mt-20">
         <NavBar />
+        <Toaster position="top-right"/>
       </div>
     </section>
   );

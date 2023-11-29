@@ -92,7 +92,7 @@ function Modal({ isOpen, onClose }) {
               </p>
 
               <p className="text-sm text-gray-500">
-                Servicio: {barber.service}
+                Servicio: {appointmentData.servicio}
               </p>
 
               <p className="text-sm text-gray-500 font-bold mt-2">

@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import{Toaster, toast} from 'sonner';
 
 function LoginForm() {
   const {
@@ -13,7 +14,12 @@ function LoginForm() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuthenticated) navigate("/");
+    if (isAuthenticated) {
+      toast.success("Sesión iniciada correctamente")
+      setTimeout(() => {
+      navigate("/");
+      },2000);
+    }
   }, [isAuthenticated]);
 
   const onSubmit = handleSubmit(async (values) => {
@@ -88,6 +94,7 @@ function LoginForm() {
           </a>
         </div>
       </div>
+      <Toaster position="top-right"/>
     </div>
   );
 }

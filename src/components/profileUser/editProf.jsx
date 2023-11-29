@@ -1,9 +1,10 @@
 import React, { useState, useRef } from "react";
 import NavBar from "../common/NavBar";
 import { useAuth } from "../../context/AuthContext";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { uploadImageRequest } from "../../api/upload";
 import { updateClientRequest } from "../../api/client";
+import{Toaster, toast} from 'sonner';
 
 function EditProfile() {
   const { user } = useAuth();
@@ -33,7 +34,11 @@ function EditProfile() {
       await uploadImageRequest(formData);      
     }
     updateClientRequest(user.id, values);
+    toast.success("Perfil actualizado correctamente")
+    setTimeout(() => {
     window.location.reload()
+    },2000);
+    
   });
 
   return (
@@ -97,6 +102,7 @@ function EditProfile() {
         </div>
       </form>
       <NavBar />
+      <Toaster position="top-right"/>
     </div>
   );
 }
