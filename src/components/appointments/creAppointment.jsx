@@ -105,7 +105,7 @@ function CreAppointment() {
           >
             {servicios.map((service, index) => (
               <option key={index} value={service.name}>
-                {service.name}
+                {service.name} ${service.price}
               </option>
             ))}
           </select>
@@ -155,7 +155,7 @@ function CreAppointment() {
           </tbody>
         </table>
 
-        <Modal isOpen={modalIsOpen} onClose={closeModal} />
+        <Modal isOpen={modalIsOpen} onClose={closeModal} servicio={selectedService} fecha={selectedDate.toDateString()}  />
       </div>
 
       {/* <Schedule /> */}

@@ -31,6 +31,7 @@ function EditProfile() {
       const formData = new FormData();
       formData.append("file", values.photo[0]);
       await uploadImageRequest(formData);      
+      console.log(user.photo);
     }
     updateClientRequest(user.id, values);
     window.location.reload()

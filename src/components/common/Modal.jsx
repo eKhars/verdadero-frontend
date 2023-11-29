@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { paypalPaymentRequest } from "../../api/payments"
+import { paypalPaymentRequest, stripePaymentRequest } from "../../api/payments"
 import { Link } from "react-router-dom";
 import { useBarber } from "../../context/BarberContext";
 import { useEffect } from 'react';
 import { useParams } from "react-router-dom";
 
-function Modal({ isOpen, onClose }) {
-  const params = useParams();
-  const { getBarber, barber } = useBarber();
+function Modal({ isOpen, onClose, servicio, fecha }) {
+  const { barber } = useBarber();
 
   useEffect(() => {
-    getBarber(params.id);
+    console.log(servicio);
+    console.log(fecha);
   }, []);
 
   const [formaPago, setFormaPago] = useState("completo");
@@ -31,11 +31,11 @@ function Modal({ isOpen, onClose }) {
   const handlePagarPaypal = async () => {
     const result = await paypalPaymentRequest()
     console.log(result)
-    // window.location.href = data
   };
 
   const handlePagarTarjeta = () => {
     console.log("Pagando con Tarjeta de crédito/débito");
+    stripePaymentRequest()
   };
 
   return (
@@ -84,11 +84,11 @@ function Modal({ isOpen, onClose }) {
 
             <div className="mt-3 text-left sm:mt-0 sm:ml-4">
               <p className="text-sm text-gray-500">
-                Fecha: {appointmentData.fecha}
+                Fecha: {fecha}
               </p>
 
               <p className="text-sm text-gray-500">
-                Hora: {appointmentData.hora}
+                Hora: 
               </p>
 
               <p className="text-sm text-gray-500">
