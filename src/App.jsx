@@ -53,7 +53,7 @@ function App() {
               <Route path="/payments" element={<PaymentPage />} />
 
               <Route path="/error-barber-page" element={<ErrorBarberPage />} />
-              <Route path="/succes" element={<SuccessPage />} />
+              <Route path="/success" element={<SuccessPage />} />
               <Route path="/cancel" element={<CancelPage />} />
               <Route path="/ups" element={<UpsPage />} />
             </Route>

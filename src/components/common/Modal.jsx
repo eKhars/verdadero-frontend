@@ -1,41 +1,43 @@
 import React, { useState } from "react";
-import { paypalPaymentRequest, stripePaymentRequest } from "../../api/payments"
-import { Link } from "react-router-dom";
+import { paypalPaymentRequest, stripePaymentRequest } from "../../api/payments";
 import { useBarber } from "../../context/BarberContext";
-import { useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
-function Modal({ isOpen, onClose, servicio, fecha }) {
+function Modal({ isOpen, onClose, servicio, fecha, hora }) {
   const { barber } = useBarber();
+  const [formaPago, setFormaPago] = useState("completo");
+  const [fechaCita, setFechaCita] = useState("");
+  const [paymentInfo, setPaymentInfo] = useState({});
+  const options = { year: "numeric", month: "long", day: "numeric" };
 
   useEffect(() => {
+    let fechaFormateada = fecha.toLocaleDateString("es-ES", options);
+    setFechaCita(fechaFormateada);
+    let data = {
+      nombre: servicio.name,
+      precio: servicio.price,
+    }
+    setPaymentInfo(data);
     console.log(servicio);
-    console.log(fecha);
-  }, []);
-
-  const [formaPago, setFormaPago] = useState("completo");
-
-
-  const appointmentData = {
-    imagen: "/barber1.png",
-    fecha: "11 de noviembre de 2023",
-    hora: "10:00 AM",
-    precio: "80",
-    servicio: "Corte de pelo",
-  };
+    console.log(fechaCita);
+    console.log(hora);
+  }, [servicio, fecha, hora]);
 
   const handleFormaPagoChange = (option) => {
     setFormaPago(option);
   };
 
   const handlePagarPaypal = async () => {
-    const result = await paypalPaymentRequest()
-    console.log(result)
+    const result = await paypalPaymentRequest();
+    console.log(result);
   };
 
-  const handlePagarTarjeta = () => {
-    console.log("Pagando con Tarjeta de crédito/débito");
-    stripePaymentRequest()
+  const handlePagarTarjeta = async () => {
+    if (formaPago === "completo") {
+      const stripe = await stripePaymentRequest(paymentInfo);
+      console.log(stripe.data.url);
+      window.location.href = stripe.data.url;
+    }
   };
 
   return (
@@ -83,20 +85,14 @@ function Modal({ isOpen, onClose, servicio, fecha }) {
             </div>
 
             <div className="mt-3 text-left sm:mt-0 sm:ml-4">
-              <p className="text-sm text-gray-500">
-                Fecha: {fecha}
-              </p>
+              <p className="text-sm text-gray-500">Fecha: {fechaCita}</p>
 
-              <p className="text-sm text-gray-500">
-                Hora: 
-              </p>
+              <p className="text-sm text-gray-500">Hora: {hora}</p>
 
-              <p className="text-sm text-gray-500">
-                Servicio: {appointmentData.servicio}
-              </p>
+              <p className="text-sm text-gray-500">Servicio: {servicio.name}</p>
 
               <p className="text-sm text-gray-500 font-bold mt-2">
-                Total del servicio: ${appointmentData.precio}
+                Total del servicio: ${servicio.price}
               </p>
 
               <div className="mt-4 ">

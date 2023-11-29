@@ -21,7 +21,7 @@ function errorBarber() {
       <article className="bg-zinc-900 p-8 rounded-lg text-center h-auto w-auto">
         <h1 className="text-2xl font-bold mb-4">Error al realizar al pago</h1>
         <button className="bg-orange-500 hover-bg-orange-700 text-white font-bold py-2 px-4 rounded">
-          <a href="/createAppointment">Volver</a>
+          <a href="/">Volver</a>
         </button>
       </article>
       <NavBar />
