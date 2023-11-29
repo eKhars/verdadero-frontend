@@ -3,6 +3,8 @@ import Navbar from "../common/NavBar";
 import { useAuth } from "../../context/AuthContext";
 import { getUserReviewsRequest, deleteReviewRequest } from "../../api/reviews";
 import { logoutRequest } from "../../api/auth";
+import{Toaster, toast} from 'sonner';
+
 
 function Reviews() {
   const { user } = useAuth();
@@ -25,7 +27,10 @@ function Reviews() {
   const handleLogout = async () => {
     try {
       await logoutRequest();
+      toast.success("Sesión cerrada correctamente");
+      setTimeout(() => {
       window.location.href = "/";
+      },2000);
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
     }
@@ -33,7 +38,11 @@ function Reviews() {
 
   const deleteReview = async (id) => {
     await deleteReviewRequest(id);
+    toast.success("Reseña eliminada");
+    setTimeout(() => {
     window.location.reload();
+    },2000);
+   
   };
 
   return (
@@ -107,6 +116,7 @@ function Reviews() {
         </div>
       </article>
       <Navbar />
+      <Toaster position="top-right" />
     </div>
   );
 }

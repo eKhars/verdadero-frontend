@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import Schedule from "../barberShops/schedule";
 import NavBar from '../common/NavBar';
-import { useAuth } from "../../context/AuthContext";
 import { useBarber } from "../../context/BarberContext";
 import { useParams } from "react-router-dom";
 import Modal from "../common/Modal";
@@ -19,9 +17,14 @@ function CreAppointment() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedService, setSelectedService] = useState('');
   const servicios = barber?.services || [];
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleServiceChange = (event) => {
     setSelectedService(event.target.value);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
   };
 
   const intervaloUnaHora = 60 * 60 * 1000;
@@ -35,42 +38,10 @@ function CreAppointment() {
     for (let hora = inicioHora; hora < finHora; hora += intervaloUnaHora) {
       const horaActual = new Date(hora);
       const horaFormateada = horaActual.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
-      intervalos.push({
-        time: horaFormateada,
-        available: true,
-      });
+      intervalos.push(horaFormateada);
     }
 
     return intervalos;
-  };
-
-  const [availability, setAvailability] = useState(generarIntervalosHorarios());
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
-  function generarIntervalosHorarios() {
-    const intervalos = [];
-    const horarioInicio = 9;
-    const horarioFin = 18;
-
-    for (let hora = horarioInicio; hora <= horarioFin; hora++) {
-      intervalos.push({
-        time: `${hora}:00 AM - ${hora + 1}:00 PM`,
-        available: true,
-      });
-    }
-
-    return intervalos;
-  }
-
-  const handleButtonClick = (index) => {
-    const updatedAvailability = [...availability];
-    updatedAvailability[index].available = !updatedAvailability[index].available;
-    setAvailability(updatedAvailability);
-    setModalIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalIsOpen(false);
   };
 
   return (
@@ -112,6 +83,7 @@ function CreAppointment() {
         </div>
       </main>
       <hr className="w-full mt-4 sm:mt-2 border-t-2 border-orange-500" />
+
       <div className="max-w-screen-md mx-auto">
         <h2 className="text-xl font-bold mt-4 mb-4 text-center text-orange-500">
           Horario
@@ -122,33 +94,27 @@ function CreAppointment() {
               <th className="border-b-2 border-orange-500 p-3 bg-zinc-800 text-center text-white">
                 Hora
               </th>
-              <th className="border-b-2 border-orange-500 p-3 bg-zinc-800 text-center text-white">
-                Disponibilidad
-              </th>
             </tr>
           </thead>
           <tbody>
-            {availability.map((slot, index) => (
+            {barber.workingDays && barber.workingDays.schedule.split(',').map((horarioItem, index) => (
               <tr key={index}>
                 <td className="border-b-2 border-orange-500 p-3 text-center">
-                  {slot.time}
-                </td>
-                <td className="border-b-2 border-orange-500 p-3 text-center">
-                  {slot.available ? (
-                    <button
-                      onClick={() => handleButtonClick(index)}
-                      className="bg-orange-500 hover:bg-orange-600 text-white p-2 rounded-md transition-all"
-                    >
-                      Disponible
-                    </button>
-                  ) : (
-                    <button
-                      className="bg-zinc-950 text-white p-2 rounded-md"
-                      disabled
-                    >
-                      Ocupado
-                    </button>
-                  )}
+                  <div className="mb-2 flex flex-col items-center">
+                    {obtenerIntervalosUnaHora(horarioItem.trim()).map((intervalo, i, array) => (
+                      <div key={i} className="mb-2">
+                        <span>{`${intervalo} a ${array[i + 1]}`}</span>
+                        <button
+                          className="mt-2 bg-orange-500 hover:bg-orange-600 text-white p-2 rounded-md ml-4"
+                          onClick={() => {
+                            setModalIsOpen(true);
+                          }}
+                        >
+                          Agendar Cita
+                        </button>
+                      </div>
+                    ))}
+                  </div>
                 </td>
               </tr>
             ))}
@@ -158,7 +124,6 @@ function CreAppointment() {
         <Modal isOpen={modalIsOpen} onClose={closeModal} servicio={selectedService} fecha={selectedDate.toDateString()}  />
       </div>
 
-      {/* <Schedule /> */}
       <NavBar />
     </div>
   );

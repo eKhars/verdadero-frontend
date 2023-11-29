@@ -8,6 +8,7 @@ import {
 } from "../../api/reviews";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
+import{Toaster, toast} from 'sonner';
 
 import {
   faEnvelope,
@@ -85,6 +86,7 @@ function Services() {
     const response = await createReviewRequest(barber._id, realValues);
     console.log(response.data);
     setReviews([...reviews, response.data]);
+    toast.success("Reseña agregada correctamente");
   });
 
   return (
@@ -245,6 +247,7 @@ function Services() {
           </button>
         </form>
       </div>
+      <Toaster position="top-right"/>
     </div>
   );
 }

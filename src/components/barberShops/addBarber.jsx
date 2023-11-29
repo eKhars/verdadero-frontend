@@ -6,6 +6,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useEffect } from "react";
 import { createBarberRequest } from "../../api/barber";
 import { uploadLogoBarberRequest } from "../../api/upload";
+import{Toaster, toast} from 'sonner';
 
 function BarberForm() {
   const {
@@ -39,7 +40,10 @@ function BarberForm() {
     values.logo = logoURL.data
     await createBarberRequest(values);
     console.log("Barberia creada");
-    navigate("/my-barbers");
+    toast.success("Barberia creada correctamente")
+    setTimeout(() => {
+      navigate("/my-barbers");
+    }, 2000);
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -358,6 +362,7 @@ function BarberForm() {
       <div className="mt-20">
         <NavBar />
       </div>
+      <Toaster position="top-right"/>
     </section>
   );
 }
