@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+
 import { paypalPaymentRequest, stripePaymentRequest } from "../../api/payments";
 import { useBarber } from "../../context/BarberContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function Modal({ isOpen, onClose, servicio, fecha, hora }) {
-  const { barber } = useBarber();
+  const { barber, appointment } = useBarber();
   const [formaPago, setFormaPago] = useState("completo");
   const [fechaCita, setFechaCita] = useState("");
   const [paymentInfo, setPaymentInfo] = useState({});
@@ -16,6 +16,9 @@ function Modal({ isOpen, onClose, servicio, fecha, hora }) {
     let data = {
       nombre: servicio.name,
       precio: servicio.price,
+      fecha: fechaFormateada,
+      hora: hora,
+      barberID: barber._id
     }
     setPaymentInfo(data);
     console.log(servicio);
@@ -35,9 +38,11 @@ function Modal({ isOpen, onClose, servicio, fecha, hora }) {
   const handlePagarTarjeta = async () => {
     if (formaPago === "completo") {
       const stripe = await stripePaymentRequest(paymentInfo);
+      await appointment(paymentInfo);
+      console.log(stripe);
       console.log(stripe.data.url);
       window.location.href = stripe.data.url;
-    }
+    } 
   };
 
   return (

@@ -2,7 +2,7 @@ import {useAuth} from "../../context/AuthContext"
 
 function User() {
   const { user } = useAuth()
-  console.log(user);
+  console.log(user.reviews);
   return (
     <section className="flex flex-col items-center mr-6 ml-6 relative">
       <header className="sm:mb-4">
@@ -29,17 +29,7 @@ function User() {
         </div>
       </article>
       <div className="absolute bottom-[-20px] left-0 sm:left-1/4 w-full sm:w-1/2 h-1 bg-orange-500"></div>
-      <div className="mt-4 text-center sm:text-left flex items-center sm:items-start">
-        <p className="text-gray-500" style={{ marginRight: "10px" }}>
-          {user.reviews.length > 0 ? `Reseñas: ${user.reviews.length}` : 'Aún no tienes reseñas'}
-        </p>
-        <p className="text-orange-500" style={{ marginRight: "10px" }}>
-          |
-        </p>
-        <p className="text-gray-500" style={{ marginRight: "10px" }}>
-        {user.appointments.length > 0 ? `Citas: ${user.appointments.length}` : 'Aún no tienes citas'}
-        </p>
-      </div>
+      
     </section>
   );
 }

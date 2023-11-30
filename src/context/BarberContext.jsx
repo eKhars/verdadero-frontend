@@ -24,6 +24,7 @@ export function BarberProvider({ children }) {
   const [barber, setBarber] = useState([]);
   const [searchBarbers, setSearchBarbers] = useState([]);
   const [userBarbers, setUserBarbers] = useState([]);
+  const [appointmentData, setAppointmentData] = useState({});
 
   const createBarber = async (barber) => {
     const res = await createBarberRequest(barber);
@@ -66,8 +67,13 @@ export function BarberProvider({ children }) {
     setSearchBarbers(res.data);
   };
 
+  const appointment = async (appointment) => {
+    setAppointmentData(appointment);
+    localStorage.setItem('appointmentData', JSON.stringify(appointment));
+  }
+
   return (
-    <BarberContext.Provider value={{ barbers, createBarber, searchingBarbers, searchBarbers, getBarbers, barber, getBarber, getUserBarbers, userBarbers}}>
+    <BarberContext.Provider value={{ barbers, createBarber, searchingBarbers, searchBarbers, getBarbers, barber, getBarber, getUserBarbers, userBarbers, appointment, appointmentData}}>
       {children}
     </BarberContext.Provider>
   );

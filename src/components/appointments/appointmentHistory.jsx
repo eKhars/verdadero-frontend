@@ -65,7 +65,7 @@ function AppointmentHistory() {
                 : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
             }
           >
-            {appointmentsList.length === 0 ? (
+            {appointmentsData.length === 0 ? (
               <div>
                 <p className="text-gray-500 text-2xl bg-zinc-900 rounded-lg p-4 shadow-md mb-4">
                   Aquí se mostrarán tus citas
@@ -77,29 +77,29 @@ function AppointmentHistory() {
                 />
               </div>
             ) : (
-              appointmentsList.map((appointment) => (
+              appointmentsData.map((appointment) => (
                 <div
-                  key={appointment.id}
+                  key={appointment._id}
                   className="p-4 bg-zinc-800 rounded-md shadow-md flex justify-between items-center"
                 >
                   <div className="border-r-2 border-orange-500 pr-4">
                     <p className="text-lg font-semibold">
-                      {appointment.date.slice(0, 10)}
+                      {appointment.date}
                     </p>
                     <p className="text-gray-600">{appointment.time}</p>
                     <p className="text-gray-600">{appointment.service}</p>
                     <p className="text-gray-600">Precio: {appointment.price}</p>
                   </div>
-                  <div className="flex items-center">
+                   <div className="flex items-center">
                     <img
-                      src={appointment.logo}
+                      src={appointment.barberShopLogo}
                       alt="Foto de perfil de la barbería"
                       className="w-20 h-20 ml-5 rounded-lg mr-2"
                     />
                     <p className="text-lg font-semibold">
-                      {appointment.user.name}
+                      {appointment.barberShopName}
                     </p>
-                  </div>
+                  </div> 
                 </div>
               ))
             )}
