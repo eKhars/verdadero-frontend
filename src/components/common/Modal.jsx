@@ -113,7 +113,7 @@ function Modal({ isOpen, onClose, servicio, fecha, hora }) {
                   />
                   <span className="ml-2">Pagar completo</span>
                 </label>
-                <label className="inline-flex items-center mt-2">
+                {/* <label className="inline-flex items-center mt-2">
                   <input
                     type="radio"
                     className="form-radio h-5 w-5 text-orange-500"
@@ -121,16 +121,16 @@ function Modal({ isOpen, onClose, servicio, fecha, hora }) {
                     onChange={() => handleFormaPagoChange("mitad")}
                   />
                   <span className="ml-2">Pagar 50%</span>
-                </label>
+                </label> */}
               </div>
 
               <div className="mt-6 flex items-center">
-                <button
+                {/* <button
                   onClick={handlePagarPaypal}
                   className="bg-zinc-900 border border-orange-500 hover:bg-white hover:text-black text-white px-4 py-2 rounded-md mr-4"
                 >
                   Pagar con PayPal
-                </button>
+                </button> */}
                 <button
                   onClick={handlePagarTarjeta}
                   className="bg-zinc-900 border border-orange-500 hover:bg-white  hover:text-black text-white px-4 py-2 rounded-md "
