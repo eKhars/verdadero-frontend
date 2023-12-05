@@ -5,8 +5,6 @@ import {
   getUserBarberShopsRequest,
   searchBarbersShopsRequest,
   createBarberRequest,
-  updateBarberRequest,
-  deleteBarberRequest,
 } from "../api/barber";
 
 const BarberContext = createContext();
@@ -25,6 +23,7 @@ export function BarberProvider({ children }) {
   const [searchBarbers, setSearchBarbers] = useState([]);
   const [userBarbers, setUserBarbers] = useState([]);
   const [appointmentData, setAppointmentData] = useState({});
+  const [notify, setNotify] = useState(null);
 
   const createBarber = async (barber) => {
     const res = await createBarberRequest(barber);
@@ -72,8 +71,12 @@ export function BarberProvider({ children }) {
     localStorage.setItem('appointmentData', JSON.stringify(appointment));
   }
 
+  const getNotify = (data) => {
+    setNotify(data);
+  }
+
   return (
-    <BarberContext.Provider value={{ barbers, createBarber, searchingBarbers, searchBarbers, getBarbers, barber, getBarber, getUserBarbers, userBarbers, appointment, appointmentData}}>
+    <BarberContext.Provider value={{ barbers, createBarber, searchingBarbers, searchBarbers, getBarbers, barber, getBarber, getUserBarbers, userBarbers, appointment, appointmentData, getNotify, notify}}>
       {children}
     </BarberContext.Provider>
   );

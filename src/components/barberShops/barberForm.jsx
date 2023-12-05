@@ -4,16 +4,22 @@ import NavBar from "../common/NavBar";
 import { useAuth } from "../../context/AuthContext";
 import { useBarber } from "../../context/BarberContext";
 import { Link } from "react-router-dom";
+import {Toaster, toast} from 'sonner'
 
 function BarberForm() {
   const { user } = useAuth();
-  const { searchBarbers, getBarbers, barbers } = useBarber();
+  const { searchBarbers, getBarbers, barbers, notify, setNotify } = useBarber();
   const { searchBarbers: searchBarbersData } = useBarber();
   const [grupoActual, setGrupoActual] = useState(1);
 
-  console.log(searchBarbersData);
-
   useEffect(() => {
+    if (notify) {
+      toast.notify('¡Se agregó una nueva barbería!', { duration: 2000 });
+      getNotify(null);
+    }
+  }, [notify]);
+
+    useEffect(() => {
     getBarbers();
     console.log(barbers);
   }, []);
@@ -106,6 +112,7 @@ function BarberForm() {
           </div>
         </div>
       </div>
+      <Toaster position='top-right' />
       <NavBar />
     </div>
   );

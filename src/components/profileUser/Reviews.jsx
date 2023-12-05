@@ -3,8 +3,7 @@ import Navbar from "../common/NavBar";
 import { useAuth } from "../../context/AuthContext";
 import { getUserReviewsRequest, deleteReviewRequest } from "../../api/reviews";
 import { logoutRequest } from "../../api/auth";
-import{Toaster, toast} from 'sonner';
-
+import { Toaster, toast } from "sonner";
 
 function Reviews() {
   const { user } = useAuth();
@@ -29,8 +28,8 @@ function Reviews() {
       await logoutRequest();
       toast.success("Sesión cerrada correctamente");
       setTimeout(() => {
-      window.location.href = "/";
-      },2000);
+        window.location.href = "/";
+      }, 2000);
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
     }
@@ -40,9 +39,8 @@ function Reviews() {
     await deleteReviewRequest(id);
     toast.success("Reseña eliminada");
     setTimeout(() => {
-    window.location.reload();
-    },2000);
-   
+      window.location.reload();
+    }, 2000);
   };
 
   return (
@@ -78,7 +76,10 @@ function Reviews() {
                     <h2 className="text-white font-semibold">{review.title}</h2>
                     <p className="text-white mt-2">{review.comment}</p>
                   </div>
-                  <button className="border border-red-500  text-red-500 w-20 h-12 rounded-lg hover:border-black hover:text-black hover:bg-red-800" onClick={() => deleteReview(review._id)}>
+                  <button
+                    className="border border-red-500  text-red-500 w-20 h-12 rounded-lg hover:border-black hover:text-black hover:bg-red-800"
+                    onClick={() => deleteReview(review._id)}
+                  >
                     Eliminar
                   </button>
                 </div>
@@ -105,14 +106,12 @@ function Reviews() {
             </button>
           </a>
 
-          <a href="/register-barber">
-            <button
-              onClick={handleLogout}
-              className="border border-red-500  text-red-500 w-80 h-12 rounded-lg hover:border-black hover:text-black hover:bg-red-800"
-            >
-              Cerrar Sesión
-            </button>
-          </a>
+          <button
+            onClick={handleLogout}
+            className="border border-red-500  text-red-500 w-80 h-12 rounded-lg hover:border-black hover:text-black hover:bg-red-800"
+          >
+            Cerrar Sesión
+          </button> 
         </div>
       </article>
       <Navbar />

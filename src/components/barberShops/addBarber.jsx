@@ -7,6 +7,10 @@ import { useEffect } from "react";
 import { createBarberRequest } from "../../api/barber";
 import { uploadLogoBarberRequest } from "../../api/upload";
 import{Toaster, toast} from 'sonner';
+import io from "socket.io-client";
+import { useBarber } from "../../context/BarberContext";
+
+const socket = io("http://localhost:4000");
 
 function BarberForm() {
   const {
@@ -23,6 +27,7 @@ function BarberForm() {
   const [imagePreview, setImagePreview] = useState(null);
 
   const { user } = useAuth();
+  const { getNotify } = useBarber();
   const navigate = useNavigate();
 
   const handleFileInputChange = (event) => {
@@ -39,6 +44,9 @@ function BarberForm() {
     console.log(logoURL.data);
     values.logo = logoURL.data
     await createBarberRequest(values);
+    socket.emit('newBarberShop', values.name);
+    getNotify(values.name);
+
     console.log("Barberia creada");
     toast.success("Barberia creada correctamente")
     setTimeout(() => {
