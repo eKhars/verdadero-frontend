@@ -18,6 +18,7 @@ import ScheduleAppointment from "./pages/ScheduleAppointment.jsx";
 import UpsPage from "./pages/UpsPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import SuccessPage from "./pages/SuccessPage.jsx";
+import BarberChatPage from "./pages/BarberChat.jsx";
 
 import ProtectedRoute from "./ProtectedRoute.jsx";
 
@@ -37,6 +38,7 @@ function App() {
                 path="/barber-shop/appointment/:id"
                 element={<ScheduleAppointment />}
               />
+              <Route path="/barber-chat" element={<BarberChatPage />} />
 
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/profile/edit" element={<EditProfilePage />} />
