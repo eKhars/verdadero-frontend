@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import{Toaster, toast} from 'sonner';
+import { Toaster, toast } from "sonner";
 
 function LoginForm() {
   const {
@@ -15,10 +15,10 @@ function LoginForm() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      toast.success("Sesión iniciada correctamente")
+      toast.success("Sesión iniciada correctamente");
       setTimeout(() => {
-      navigate("/");
-      },2000);
+        navigate("/");
+      }, 2000);
     }
   }, [isAuthenticated]);
 
@@ -94,7 +94,7 @@ function LoginForm() {
           </a>
         </div>
       </div>
-      <Toaster position="top-right"/>
+      <Toaster position="top-right" />
     </div>
   );
 }

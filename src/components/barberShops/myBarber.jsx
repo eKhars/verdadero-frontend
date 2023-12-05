@@ -50,6 +50,14 @@ function MyBarber() {
         </Link>
       </div>
       <hr className="w-full mt-4 sm:mt-4 border-t-2 border-orange-500" />
+      <div>
+        <Link to={`/barber-chat/${barber._id}`}>
+          <button className="bg-orange-500 text-white rounded-lg p-2 px-6 mt-4 hover:bg-orange-600 items-center">
+            Chat de la comunidad <span className="text-zinc-800 font-bold flex flex-col text-lg">{barber.name}</span>
+          </button>
+        </Link>
+      </div>
+      <hr className="w-full mt-4 sm:mt-4 border-t-2 border-orange-500" />
       <NavBar />
     </div>
   );

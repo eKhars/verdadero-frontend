@@ -38,7 +38,7 @@ function App() {
                 path="/barber-shop/appointment/:id"
                 element={<ScheduleAppointment />}
               />
-              <Route path="/barber-chat" element={<BarberChatPage />} />
+              <Route path="/barber-chat/:id" element={<BarberChatPage />} />
 
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/profile/edit" element={<EditProfilePage />} />

@@ -87,17 +87,28 @@ function myBarberShops() {
                     <p className="text-gray-600 text-xs">
                       {barberShop.description}
                     </p>
-                    <div className="items-center flex justify-between ">
-                      <Link to={`/my-barbers/edit/${barberShop._id}`}>
-                        <button className="bg-zinc-900 border border-orange-500 hover:bg-zinc-950 text-white px-2 py-1 rounded-md mt-2">
-                          Editar
-                        </button>
-                      </Link>
-                      <Link to={`/payments/${barberShop._id}`}>
-                        <button className="bg-zinc-900 border border-orange-500 hover:bg-zinc-950 text-white px-2 py-1 rounded-md mt-2">
-                          Ver más
-                        </button>
-                      </Link>
+                    <div className="flex justify-between w-full mr-6">
+                      <div>
+                        <Link to={`/my-barbers/edit/${barberShop._id}`}>
+                          <button className="bg-zinc-900 border border-orange-500 hover:bg-zinc-950 text-white px-2 py-1 rounded-md mt-2">
+                            Editar
+                          </button>
+                        </Link>
+                      </div>
+                      <div>
+                        <Link to={`/barber-chat/${barberShop._id}`}>
+                          <button className="bg-zinc-900 border border-orange-500 hover:bg-zinc-950 text-white px-2 py-1 rounded-md mt-2">
+                            Chat
+                          </button>
+                        </Link>
+                      </div>
+                      <div>
+                        <Link to={`/payments/${barberShop._id}`}>
+                          <button className="bg-zinc-900 border border-orange-500 hover:bg-zinc-950 text-white px-2 py-1 rounded-md mt-2 ">
+                            Ver más
+                          </button>
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
