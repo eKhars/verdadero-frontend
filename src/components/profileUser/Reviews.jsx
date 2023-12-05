@@ -105,14 +105,12 @@ function Reviews() {
             </button>
           </a>
 
-          <a href="/register-barber">
             <button
               onClick={handleLogout}
               className="border border-red-500  text-red-500 w-80 h-12 rounded-lg hover:border-black hover:text-black hover:bg-red-800"
             >
               Cerrar Sesión
             </button>
-          </a>
         </div>
       </article>
       <Navbar />
