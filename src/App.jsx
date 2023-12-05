@@ -17,7 +17,7 @@ import RegisterPage from "./pages/registerPage.jsx";
 import ScheduleAppointment from "./pages/scheduleAppointment.jsx";
 import UpsPage from "./pages/upsPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
-import SuccessPage from "./pages/SuccessPage.jsx";
+import SuccessPage from "./pages/successPage.jsx";
 import BarberChatPage from "./pages/BarberChat.jsx";
 
 import ProtectedRoute from "./ProtectedRoute.jsx";
