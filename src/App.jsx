@@ -3,7 +3,7 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 import { BarberProvider } from "./context/BarberContext.jsx";
 
 import AppointmentPage from "./pages/AppointmentPage.jsx";
-import BarberPage from "./pages/BarberPage.jsx";
+import BarberPage from "./pages/barberPage.jsx";
 import CancelPage from "./pages/CancelPage.jsx";
 import EditBarberPage from "./pages/EditBarberPage.jsx";
 import EditProfilePage from "./pages/EditProfilePage.jsx";
