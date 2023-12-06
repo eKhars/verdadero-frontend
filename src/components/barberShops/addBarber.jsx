@@ -10,7 +10,8 @@ import{Toaster, toast} from 'sonner';
 import io from "socket.io-client";
 import { useBarber } from "../../context/BarberContext";
 
-const socket = io("http://localhost:4000");
+// const socket = io("http://localhost:4000");
+const socket = io()
 
 function BarberForm() {
   const {

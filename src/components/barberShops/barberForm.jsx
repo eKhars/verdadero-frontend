@@ -5,6 +5,9 @@ import { useAuth } from "../../context/AuthContext";
 import { useBarber } from "../../context/BarberContext";
 import { Link } from "react-router-dom";
 import {Toaster, toast} from 'sonner'
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:4000");
 
 function BarberForm() {
   const { user } = useAuth();
@@ -13,10 +16,17 @@ function BarberForm() {
   const [grupoActual, setGrupoActual] = useState(1);
 
   useEffect(() => {
-    if (notify) {
-      toast.notify('¡Se agregó una nueva barbería!', { duration: 2000 });
-      getNotify(null);
-    }
+    socket.on('newBarberShop', (barberName) => {
+      toast.success(`Nueva barberia registrada: ${barberName}`)
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    });
+    
+
+    return () => {
+      socket.off('newBarberShop');
+    };
   }, [notify]);
 
     useEffect(() => {
