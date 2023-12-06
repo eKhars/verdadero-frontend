@@ -7,7 +7,9 @@ import { Link } from "react-router-dom";
 import {Toaster, toast} from 'sonner'
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:4000");
+// const socket = io("http://localhost:4000");
+const socket = io("https://barhala-backend.onrender.com");
+
 
 function BarberForm() {
   const { user } = useAuth();
