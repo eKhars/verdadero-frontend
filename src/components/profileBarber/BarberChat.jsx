@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useBarber } from "../../context/BarberContext";
 import { useParams } from "react-router-dom";
 
-const socket = io("http://localhost:4000");
+const socket = io("https://barhala-backend.onrender.com");
 
 function BarberChat() {
   const { user } = useAuth();
